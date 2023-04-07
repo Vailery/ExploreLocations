@@ -5,9 +5,13 @@
   "scripts": {
     "build": "next build",
     "dev": "next dev",
-    "postinstall": "prisma generate",
+    "start": "next start",
     "lint": "next lint",
-    "start": "next start"
+    "lint:check": "eslint --ext .js,.jsx,.ts,.tsx,.cjs .",
+    "lint:fix": "eslint --fix --ext .js,.jsx,.ts,.tsx,.cjs .",
+    "prettier:check": "prettier --check src/ --ignore-path '.prettierignore'",
+    "prettier:fix": "prettier --write src/ --ignore-path '.prettierignore'",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@next-auth/prisma-adapter": "^1.0.5",

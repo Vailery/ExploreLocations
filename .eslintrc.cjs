@@ -2,7 +2,7 @@
 const path = require("path");
 
 /** @type {import("eslint").Linter.Config} */
-const config = {
+module.exports = {
   overrides: [
     {
       extends: [
@@ -29,7 +29,6 @@ const config = {
       },
     ],
     "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
+    "@typescript-eslint/no-var-requires": "off",
   },
 };
-
-module.exports = config;
