@@ -30,5 +30,6 @@ module.exports = {
     ],
     "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
     "@typescript-eslint/no-var-requires": "off",
+    "@typescript-eslint/ban-ts-comment": "warn"
   },
 };

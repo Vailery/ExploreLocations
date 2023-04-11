@@ -1,38 +1,36 @@
 import Link from "next/link";
 import { Logo } from "../shared/Logo";
 import { useRouter } from "next/router";
-import { useTranslation } from "react-i18next";
+import { LanguageSwitch } from "./subcomponents/LanguageSwitch/LanguageSwitch";
 
 export const Header = () => {
   const router = useRouter();
 
-  const { t } = useTranslation();
-
   const navData = [
-  {
-    name: t("regions"),
-    url: "/",
-  },
-  {
-    name: "Guides",
-    url: "/guides",
-  },
-  {
-    name: "Driving Distances",
-    url: "/driving-distances",
-  },
-  {
-    name: "Flying time & distances",
-    url: "/flying-time-distances",
-  },
-  {
-    name: "Explore nearby",
-    url: "/explore-nearby",
-  },
-];
+    {
+      name: "Regions",
+      url: "/",
+    },
+    {
+      name: "Guides",
+      url: "/guides",
+    },
+    {
+      name: "Driving Distances",
+      url: "/driving-distances",
+    },
+    {
+      name: "Flying time & distances",
+      url: "/flying-time-distances",
+    },
+    {
+      name: "Explore nearby",
+      url: "/explore-nearby",
+    },
+  ];
 
   return (
-    <div className="w-full bg-whiteBg">
+    <div className="w-full bg-white shadow-[0px_4px_4px_#00000009]">
       <header className="container flex h-[6.3rem] w-full items-center">
         <Logo />
         <nav className="ml-20 h-full">
@@ -52,9 +50,11 @@ export const Header = () => {
                 )}
               </li>
             ))}
+            <li>
+              <LanguageSwitch />
+            </li>
           </ul>
         </nav>
-        
       </header>
     </div>
   );

@@ -1,7 +1,7 @@
 import { Menu } from "@headlessui/react";
-import { useState } from "react";
+import clsx from "clsx";
+import Image from "next/image";
 import { UsaFlag } from "~/src/assets";
-import "~/src/utils/i18n";
 
 const languages = [
   {
@@ -11,12 +11,23 @@ const languages = [
 ];
 
 export const LanguageSwitch = () => {
-  const [currentLanguage, setCurrentLanguage] = useState(languages[0]);
-
   return (
     <Menu as="div" className="relative inline-block text-left">
-      <Menu.Button>{}</Menu.Button>
-      <Menu.Items>
+      <Menu.Button>
+        {({ open }) => (
+          <div className="flex items-center gap-2">
+            <p>EN</p>
+            <Image src={UsaFlag} alt="usa flag" width={30} height={30} />
+            <div
+              className={clsx(
+                "ml-1 h-2 w-2 rotate-45 border-2 border-transparent border-b-greyColor border-r-greyColor transition-all",
+                open && "rotate-[225deg]"
+              )}
+            />
+          </div>
+        )}
+      </Menu.Button>
+      <Menu.Items className={"absolute"}>
         {languages.map((item, idx) => (
           <Menu.Item key={idx}>
             <div>{item.name}</div>

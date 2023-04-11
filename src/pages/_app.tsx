@@ -13,7 +13,12 @@ const openSans = Open_Sans({
   variable: "--font-open-sans",
 });
 
-const MyApp: AppType<{ session: Session | null }> = ({
+interface MyAppProps {
+  session: Session | null;
+  dehydratedState: unknown;
+}
+
+const MyApp: AppType<MyAppProps> = ({
   Component,
   pageProps: { session, ...pageProps },
 }) => {

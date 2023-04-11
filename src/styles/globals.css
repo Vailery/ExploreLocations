@@ -9,7 +9,15 @@
 }
 
 @layer utilities{
+  body {
+    @apply bg-bodyBg
+  }
+
   .container {
     @apply mx-auto max-w-[71.5rem];
   }
+}
+
+.leaflet-container {
+  @apply h-full w-full;
 }
