@@ -20,7 +20,7 @@ export const LanguageSwitch = () => {
             <Image src={UsaFlag} alt="usa flag" width={30} height={30} />
             <div
               className={clsx(
-                "ml-1 h-2 w-2 rotate-45 border-2 border-transparent border-b-greyColor border-r-greyColor transition-all",
+                "ml-1 h-2 w-2 rotate-45 border-2 border-transparent border-b-grayColor border-r-grayColor transition-all",
                 open && "rotate-[225deg]"
               )}
             />

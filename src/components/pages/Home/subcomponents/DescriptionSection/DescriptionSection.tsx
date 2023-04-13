@@ -2,7 +2,7 @@ import Image from "next/image";
 import { LandingImage } from "~/src/assets";
 
 export const DescriptionSection = () => (
-  <section className="relative w-full bg-gradient">
+  <section className="relative w-full bg-gradientLeft mb-6">
     <div className="container pb-24 pt-16">
       <h2 className="mb-8 text-center text-[5rem] z-10 relative font-bold tracking-wide text-white">
         Zürich Kloten Airport
