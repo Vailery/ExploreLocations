@@ -43,3 +43,6 @@ yarn-error.log*
 
 # vscode
 .vscode
+
+# postgres data from docker
+/db/postgres

@@ -6,13 +6,133 @@ generator client {
 }
 
 datasource db {
-    provider = "sqlite"
+    provider = "postgresql"
     // NOTE: When using postgresql, mysql or sqlserver, uncomment the @db.Text annotations in model Account below
     // Further reading:
     // https://next-auth.js.org/adapters/prisma#create-the-prisma-schema
     // https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#string
     url      = env("DATABASE_URL")
 }
+
+enum TypeOfAirport {
+    domestic
+    local
+    international
+}
+
+enum FlyingRouteType {
+    Local
+    International
+}
+
+model Airports {
+    id                          Int                                             @id @default(autoincrement())
+
+    Geometry                    Unsupported("geography(MultiPolygon, 4326)")
+    Center                      Unsupported("geography(Point, 4326)")
+
+    Name                        String
+    Type                        TypeOfAirport
+    AltName                     String?
+    IATA                        String?                                         //@unique
+    ICAO                        String?                                         
+    Passengers                  String?
+    NameDe                      String?
+    NameEn                      String?
+    NameEs                      String?
+    NameFr                      String?
+    NameIT                      String?
+    NameNL                      String?
+    Operator                    String?
+    City                        String?
+    Country                     String?
+    ElFeet                      Int 
+    ElMeters                    Float
+    Website                     String?
+    Wiki                        String?
+    TimezoneS                   String?
+    TimezoneD                   String?
+    
+    @@index([Geometry], name: "airports_geometry_idx", type: Gist)
+    @@index([Center], name: "airports_center_point_idx", type: Gist)
+}
+
+model Countries {
+    id          Int                                             @id @default(autoincrement())
+
+    Geometry    Unsupported("geography(MultiPolygon, 4326)")
+    
+    Name        String
+    Code        String
+
+    @@index([Geometry], name: "country_geometry_idx", type: Gist)
+}
+
+model AdminRegions {
+    id          Int                                             @id @default(autoincrement())
+
+    Geometry    Unsupported("geography(MultiPolygon, 4326)")
+    Center      Unsupported("geography(Point, 4326)")
+    
+    Code        String
+    Country     String
+    CountryI2   Int
+    Name        String
+    TypeLocal   String
+    TypeEn      String
+    Type        String
+    Points      String
+    Points2     String
+    
+    @@index([Geometry], name: "admin_regions_geometry_idx", type: Gist)
+    @@index([Center], name: "admin_regions_center_point_idx", type: Gist)
+}
+
+model FlyingRoutes {
+    id                          Int                                     @id @default(autoincrement())
+
+    RouteIata                   String
+    Type                        FlyingRouteType
+    LengthMiles                 Int
+    LengthKm                    Int	
+    FlightDuration              String
+    TimeDifference              String
+    CO2Emissions                String
+    IntroEn                     String?
+    DetailsEn                   String?
+    MetaDescriptionEn           String?
+    
+    OriginAirportName           String
+    OriginAirportId             String?
+    OriginCityName              String
+    OriginCityId                String?
+    OriginCountryName           String
+    OriginCountryId             String?
+    OriginIata                  String
+    OriginIcao                  String
+
+    OriginGpsCoordinates        Unsupported("geography(Point, 4326)")
+
+    DestinationAirportName      String
+    DestinationAirportId        String?
+    DestinationCityName         String
+    DestinationCityId           String?
+    DestinationCountryName      String
+    DestinationCountryId        String?
+    DestinationIata             String
+    DestinationIcao             String
+
+    DestinationGpsCoordinates   Unsupported("geography(Point, 4326)")
+
+    Airlines                    String[]
+
+    @@index([OriginGpsCoordinates], name: "flying_routes_origin_gps_сoordinate_idx", type: Gist)
+    @@index([DestinationGpsCoordinates], name: "flying_routes_destination_gps_сoordinate_idx", type: Gist)
+}
+
+
+
+// Remove if unnecessary
 
 model Example {
     id        String   @id @default(cuid())
