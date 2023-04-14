@@ -9,12 +9,12 @@ export const AirportsAroundSection = () => {
   });
 
   return (
-    <section className="container mb-5 rounded-md bg-white px-7 pt-6">
-      <h3 className="text-3xl font-bold tracking-wider">
+    <section className="container mb-5 bg-white pt-3 lg:rounded-md lg:px-7 lg:pt-6 lg:pb-0 pb-6">
+      <h3 className="px-3 text-lg font-bold tracking-wide lg:text-3xl lg:tracking-wider">
         Airports near{" "}
         <span className="text-buttonBg">Zurich Kloten Airport</span>
       </h3>
-      <div className="relative mb-6 mt-6 h-[29.6rem] w-full">
+      <div className="relative lg:mb-6 lg:mt-6 mt-3 h-[29.6rem] w-full">
         <div className="relative z-0 h-full">
           <ClientMap
             position={{
@@ -24,7 +24,7 @@ export const AirportsAroundSection = () => {
             zoom={9}
           />
         </div>
-        <div className="absolute right-5 top-7 z-10 w-[20.8rem] rounded-md bg-white p-4">
+        <div className="lg:absolute hidden right-5 top-7 z-10 w-[20.8rem] rounded-md bg-white p-4">
           <div className="mb-4 flex items-center gap-3">
             <Image src={MarkerIcon} alt="" className="w-10" />
             <div className="text-lg font-bold leading-5 tracking-tight">
@@ -50,12 +50,12 @@ export const AirportsAroundSection = () => {
           </button>
         </div>
       </div>
-      <div className="grid grid-cols-2 grid-rows-5 gap-x-20">
+      <div className="px-3 grid lg:grid-cols-2 grid-rows-5 gap-x-20">
         {new Array(10).fill(0).map((_, index) => (
           <p
             key={index}
             className={clsx(
-              "pt-4 text-xl tracking-tighter",
+              "pt-4 lg:text-xl lg:tracking-tighter",
               index !== 8 && index !== 9 && "border-b border-grayBg py-4"
             )}
           >

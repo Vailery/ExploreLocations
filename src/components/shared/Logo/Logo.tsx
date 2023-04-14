@@ -9,11 +9,11 @@ interface LogoProps {
 
 export const Logo = ({ white, className }: LogoProps) => {
   return (
-    <div className={clsx("flex items-center gap-2", className)}>
-      <Image src={LogoIcon} alt="Logo" width={60} height={60} />
+    <div className={clsx("flex items-center lg:gap-2 gap-[0.1rem]", className)}>
+      <Image src={LogoIcon} alt="Logo" className="lg:w-16 lg:h-16 w-10" />
       <h1
         className={clsx(
-          "text-xl font-extrabold leading-6 tracking-widest",
+          "lg:text-xl font-extrabold leading-4 text-sm lg:leading-6 tracking-widest",
           white && "text-white"
         )}
       >

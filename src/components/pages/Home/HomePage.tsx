@@ -12,7 +12,7 @@ export const HomePage = () => {
   return (
     <>
       <Header />
-      <main className="min-h-screen mb-10">
+      <main className="min-h-screen lg:mb-10 mb-5">
         <RouterSection />
         <DescriptionSection />
         <MapSection />

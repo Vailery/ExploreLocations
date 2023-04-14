@@ -31,9 +31,9 @@ export const Header = () => {
 
   return (
     <div className="w-full bg-white shadow-[0px_4px_4px_#00000009]">
-      <header className="container flex h-[6.3rem] w-full items-center">
+      <header className="container flex w-full items-center px-3 py-3 lg:h-[6.3rem] lg:py-0">
         <Logo />
-        <nav className="ml-20 h-full">
+        <nav className="ml-20 hidden h-full lg:block">
           <ul className="flex h-full items-center gap-[2.38rem]">
             {navData.map((item, idx) => (
               <li
@@ -55,6 +55,14 @@ export const Header = () => {
             </li>
           </ul>
         </nav>
+        <div className="ml-auto flex flex-col lg:hidden">
+          {new Array(3).fill(0).map((_, idx) => (
+            <div
+              key={idx}
+              className="mb-1 h-[0.2rem] w-5 rounded-lg bg-black"
+            />
+          ))}
+        </div>
       </header>
     </div>
   );

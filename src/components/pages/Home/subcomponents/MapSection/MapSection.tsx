@@ -10,28 +10,28 @@ export const MapSection = () => {
   });
 
   return (
-    <section className="container mb-3 rounded-md bg-white pt-6">
-      <h3 className="mb-7 px-6 text-3xl font-bold tracking-wider">
+    <section className="container lg:mb-3 mb-6 rounded-md bg-white pt-6">
+      <h3 className="lg:mb-7 mb-2 lg:px-6 px-3 lg:text-3xl text-lg font-bold lg:tracking-wider tracking-wide">
         Discover more around Zürich Kloten Airport
       </h3>
       <div className="relative">
-        <div className="absolute right-5 top-16 z-30 h-[23.4rem] w-[21rem] rounded-md bg-white p-4">
+        <div className="absolute lg:right-5 right-3 lg:top-16 top-11 z-30 lg:h-[23.4rem] w-[15.5rem] lg:w-[21rem] rounded-md bg-white p-4">
           <div className="flex items-center gap-3">
-            <Image src={MarkerIcon} alt="" className="w-10" />
-            <div className="text-lg font-bold leading-5 tracking-tight">
+            <Image src={MarkerIcon} alt="" className="lg:w-10 w-9" />
+            <div className="lg:text-lg text-md font-bold leading-5 tracking-tight">
               Zürich Kloten Airport
             </div>
           </div>
-          <p className="leading-8">
+          <p className="lg:leading-8 leading-7">
             Willkommen am schönsten Seeufer Zürichs. Hier liegt eine maritime
             Welt für sich
           </p>
-          <Image src={AirportImage} alt="" className="mt-2 w-full" />
+          <Image src={AirportImage} alt="" className="mt-2 w-full lg:h-auto h-24" />
           <button className="mt-4 w-full rounded-md bg-buttonBg py-3 text-lg text-white">
             View distance
           </button>
         </div>
-        <div className="relative z-0 h-[39rem] w-full">
+        <div className="relative z-0 lg:h-[39rem] h-[29rem] w-full">
           <ClientMap position={position} zoom={14.5} />
         </div>
       </div>

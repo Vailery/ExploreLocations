@@ -56,21 +56,21 @@ export const InfoSection = () => {
     setHasMounted(true);
   }, []);
   return (
-    <section className="container mb-3 grid grid-cols-[2fr,1fr] gap-5">
-      <div className="rounded-md bg-gradientRight px-8 py-6">
-        <div className="mb-5 flex items-center gap-5">
-          <Image src={PlaneIcon} alt="" />
-          <h3 className="text-4xl font-bold leading-3 tracking-[0.08em] text-white">
+    <section className="container mb-3 grid lg:grid-cols-[2fr,1fr] grid-cols-1 grid-rows-[auto_auto] lg:grid-rows-1 gap-5">
+      <div className="lg:rounded-md bg-gradientRight lg:px-8 px-3 lg:py-6 pt-3 pb-1">
+        <div className="mb-5 flex items-center lg:gap-5 gap-2">
+          <Image src={PlaneIcon} alt="" className="lg:w-auto w-9" />
+          <h3 className="lg:text-4xl text-lg font-bold leading-3 tracking-[0.08em] text-white">
             Zürich Kloten Airport
           </h3>
         </div>
-        <p className="mb-7 leading-8 tracking-wider text-white">
+        <p className="lg:mb-7 mb-4 lg:leading-8 leading-7 tracking-wider text-white">
           For years it has been known as &rdquo;Europe&apos;s Leading
           Airport&rdquo;. Nowhere else do departing passengers, transiting
           passengers and home-coming passengers feel more comfortable than here.
           Zurich is also the home of SWISS.
         </p>
-        <h4 className="mb-10 font-bold text-white">Airport Details</h4>
+        <h4 className="lg:mb-10 mb-8 font-bold text-white">Airport Details</h4>
         <div>
           {info.map((item, idx) => (
             <Fragment key={idx}>
@@ -79,17 +79,17 @@ export const InfoSection = () => {
                 <p className="tracking-wider text-white">{item.text}</p>
               </div>
               {idx !== info.length - 1 && (
-                <hr className="my-[1.05rem] w-full" />
+                <hr className="lg:my-[1.05rem] my-[0.87rem] w-full" />
               )}
             </Fragment>
           ))}
         </div>
       </div>
-      <div className="overflow-hidden rounded-md bg-white">
+      <div className="overflow-hidden rounded-md bg-white lg:mx-0 mx-3 h-fit">
         <h3 className="bg-redBg px-8 py-5 text-xl font-bold text-white">
           Flight Distance
         </h3>
-        <div className="px-8 py-7 text-lg">
+        <div className="px-8 lg:pb-7 pt-7 pb-5 text-lg">
           <p className="">Search by airport name, city or IATA airport code.</p>
           <input
             className="mt-3 w-full rounded-md bg-grayBg px-3 py-4 italic text-white"
@@ -99,10 +99,10 @@ export const InfoSection = () => {
             className="mt-3 w-full rounded-md bg-grayBg px-3 py-4 italic text-white"
             placeholder="Name, city or IATA"
           />
-          <button className="mt-7 w-full rounded-md bg-buttonBg py-3 text-lg text-white">
+          <button className="lg:mt-7 mt-1 w-full rounded-md bg-buttonBg py-3 text-lg text-white">
             Calculate Distance
           </button>
-          <p className="mt-8 text-base font-bold">Zürich Kloten Airport</p>
+          <p className="lg:mt-8 mt-6 text-base font-bold">Zürich Kloten Airport</p>
           <div className="relative mt-6">
             {hasMounted && (
               <Swiper

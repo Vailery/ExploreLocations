@@ -1,10 +1,10 @@
 export const PopularFlightsSection = () => {
   return (
-    <section className="container rounded-md bg-white px-7 pb-7 pt-6">
-      <h3 className="mb-10 text-3xl font-bold tracking-wider">
+    <section className="container lg:rounded-md bg-white lg:px-7 px-3 pb-7 lg:pt-6 pt-2">
+      <h3 className="lg:mb-10 mb-1 lg:text-3xl text-lg font-bold tracking-wider">
         Popular Flying distances and times from Zurich Kloten Airport
       </h3>
-      <div className="mb-10 flex justify-between pr-12">
+      <div className="lg:mb-10 mb-5 flex flex-col justify-between  pr-12 lg:flex-row">
         {new Array(3).fill(0).map((_, index) => (
           <div className="flex flex-col text-lg text-buttonBg" key={index}>
             <p className="border-b border-grayBg pb-5">
