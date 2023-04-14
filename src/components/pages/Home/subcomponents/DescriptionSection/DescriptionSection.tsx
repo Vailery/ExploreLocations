@@ -18,11 +18,15 @@ export const DescriptionSection = ({ name }: IDescriptionSection) => (
         Zurich is also the home of SWISS.
       </h3>
     </div>
+<<<<<<< HEAD
     <Image
       src={LandingImage}
       alt=""
       className="right-0 top-0 z-0 hidden h-full lg:absolute"
       aria-hidden
     />
+=======
+    <Image src={LandingImage} alt="" className="absolute lg:block hidden z-0 h-full right-0 top-0" aria-hidden />
+>>>>>>> dev
   </section>
 );

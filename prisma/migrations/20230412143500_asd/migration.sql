@@ -1,4 +1,4 @@
-CREATE EXTENSION postgis;
+CREATE EXTENSION IF NOT EXISTS postgis;
 
 -- CreateEnum
 CREATE TYPE "Type_Of_Airport" AS ENUM ('domestic', 'local', 'international');

@@ -42,7 +42,7 @@ export const Header = () => {
                   "relative flex h-full items-center text-center tracking-wider"
                 }
               >
-                <Link href={item.url} className="">
+                <Link href={item.url} className="lg:whitespace-nowrap">
                   {item.name}
                 </Link>
                 {router.pathname === item.url && (
