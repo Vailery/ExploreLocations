@@ -8,14 +8,18 @@ import { MapSection } from "./subcomponents/MapSection";
 import { PopularFlightsSection } from "./subcomponents/PopularFlightsSection";
 import { RouterSection } from "./subcomponents/RouterSection";
 
-export const HomePage = () => {
+interface IHomePage {
+  name: string;
+}
+
+export const HomePage = ({ name }: IHomePage) => {
   return (
     <>
       <Header />
-      <main className="min-h-screen lg:mb-10 mb-5">
+      <main className="mb-5 min-h-screen lg:mb-10">
         <RouterSection />
-        <DescriptionSection />
-        <MapSection />
+        <DescriptionSection name={name} />
+        <MapSection name={name} />
         <InfoSection />
         <AirportsAroundSection />
         <AllAirportsSection />

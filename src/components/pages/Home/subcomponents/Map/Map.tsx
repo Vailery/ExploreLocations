@@ -1,5 +1,5 @@
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-import { LatLngExpression } from "leaflet";
+import type { LatLngExpression } from "leaflet";
 import L from "leaflet";
 import { useEffect } from "react";
 import "leaflet/dist/leaflet.css";
@@ -12,8 +12,9 @@ interface MapProps {
   zoom?: number;
 }
 
-const Map = ({ position, zoom, }: MapProps) => {
+const Map = ({ position, zoom }: MapProps) => {
   useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     delete L.Icon.Default.prototype._getIconUrl;
     L.Icon.Default.mergeOptions({
