@@ -1,3 +1,13 @@
+# Database setup
+
+After you have been granted access to aws, you need to generate tokens `AWS_ACCESS_KEY`, `AWS_SECRET_KEY` and put them to `.env` file, also in this file you need to set database url from `.env.example` file.
+
+The next step is to run the docker command `docker-compose up db`.
+
+The next command will be `npx prisma migrate dev` for start migration (if you didn't have any migrations at all before you can view all the nuances about their creation on [this site](https://freddydumont.com/blog/prisma-postgis)).
+
+And now you can download the data by sending this request GET `http://localhost:3000/api/trpc/refreshDatabase.getAwsFile` in postman.
+
 # Create T3 App
 
 This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
