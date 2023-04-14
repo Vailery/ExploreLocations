@@ -14,6 +14,6 @@ export const DescriptionSection = () => (
         Zurich is also the home of SWISS.
       </h3>
     </div>
-    <Image src={LandingImage} alt="" className="lg:absolute hidden z-0 h-full right-0 top-0" aria-hidden />
+    <Image src={LandingImage} alt="" className="absolute lg:block hidden z-0 h-full right-0 top-0" aria-hidden />
   </section>
 );

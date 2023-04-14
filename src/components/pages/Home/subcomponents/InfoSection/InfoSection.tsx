@@ -57,7 +57,7 @@ export const InfoSection = () => {
   }, []);
   return (
     <section className="container mb-3 grid lg:grid-cols-[2fr,1fr] grid-cols-1 grid-rows-[auto_auto] lg:grid-rows-1 gap-5">
-      <div className="lg:rounded-md bg-gradientRight lg:px-8 px-3 lg:py-6 pt-3 pb-1">
+      <div className="lg:rounded-md bg-gradientRight lg:px-8 px-3 lg:py-6 pt-3 pb-5">
         <div className="mb-5 flex items-center lg:gap-5 gap-2">
           <Image src={PlaneIcon} alt="" className="lg:w-auto w-9" />
           <h3 className="lg:text-4xl text-lg font-bold leading-3 tracking-[0.08em] text-white">
