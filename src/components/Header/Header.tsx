@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { Logo } from "../shared/Logo";
 import { useRouter } from "next/router";
-import { LanguageSwitch } from "./subcomponents/LanguageSwitch/LanguageSwitch";
 
 export const Header = () => {
   const router = useRouter();
@@ -50,9 +49,9 @@ export const Header = () => {
                 )}
               </li>
             ))}
-            <li>
+            {/* <li>
               <LanguageSwitch />
-            </li>
+            </li> */}
           </ul>
         </nav>
         <div className="ml-auto flex flex-col lg:hidden">

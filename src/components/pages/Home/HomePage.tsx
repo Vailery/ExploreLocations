@@ -1,3 +1,4 @@
+import type { AirportItem } from "~/src/server/api/routers/airport";
 import { Footer } from "../../Footer/Footer";
 import { Header } from "../../Header";
 import { AirportsAroundSection } from "./subcomponents/AirportsAroundSection/AirportsAroundSection";
@@ -9,21 +10,37 @@ import { PopularFlightsSection } from "./subcomponents/PopularFlightsSection";
 import { RouterSection } from "./subcomponents/RouterSection";
 
 interface IHomePage {
-  name: string;
+  airport: AirportItem;
+  airportsAround: AirportItem[];
+  airportsInCountry: AirportItem[];
 }
 
-export const HomePage = ({ name }: IHomePage) => {
+export const HomePage = ({ airport, airportsAround, airportsInCountry }: IHomePage) => {
   return (
     <>
       <Header />
       <main className="mb-5 min-h-screen lg:mb-10">
-        <RouterSection />
-        <DescriptionSection name={name} />
-        <MapSection name={name} />
-        <InfoSection />
-        <AirportsAroundSection />
-        <AllAirportsSection />
-        <PopularFlightsSection />
+        <RouterSection
+          city={airport.City}
+          country={airport.Country}
+          name={airport.Name}
+        />
+        <DescriptionSection name={airport.Name} />
+        <MapSection
+          name={airport.Name}
+          position={{ lng: airport.CenterX, lat: airport.CenterY }}
+        />
+        <InfoSection airportInfo={airport} />
+        <AirportsAroundSection
+          name={airport.Name}
+          position={{ lng: airport.CenterX, lat: airport.CenterY }}
+          airportsAround={airportsAround}
+        />
+        <AllAirportsSection
+          country={airport.Country}
+          airportsInCountry={airportsInCountry}
+        />
+        <PopularFlightsSection name={airport.Name} />
       </main>
       <Footer />
     </>
