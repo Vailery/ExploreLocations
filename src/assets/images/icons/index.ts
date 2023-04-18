@@ -1,19 +1,17 @@
-import type { StaticImageData } from "next/image";
-
-export const LogoIcon = require("./favicon.svg") as StaticImageData;
-export const PinIcon = require("./pin.svg") as StaticImageData;
-export const MarkerIcon = require("./marker.svg") as StaticImageData;
-export const PlaneIcon = require("./planeIcon.svg") as StaticImageData;
-export const CityIcon = require("./cityIcon.svg") as StaticImageData;
-export const FlagIcon = require("./flagIcon.svg") as StaticImageData;
-export const HashtagIcon = require("./hashtagIcon.svg") as StaticImageData;
-export const CoordinatesIcon = require("./coordinatesIcon.svg") as StaticImageData;
-export const PathIcon = require("./pathIcon.svg") as StaticImageData;
-export const ArrowIcon = require("./arrowIcon.svg") as StaticImageData;
-export const MarkersIcon = require("./markersIcon.svg") as StaticImageData;
-export const InfoIcon = require("./infoIcon.svg") as StaticImageData;
-export const FacebookIcon = require("./facebookIcon.svg") as StaticImageData;
-export const InstagramIcon = require("./instagramIcon.svg") as StaticImageData;
-export const TwitterIcon = require("./twitterIcon.svg") as StaticImageData;
+export {default as LogoIcon} from "./favicon.svg";
+export {default as PinIcon} from "./pin.svg";
+export {default as MarkerIcon} from "./marker.svg";
+export {default as PlaneIcon} from "./planeIcon.svg";
+export {default as CityIcon} from "./cityIcon.svg";
+export {default as FlagIcon} from "./flagIcon.svg";
+export {default as HashtagIcon} from "./hashtagIcon.svg";
+export {default as CoordinatesIcon} from "./coordinatesIcon.svg";
+export {default as PathIcon} from "./pathIcon.svg";
+export {default as ArrowIcon} from "./arrowIcon.svg";
+export {default as MarkersIcon} from "./markersIcon.svg";
+export {default as InfoIcon} from "./infoIcon.svg";
+export {default as FacebookIcon} from "./facebookIcon.svg";
+export {default as InstagramIcon} from "./instagramIcon.svg";
+export {default as TwitterIcon} from "./twitterIcon.svg";
 
 export * from "./languages";

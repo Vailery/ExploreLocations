@@ -1,5 +1,4 @@
 import clsx from "clsx";
-import Image from "next/image";
 import { LogoIcon } from "~/src/assets";
 
 interface LogoProps {
@@ -9,11 +8,11 @@ interface LogoProps {
 
 export const Logo = ({ white, className }: LogoProps) => {
   return (
-    <div className={clsx("flex items-center lg:gap-2 gap-[0.1rem]", className)}>
-      <Image src={LogoIcon} alt="Logo" className="lg:w-14 w-10" />
+    <div className={clsx("flex items-center gap-[0.1rem] lg:gap-2", className)}>
+      <LogoIcon className="w-10 lg:w-14" />
       <h1
         className={clsx(
-          "lg:text-xl font-extrabold leading-4 text-sm lg:leading-6 tracking-widest",
+          "text-sm font-extrabold leading-4 tracking-widest lg:text-xl lg:leading-6",
           white && "text-white"
         )}
       >

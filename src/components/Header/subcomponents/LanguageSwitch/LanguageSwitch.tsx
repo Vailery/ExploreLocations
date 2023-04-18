@@ -6,7 +6,7 @@ import { UsaFlag } from "~/src/assets";
 const languages = [
   {
     name: "EN",
-    img: UsaFlag,
+    img: <UsaFlag width={30} height={30} />,
   },
 ];
 
@@ -17,7 +17,7 @@ export const LanguageSwitch = () => {
         {({ open }) => (
           <div className="flex items-center gap-2">
             <p>EN</p>
-            <Image src={UsaFlag} alt="usa flag" width={30} height={30} />
+            <UsaFlag width={30} height={30} />
             <div
               className={clsx(
                 "ml-1 h-2 w-2 rotate-45 border-2 border-transparent border-b-grayColor border-r-grayColor transition-all",
