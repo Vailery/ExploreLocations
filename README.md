@@ -1,6 +1,32 @@
 # Database setup
 
-After you have been granted access to aws, you need to generate tokens `AWS_ACCESS_KEY`, `AWS_SECRET_KEY` and put them to `.env` file, also in this file you need to set database url from `.env.example` file.
+After you have been granted access to aws (root user should add you to dev group), you need to setup aws sso authorization, also you need to set database url from `.env.example` file (for deploy to Versel you need tokens `AWS_ACCESS_KEY`, `AWS_SECRET_KEY`).
+
+## AWS SSO AUTHORIZATION
+
+### 1. Install AWS CLI
+
+Mac - `brew install awscli`
+
+### 2. Login in AWS CLI using SSO
+
+[Original instruction](https://github.com/awsdocs/aws-cli-user-guide/blob/main/doc_source/cli-configure-sso.md)
+
+1. run `aws configure sso`
+
+   name: whatever you want \
+   start url: https://d-906790c849.awsapps.com/start \
+   region: us-east-1 \
+   the rest: skip
+
+In VSCode (optional)
+
+1. Install `AWS Toolkit` extension
+2. In AWS menu Add Connection and select existing one (the one you added with SSO CLI)
+3. VSCode command line : `> AWS: Show or Hide regions`
+   make sure `eu-west-3` is checked
+
+---
 
 The next step is to run the docker command `docker-compose up db`.
 
