@@ -7,6 +7,7 @@ import { api } from "~/src/utils/api";
 import "~/src/styles/globals.css";
 
 import { Open_Sans } from "next/font/google";
+import Head from "next/head";
 
 const openSans = Open_Sans({
   subsets: ["latin"],
@@ -25,6 +26,10 @@ const MyApp: AppType<MyAppProps> = ({
   return (
     <SessionProvider session={session}>
       <div className={`${openSans.variable}`}>
+        <Head>
+          <title>Explore Locations</title>
+          <link rel="icon" href="/favicon.svg" />
+        </Head>
         <Component {...pageProps} />
       </div>
     </SessionProvider>

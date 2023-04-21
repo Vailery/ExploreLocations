@@ -15,24 +15,28 @@ export const AllAirportsSection = ({
       <h3 className="mb-5 text-xl font-bold tracking-tight lg:mb-10 lg:text-3xl lg:tracking-wider">
         Airports in {country}
       </h3>
-      <div className="mb-7 flex flex-col flex-wrap gap-10 justify-between pr-12 lg:mb-10 lg:flex-row">
+      <div className="mb-7 grid lg:grid-cols-3 grid-cols-1 gap-10 pr-12 lg:mb-10">
         {airportsInCountry.map((el, index) => (
-          <div className="flex flex-col text-lg text-buttonBg" key={index}>
-            <p className="border-b border-grayBg pb-5 pt-3 lg:pt-0">
-              Airport name: {el.Name}
-            </p>
-            <p className="border-b border-grayBg pb-5 pt-3 lg:pt-2">
-              City: {el.City}
-            </p>
-            <p
-              className={clsx(
-                "pt-2",
-                index !== 2 && "border-b border-grayBg pb-5"
-              )}
-            >
-              IATA Code: {el.IATA}
-            </p>
-          </div>
+          <>
+            {el.Type === "international" && (
+              <div className="flex flex-col text-lg text-buttonBg" key={index}>
+                <p className="border-b border-grayBg pb-5 pt-3 lg:pt-0">
+                  Airport name: {el.Name}
+                </p>
+                <p className="border-b border-grayBg pb-5 pt-3 lg:pt-2">
+                  City: {el.City}
+                </p>
+                <p
+                  className={clsx(
+                    "pt-2",
+                    index !== 2 && "border-b border-grayBg pb-5"
+                  )}
+                >
+                  IATA Code: {el.IATA}
+                </p>
+              </div>
+            )}
+          </>
         ))}
       </div>
       <div className="flex">

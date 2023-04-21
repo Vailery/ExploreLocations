@@ -15,7 +15,11 @@ interface IHomePage {
   airportsInCountry: AirportItem[];
 }
 
-export const HomePage = ({ airport, airportsAround, airportsInCountry }: IHomePage) => {
+export const AirportPage = ({
+  airport,
+  airportsAround,
+  airportsInCountry,
+}: IHomePage) => {
   return (
     <>
       <Header />

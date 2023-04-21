@@ -1,7 +1,6 @@
 import { Prisma } from "@prisma/client";
 import type { GetServerSideProps, NextPage } from "next";
-import Head from "next/head";
-import { HomePage } from "~/src/components/pages/Home";
+import { AirportPage } from "~/src/components/pages/AirportPage";
 import type { AirportItem } from "~/src/server/api/routers/airport";
 import { prisma } from "~/src/server/db";
 
@@ -17,17 +16,11 @@ const Airport: NextPage<AirportPageProps> = ({
   airportsInCountry,
 }) => {
   return (
-    <>
-      <Head>
-        <title>Explore Locations</title>
-        <link rel="icon" href="/favicon.svg" />
-      </Head>
-      <HomePage
-        airport={airport}
-        airportsAround={airportsAround}
-        airportsInCountry={airportsInCountry}
-      />
-    </>
+    <AirportPage
+      airport={airport}
+      airportsAround={airportsAround}
+      airportsInCountry={airportsInCountry}
+    />
   );
 };
 
@@ -40,26 +33,35 @@ export const getServerSideProps: GetServerSideProps<AirportPageProps> = async (
   const airportID = context.params?.airport && +context.params.airport;
 
   const airport = await prisma.$queryRaw<[AirportItem]>(
-    Prisma.sql`SELECT ST_X("Center"::geometry) as "CenterX", ST_Y("Center"::geometry) as "CenterY", "Name", "IATA", "ICAO", "City", "Country" FROM "Airports" WHERE "id" = ${airportID}`
+    Prisma.sql`SELECT ST_X("Center"::geometry) as "CenterX", ST_Y("Center"::geometry) as "CenterY", "Name", "Type", "IATA", "ICAO", "City", "Country" FROM "Airports" WHERE "id" = ${airportID}`
   );
 
-  console.log(airport[0].CenterY, airport[0].CenterX);
-
-  const airportsAround = await prisma.$queryRaw<AirportItem[]>(
-    Prisma.sql`SELECT ST_X("Center"::geometry) as "CenterX", ST_Y("Center"::geometry) as "CenterY", "Name", "IATA", "ICAO", "City", "Country" FROM "Airports" WHERE ST_DWithin("Center"::geometry, ST_MakePoint(${airport[0].CenterX}, ${airport[0].CenterY})::geography, 100000) AND "id" != ${airportID} LIMIT 20`
-  );
+  const airportsAround = await (async () => {
+    //  Skip fpr now Add sorting by type
+    const resultInFiveHundred = await prisma.$queryRaw<AirportItem[]>(
+      Prisma.sql`SELECT ST_X("Center"::geometry) as "CenterX", ST_Y("Center"::geometry) as "CenterY", "Name", "Type", "IATA", "ICAO", "City", "Country" FROM "Airports" WHERE ST_DWithin("Center"::geometry, ST_MakePoint(${airport[0].CenterX}, ${airport[0].CenterY})::geography, 500000) AND "id" != ${airportID} LIMIT 20`
+    );
+    if (resultInFiveHundred.length < 0) {
+      const resultInThousand = await prisma.$queryRaw<AirportItem[]>(
+        Prisma.sql`SELECT ST_X("Center"::geometry) as "CenterX", ST_Y("Center"::geometry) as "CenterY", "Name", "Type", "IATA", "ICAO", "City", "Country" FROM "Airports" WHERE ST_DWithin("Center"::geometry, ST_MakePoint(${airport[0].CenterX}, ${airport[0].CenterY})::geography, 1000000) AND "id" != ${airportID} LIMIT 20`
+      );
+      return resultInThousand;
+    } else {
+      return resultInFiveHundred;
+    }
+  })();
 
   airportsAround.map((el) => {
     el.Distance = Math.round(
       Math.sqrt(
         Math.pow(airport[0].CenterX - el.CenterX, 2) +
-        Math.pow(airport[0].CenterY - el.CenterY, 2)
+          Math.pow(airport[0].CenterY - el.CenterY, 2)
       ) * 100
     );
   });
 
   const airportsInCountry = await prisma.$queryRaw<AirportItem[]>(
-    Prisma.sql`SELECT ST_X("Center"::geometry) as "CenterX", ST_Y("Center"::geometry) as "CenterY", "Name", "IATA", "ICAO", "City", "Country" FROM "Airports" WHERE "Country" = ${airport[0].Country} LIMIT 20`
+    Prisma.sql`SELECT ST_X("Center"::geometry) as "CenterX", ST_Y("Center"::geometry) as "CenterY", "Name", "Type", "IATA", "ICAO", "City", "Country" FROM "Airports" WHERE "Country" = ${airport[0].Country} LIMIT 20`
   );
 
   return {

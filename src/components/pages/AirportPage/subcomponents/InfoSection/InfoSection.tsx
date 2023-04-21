@@ -31,7 +31,7 @@ export const InfoSection = ({ airportInfo }: InfoSectionProps) => {
       text: `City:  ${airportInfo.City}`,
     },
     {
-      icon: <FlagIcon className="w-6" />,
+      icon: <FlagIcon className="w-6 text-white" />,
       text: `JosCountry: ${airportInfo.Country}`,
     },
     {
@@ -49,6 +49,7 @@ export const InfoSection = ({ airportInfo }: InfoSectionProps) => {
       )}, Longitude: ${convertCoordinates(airportInfo.CenterX, true)}`,
     },
     {
+      //  Skip for now
       icon: <PathIcon className="w-6" />,
       text: "Runways:  Direction: 10/28, Length: 9845 x 148 ft",
     },

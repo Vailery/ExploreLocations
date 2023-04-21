@@ -28,14 +28,14 @@ const Map = ({ position, zoom, airportsAround }: MapProps) => {
   const icon = L.divIcon({
     className: "custom-icon",
     html: ReactDOMServer.renderToString(
-      <MarkerIcon className="w-10 text-redBg" />
+      <MarkerIcon className="h-20 w-20 text-redBg" />
     ),
   });
 
   const secondaryIcon = L.divIcon({
     className: "custom-icon",
     html: ReactDOMServer.renderToString(
-      <MarkerIcon className="w-10 text-grayColor" />
+      <MarkerIcon className="h-12 w-12 text-grayColor" />
     ),
   });
 
