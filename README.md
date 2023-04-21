@@ -17,7 +17,11 @@ Mac - `brew install awscli`
    name: whatever you want \
    start url: https://d-906790c849.awsapps.com/start \
    region: us-east-1 \
-   the rest: skip
+   the rest: skip \
+
+   copy sso profile and add to `.env` \
+   `AWS_SSO_PROFILE` \
+   `AWS_SSO_REGION="eu-west-3"`
 
 In VSCode (optional)
 
