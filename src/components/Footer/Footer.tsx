@@ -1,5 +1,4 @@
 import clsx from "clsx";
-import Image from "next/image";
 import Link from "next/link";
 import { FacebookIcon, InstagramIcon, TwitterIcon } from "~/src/assets";
 import { Logo } from "../shared/Logo";
@@ -7,7 +6,7 @@ import { Logo } from "../shared/Logo";
 const linksInfo = [
   [
     {
-      item: <Logo white className="lg:mb-16 mb-8" />,
+      item: <Logo white className="mb-8 lg:mb-16" />,
       url: "#",
     },
     {
@@ -69,7 +68,7 @@ const linksInfo = [
     {
       item: (
         <div className="flex gap-3">
-          <Image src={FacebookIcon} alt="" />
+          <FacebookIcon />
           <p>Facebook</p>
         </div>
       ),
@@ -78,7 +77,7 @@ const linksInfo = [
     {
       item: (
         <div className="flex gap-3">
-          <Image src={InstagramIcon} alt="" />
+          <InstagramIcon />
           <p>Instagram</p>
         </div>
       ),
@@ -87,7 +86,7 @@ const linksInfo = [
     {
       item: (
         <div className="flex gap-3">
-          <Image src={TwitterIcon} alt="" />
+          <TwitterIcon />
           <p>Twitter</p>
         </div>
       ),
@@ -100,9 +99,9 @@ export const Footer = () => {
   return (
     <footer className="bg-darkGrayBg">
       <div className="container mx-auto px-3 py-5 lg:px-0">
-        <div className="flex flex-col gap-x-[4.5rem]  border-b border-gray-700 lg:pb-[3.7rem] pb-7 lg:flex-row">
+        <div className="flex flex-col gap-x-[4.5rem] border-b  border-gray-700 pb-7 lg:flex-row lg:gap-x-40 lg:pb-[3.7rem]">
           {linksInfo.map((links, index) => (
-            <div key={index}>
+            <div key={index} className="lg:w-1/5">
               <ul className="text-white">
                 {links.map((link, index) => (
                   <Link href={link.url} key={index}>
@@ -111,7 +110,7 @@ export const Footer = () => {
                         "w-full pt-3 lg:w-auto",
                         index !== links.length - 1 &&
                           index !== 0 &&
-                          "border-b border-gray-700 lg:pb-[1.35rem] pb-4"
+                          "border-b border-gray-700 pb-4 lg:pb-[1.35rem]"
                       )}
                     >
                       {link.item}
@@ -122,7 +121,7 @@ export const Footer = () => {
             </div>
           ))}
         </div>
-        <div className="pb-4 lg:pt-7 pt-5 text-center lg:text-lg text-white">
+        <div className="pb-4 pt-5 text-center text-white lg:pt-7 lg:text-lg">
           Made with ♥ in Romania & more© 2022 ExploreLocations.com.
         </div>
       </div>

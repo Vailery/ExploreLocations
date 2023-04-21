@@ -40,6 +40,7 @@
     "zod": "^3.21.4"
   },
   "devDependencies": {
+    "@svgr/webpack": "^7.0.0",
     "@types/eslint": "^8.21.3",
     "@types/leaflet": "^1.9.3",
     "@types/node": "^18.15.5",

@@ -1,14 +1,17 @@
 import dynamic from "next/dynamic";
 import Image from "next/image";
-import { AirportImage, MarkerIcon } from "~/src/assets";
-
-const position = { lat: 47.449577268745834, lng: 8.567820593313629 };
+import { AirportImage} from "~/src/assets";
+import MarkerIcon from "~/src/assets/images/icons/marker.svg";
 
 interface IMapSection {
   name: string;
+  position: {
+    lat: number;
+    lng: number;
+  };
 }
 
-export const MapSection = ({ name }: IMapSection) => {
+export const MapSection = ({ name, position }: IMapSection) => {
   const ClientMap = dynamic(() => import("../Map/Map"), {
     ssr: false,
   });
@@ -21,7 +24,7 @@ export const MapSection = ({ name }: IMapSection) => {
       <div className="relative">
         <div className="absolute right-3 top-11 z-30 w-[15.5rem] rounded-md bg-white p-4 lg:right-5 lg:top-16 lg:h-[23.4rem] lg:w-[21rem]">
           <div className="flex items-center gap-3">
-            <Image src={MarkerIcon} alt="" className="w-9 lg:w-10" />
+            <MarkerIcon className="w-10 text-redBg" />
             <div className="text-md font-bold leading-5 tracking-tight lg:text-lg">
               {name}
             </div>

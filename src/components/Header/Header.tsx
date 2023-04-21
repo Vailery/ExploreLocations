@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { Logo } from "../shared/Logo";
 import { useRouter } from "next/router";
-import { LanguageSwitch } from "./subcomponents/LanguageSwitch/LanguageSwitch";
 
 export const Header = () => {
   const router = useRouter();
@@ -42,7 +41,7 @@ export const Header = () => {
                   "relative flex h-full items-center text-center tracking-wider"
                 }
               >
-                <Link href={item.url} className="">
+                <Link href={item.url} className="lg:whitespace-nowrap">
                   {item.name}
                 </Link>
                 {router.pathname === item.url && (
@@ -50,9 +49,9 @@ export const Header = () => {
                 )}
               </li>
             ))}
-            <li>
+            {/* <li>
               <LanguageSwitch />
-            </li>
+            </li> */}
           </ul>
         </nav>
         <div className="ml-auto flex flex-col lg:hidden">

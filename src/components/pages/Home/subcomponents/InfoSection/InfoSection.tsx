@@ -13,39 +13,46 @@ import {
 } from "~/src/assets";
 import { Navigation } from "swiper";
 import "swiper/css";
+import type { AirportItem } from "~/src/server/api/routers/airport";
+import { convertCoordinates } from "~/src/utils/convertCoordinates";
 
-const info = [
-  {
-    icon: PlaneIcon,
-    text: "Airport name:  Zürich Kloten Airport",
-  },
-  {
-    icon: CityIcon,
-    text: "City:  Zürich",
-  },
-  {
-    icon: FlagIcon,
-    text: "JosCountry: Switzerland",
-  },
-  {
-    icon: HashtagIcon,
-    text: "IATA Code:  JOS",
-  },
-  {
-    icon: HashtagIcon,
-    text: "ICAO Code:  DNJO",
-  },
-  {
-    icon: CoordinatesIcon,
-    text: "Coordinates: Latitude: 9°38′23″N, Longitude: 8°52′8″E",
-  },
-  {
-    icon: PathIcon,
-    text: "Runways:  Direction: 10/28, Length: 9845 x 148 ft",
-  },
-];
+interface InfoSectionProps {
+  airportInfo: AirportItem;
+}
 
-export const InfoSection = () => {
+export const InfoSection = ({ airportInfo }: InfoSectionProps) => {
+  const info = [
+    {
+      icon: <PlaneIcon className="w-6" />,
+      text: `Airport name:  ${airportInfo.Name}`,
+    },
+    {
+      icon: <CityIcon className="w-6" />,
+      text: `City:  ${airportInfo.City}`,
+    },
+    {
+      icon: <FlagIcon className="w-6" />,
+      text: `JosCountry: ${airportInfo.Country}`,
+    },
+    {
+      icon: <HashtagIcon className="w-6" />,
+      text: `IATA Code: ${airportInfo.IATA}`,
+    },
+    {
+      icon: <HashtagIcon className="w-6" />,
+      text: `ICAO Code: ${airportInfo.ICAO}`,
+    },
+    {
+      icon: <CoordinatesIcon className="w-6" />,
+      text: `Coordinates: Latitude: ${convertCoordinates(
+        airportInfo.CenterY
+      )}, Longitude: ${convertCoordinates(airportInfo.CenterX, true)}`,
+    },
+    {
+      icon: <PathIcon className="w-6" />,
+      text: "Runways:  Direction: 10/28, Length: 9845 x 148 ft",
+    },
+  ];
   const [currentSlide, setCurrentSlide] = useState(0);
   const prevButton = useRef(null);
   const nextButton = useRef(null);
@@ -56,40 +63,40 @@ export const InfoSection = () => {
     setHasMounted(true);
   }, []);
   return (
-    <section className="container mb-3 grid lg:grid-cols-[2fr,1fr] grid-cols-1 grid-rows-[auto_auto] lg:grid-rows-1 gap-5">
-      <div className="lg:rounded-md bg-gradientRight lg:px-8 px-3 lg:py-6 pt-3 pb-1">
-        <div className="mb-5 flex items-center lg:gap-5 gap-2">
-          <Image src={PlaneIcon} alt="" className="lg:w-auto w-9" />
-          <h3 className="lg:text-4xl text-lg font-bold leading-3 tracking-[0.08em] text-white">
-            Zürich Kloten Airport
+    <section className="container mb-3 grid grid-cols-1 grid-rows-[auto_auto] gap-5 lg:grid-cols-[2fr,1fr] lg:grid-rows-1">
+      <div className="bg-gradientRight px-3 pb-5 pt-3 lg:rounded-md lg:px-8 lg:py-6">
+        <div className="mb-5 flex items-center gap-2 lg:gap-5">
+          <PlaneIcon className="w-14 h-7 lg:w-auto" />
+          <h3 className="text-lg font-bold leading-3 tracking-[0.08em] text-white lg:text-4xl">
+            {airportInfo.Name}
           </h3>
         </div>
-        <p className="lg:mb-7 mb-4 lg:leading-8 leading-7 tracking-wider text-white">
+        <p className="mb-4 leading-7 tracking-wider text-white lg:mb-7 lg:leading-8">
           For years it has been known as &rdquo;Europe&apos;s Leading
           Airport&rdquo;. Nowhere else do departing passengers, transiting
           passengers and home-coming passengers feel more comfortable than here.
           Zurich is also the home of SWISS.
         </p>
-        <h4 className="lg:mb-10 mb-8 font-bold text-white">Airport Details</h4>
+        <h4 className="mb-8 font-bold text-white lg:mb-10">Airport Details</h4>
         <div>
           {info.map((item, idx) => (
             <Fragment key={idx}>
               <div className="flex gap-2">
-                <Image className="w-6" src={item.icon} alt="" />
+                {item.icon}
                 <p className="tracking-wider text-white">{item.text}</p>
               </div>
               {idx !== info.length - 1 && (
-                <hr className="lg:my-[1.05rem] my-[0.87rem] w-full" />
+                <hr className="my-[0.87rem] w-full lg:my-[1.05rem]" />
               )}
             </Fragment>
           ))}
         </div>
       </div>
-      <div className="overflow-hidden rounded-md bg-white lg:mx-0 mx-3 h-fit">
+      <div className="mx-3 h-fit overflow-hidden rounded-md bg-white lg:mx-0">
         <h3 className="bg-redBg px-8 py-5 text-xl font-bold text-white">
           Flight Distance
         </h3>
-        <div className="px-8 lg:pb-7 pt-7 pb-5 text-lg">
+        <div className="px-8 pb-5 pt-7 text-lg lg:pb-7">
           <p className="">Search by airport name, city or IATA airport code.</p>
           <input
             className="mt-3 w-full rounded-md bg-grayBg px-3 py-4 italic text-white"
@@ -99,10 +106,10 @@ export const InfoSection = () => {
             className="mt-3 w-full rounded-md bg-grayBg px-3 py-4 italic text-white"
             placeholder="Name, city or IATA"
           />
-          <button className="lg:mt-7 mt-1 w-full rounded-md bg-buttonBg py-3 text-lg text-white">
+          <button className="mt-1 w-full rounded-md bg-buttonBg py-3 text-lg text-white lg:mt-7">
             Calculate Distance
           </button>
-          <p className="lg:mt-8 mt-6 text-base font-bold">Zürich Kloten Airport</p>
+          <p className="mt-6 text-base font-bold lg:mt-8">{airportInfo.Name}</p>
           <div className="relative mt-6">
             {hasMounted && (
               <Swiper
@@ -121,20 +128,13 @@ export const InfoSection = () => {
                   </SwiperSlide>
                 ))}
                 <div className="absolute bottom-3 left-1/2 z-10 flex h-9 w-2/5 -translate-x-1/2 items-center justify-between rounded-md bg-blackTransparent text-sm text-white">
-                  <Image
-                    ref={prevButton}
-                    className="w-7 cursor-pointer"
-                    src={ArrowIcon}
-                    alt=""
-                  />
+                  <ArrowIcon ref={prevButton} className="w-7 cursor-pointer" />
                   <div>
                     {currentSlide + 1} / {15}
                   </div>
-                  <Image
+                  <ArrowIcon
                     ref={nextButton}
                     className="w-7 rotate-180 cursor-pointer"
-                    src={ArrowIcon}
-                    alt=""
                   />
                 </div>
               </Swiper>
