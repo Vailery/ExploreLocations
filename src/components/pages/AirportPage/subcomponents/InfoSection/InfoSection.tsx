@@ -67,7 +67,7 @@ export const InfoSection = ({ airportInfo }: InfoSectionProps) => {
     <section className="container mb-3 grid grid-cols-1 grid-rows-[auto_auto] gap-5 lg:grid-cols-[2fr,1fr] lg:grid-rows-1">
       <div className="bg-gradientRight px-3 pb-5 pt-3 lg:rounded-md lg:px-8 lg:py-6">
         <div className="mb-5 flex items-center gap-2 lg:gap-5">
-          <PlaneIcon className="w-14 h-7 lg:w-auto" />
+          <PlaneIcon className="h-7 w-14 lg:w-auto" />
           <h3 className="text-lg font-bold leading-3 tracking-[0.08em] text-white lg:text-4xl">
             {airportInfo.Name}
           </h3>
@@ -128,18 +128,19 @@ export const InfoSection = ({ airportInfo }: InfoSectionProps) => {
                     <Image className="w-full" src={PlaneImageSlider} alt="" />
                   </SwiperSlide>
                 ))}
-                <div className="absolute bottom-3 left-1/2 z-10 flex h-9 w-2/5 -translate-x-1/2 items-center justify-between rounded-md bg-blackTransparent text-sm text-white">
-                  <ArrowIcon ref={prevButton} className="w-7 cursor-pointer" />
-                  <div>
-                    {currentSlide + 1} / {15}
-                  </div>
-                  <ArrowIcon
-                    ref={nextButton}
-                    className="w-7 rotate-180 cursor-pointer"
-                  />
-                </div>
               </Swiper>
             )}
+            <div className="absolute bottom-3 left-1/2 z-10 flex h-9 w-2/5 -translate-x-1/2 items-center justify-between rounded-md bg-blackTransparent text-sm text-white">
+              <div ref={prevButton}>
+                <ArrowIcon className="w-7 cursor-pointer" />
+              </div>
+              <div>
+                {currentSlide + 1} / {15}
+              </div>
+              <div ref={nextButton}>
+                <ArrowIcon className="w-7 rotate-180 cursor-pointer" />
+              </div>
+            </div>
           </div>
         </div>
       </div>

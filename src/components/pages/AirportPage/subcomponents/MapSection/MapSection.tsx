@@ -1,6 +1,6 @@
 import dynamic from "next/dynamic";
 import Image from "next/image";
-import { AirportImage} from "~/src/assets";
+import { AirportImage } from "~/src/assets";
 import MarkerIcon from "~/src/assets/images/icons/marker.svg";
 
 interface IMapSection {
@@ -12,7 +12,7 @@ interface IMapSection {
 }
 
 export const MapSection = ({ name, position }: IMapSection) => {
-  const ClientMap = dynamic(() => import("../Map/Map"), {
+  const ClientMap = dynamic(() => import("../Map/MapContainer"), {
     ssr: false,
   });
 

@@ -21,8 +21,9 @@ export const DescriptionSection = ({ name }: IDescriptionSection) => (
     <Image
       src={LandingImage}
       alt=""
-      className="absolute right-0 top-0 z-0 hidden h-full lg:block"
+      className="absolute right-0 top-0 z-0 hidden h-full w-auto lg:block"
       aria-hidden
+      priority
     />
   </section>
 );

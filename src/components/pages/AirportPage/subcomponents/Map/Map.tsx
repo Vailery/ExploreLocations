@@ -1,4 +1,4 @@
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import { TileLayer, Marker, useMap, LayerGroup } from "react-leaflet";
 import type { LatLngExpression } from "leaflet";
 import L from "leaflet";
 import { useEffect } from "react";
@@ -8,62 +8,84 @@ import ReactDOMServer from "react-dom/server";
 import type { AirportItem } from "~/src/server/api/routers/airport";
 
 interface MapProps {
-  position: LatLngExpression;
-  zoom?: number;
   airportsAround?: AirportItem[];
+  position: LatLngExpression;
+  defaultPosition: LatLngExpression;
+  setSelectedAirport?: (airport: AirportItem | null) => void;
+  setPosition: (position: LatLngExpression) => void;
 }
 
-const Map = ({ position, zoom, airportsAround }: MapProps) => {
-  useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    delete L.Icon.Default.prototype._getIconUrl;
-    L.Icon.Default.mergeOptions({
-      iconRetinaUrl: "leaflet/images/marker-icon-2x.png",
-      iconUrl: "leaflet/images/marker-icon.png",
-      shadowUrl: "leaflet/images/marker-shadow.png",
-    });
-  }, []);
-
+export const Map = ({
+  airportsAround,
+  position,
+  defaultPosition,
+  setSelectedAirport,
+  setPosition,
+}: MapProps) => {
   const icon = L.divIcon({
     className: "custom-icon",
     html: ReactDOMServer.renderToString(
-      <MarkerIcon className="h-20 w-20 text-redBg" />
+      <MarkerIcon className="h-20 w-20 -translate-x-1/2 -translate-y-full text-redBg" />
     ),
   });
 
-  const secondaryIcon = L.divIcon({
+  const internationalIcon = L.divIcon({
     className: "custom-icon",
     html: ReactDOMServer.renderToString(
-      <MarkerIcon className="h-12 w-12 text-grayColor" />
+      <MarkerIcon className="h-12 w-12 -translate-x-1/2 -translate-y-full text-redBg" />
+    ),
+  });
+  const domesticIcon = L.divIcon({
+    className: "custom-icon",
+    html: ReactDOMServer.renderToString(
+      <MarkerIcon className="h-12 w-12 -translate-x-1/2 -translate-y-full text-buttonBg" />
     ),
   });
 
+  const localIcon = L.divIcon({
+    className: "custom-icon",
+    html: ReactDOMServer.renderToString(
+      <MarkerIcon className="h-12 w-12 -translate-x-1/2 -translate-y-full text-grayColor" />
+    ),
+  });
+
+  const map = useMap();
+
+  useEffect(() => {
+    map.panTo(position);
+  }, [position, map]);
+
   return (
-    <MapContainer center={position} zoom={zoom} scrollWheelZoom={false}>
+    <>
       <TileLayer
         attribution='&copy; <a href="https://api.stadiamaps.com/tz/lookup/v1/?api_key=f3730460-a3d1-4933-b30f-a3d60aa884aa">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
         url="https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png"
       />
-      <Marker position={position} icon={icon}>
-        <Popup>
-          A pretty CSS3 popup. <br /> Easily customizable.
-        </Popup>
-      </Marker>
-      {airportsAround &&
-        airportsAround.map((airport, idx) => (
-          <Marker
-            key={idx}
-            position={[airport.CenterY, airport.CenterX]}
-            icon={secondaryIcon}
-          >
-            <Popup>
-              A pretty CSS3 popup. <br /> Easily customizable.
-            </Popup>
-          </Marker>
-        ))}
-    </MapContainer>
+      <Marker position={defaultPosition} icon={icon} />
+      {/* <Popup>{JSON.stringify(position)}</Popup> */}
+      <LayerGroup>
+        {airportsAround &&
+          airportsAround.map((airport, idx) => (
+            // make markers scale on click
+            <Marker
+              key={idx}
+              position={[airport.CenterY, airport.CenterX]}
+              icon={
+                airport.Type === "international"
+                  ? internationalIcon
+                  : airport.Type === "domestic"
+                  ? domesticIcon
+                  : localIcon
+              }
+              eventHandlers={{
+                click: () => {
+                  setSelectedAirport && setSelectedAirport(airport);
+                  setPosition({ lng: airport.CenterX, lat: airport.CenterY });
+                },
+              }}
+            ></Marker>
+          ))}
+      </LayerGroup>
+    </>
   );
 };
-
-export default Map;

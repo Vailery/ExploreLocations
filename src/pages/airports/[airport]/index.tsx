@@ -37,7 +37,7 @@ export const getServerSideProps: GetServerSideProps<AirportPageProps> = async (
   );
 
   const airportsAround = await (async () => {
-    //  Skip fpr now Add sorting by type
+    //  Skip for now Add sorting by type
     const resultInFiveHundred = await prisma.$queryRaw<AirportItem[]>(
       Prisma.sql`SELECT ST_X("Center"::geometry) as "CenterX", ST_Y("Center"::geometry) as "CenterY", "Name", "Type", "IATA", "ICAO", "City", "Country" FROM "Airports" WHERE ST_DWithin("Center"::geometry, ST_MakePoint(${airport[0].CenterX}, ${airport[0].CenterY})::geography, 500000) AND "id" != ${airportID} LIMIT 20`
     );
@@ -51,7 +51,7 @@ export const getServerSideProps: GetServerSideProps<AirportPageProps> = async (
     }
   })();
 
-  airportsAround.map((el) => {
+  airportsAround.forEach((el) => {
     el.Distance = Math.round(
       Math.sqrt(
         Math.pow(airport[0].CenterX - el.CenterX, 2) +
@@ -59,6 +59,7 @@ export const getServerSideProps: GetServerSideProps<AirportPageProps> = async (
       ) * 100
     );
   });
+  airportsAround.sort((a, b) => (a.Distance || 0) - (b.Distance || 0));
 
   const airportsInCountry = await prisma.$queryRaw<AirportItem[]>(
     Prisma.sql`SELECT ST_X("Center"::geometry) as "CenterX", ST_Y("Center"::geometry) as "CenterY", "Name", "Type", "IATA", "ICAO", "City", "Country" FROM "Airports" WHERE "Country" = ${airport[0].Country} LIMIT 20`
