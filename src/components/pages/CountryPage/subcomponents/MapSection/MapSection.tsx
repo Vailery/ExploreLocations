@@ -6,7 +6,7 @@ import MarkerIcon from "~/src/assets/images/icons/marker.svg";
 export const MapSection = () => {
   const ClientMap = useMemo(
     () =>
-      dynamic(() => import("../Map/Map"), {
+      dynamic(() => import("~/src/components/shared/Map/MapContainer"), {
         ssr: false,
       }),
     []

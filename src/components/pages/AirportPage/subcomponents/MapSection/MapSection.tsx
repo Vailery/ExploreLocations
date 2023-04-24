@@ -12,9 +12,12 @@ interface IMapSection {
 }
 
 export const MapSection = ({ name, position }: IMapSection) => {
-  const ClientMap = dynamic(() => import("../Map/MapContainer"), {
-    ssr: false,
-  });
+  const ClientMap = dynamic(
+    () => import("~/src/components/shared/Map/MapContainer"),
+    {
+      ssr: false,
+    }
+  );
 
   return (
     <section className="container mb-6 rounded-md bg-white pt-6 lg:mb-3">

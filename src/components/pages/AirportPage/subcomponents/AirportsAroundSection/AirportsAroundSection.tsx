@@ -21,7 +21,7 @@ export const AirportsAroundSection = ({
 }: AirportsAroundSectionProps) => {
   const ClientMap = useMemo(
     () =>
-      dynamic(() => import("../Map/MapContainer"), {
+      dynamic(() => import("../../../../shared/Map/MapContainer"), {
         ssr: false,
       }),
     []
@@ -43,6 +43,7 @@ export const AirportsAroundSection = ({
             zoom={7}
             airportsAround={airportsAround}
             setSelectedAirport={setSelectedAirport}
+            selectedAirport={selectedAirport}
           />
         </div>
         <div className="absolute right-5 top-7 z-10 hidden w-[20.8rem] rounded-md bg-white p-4 lg:block">

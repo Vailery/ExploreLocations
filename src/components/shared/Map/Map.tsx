@@ -13,6 +13,7 @@ interface MapProps {
   defaultPosition: LatLngExpression;
   setSelectedAirport?: (airport: AirportItem | null) => void;
   setPosition: (position: LatLngExpression) => void;
+  selectedAirport?: AirportItem | null;
 }
 
 export const Map = ({
@@ -21,6 +22,7 @@ export const Map = ({
   defaultPosition,
   setSelectedAirport,
   setPosition,
+  selectedAirport,
 }: MapProps) => {
   const icon = L.divIcon({
     className: "custom-icon",
@@ -41,11 +43,28 @@ export const Map = ({
       <MarkerIcon className="h-12 w-12 -translate-x-1/2 -translate-y-full text-buttonBg" />
     ),
   });
-
   const localIcon = L.divIcon({
     className: "custom-icon",
     html: ReactDOMServer.renderToString(
       <MarkerIcon className="h-12 w-12 -translate-x-1/2 -translate-y-full text-grayColor" />
+    ),
+  });
+  const internationalSelectedIcon = L.divIcon({
+    className: "custom-icon",
+    html: ReactDOMServer.renderToString(
+      <MarkerIcon className="h-16 w-16 -translate-x-1/2 -translate-y-full text-redBg" />
+    ),
+  });
+  const domesticSelectedIcon = L.divIcon({
+    className: "custom-icon",
+    html: ReactDOMServer.renderToString(
+      <MarkerIcon className="h-16 w-16 -translate-x-1/2 -translate-y-full text-buttonBg" />
+    ),
+  });
+  const localSelectedIcon = L.divIcon({
+    className: "custom-icon",
+    html: ReactDOMServer.renderToString(
+      <MarkerIcon className="h-16 w-16 -translate-x-1/2 -translate-y-full text-grayColor" />
     ),
   });
 
@@ -71,7 +90,13 @@ export const Map = ({
               key={idx}
               position={[airport.CenterY, airport.CenterX]}
               icon={
-                airport.Type === "international"
+                airport === selectedAirport
+                  ? airport.Type === "international"
+                    ? internationalSelectedIcon
+                    : airport.Type === "domestic"
+                    ? domesticSelectedIcon
+                    : localSelectedIcon
+                  : airport.Type === "international"
                   ? internationalIcon
                   : airport.Type === "domestic"
                   ? domesticIcon
@@ -83,7 +108,7 @@ export const Map = ({
                   setPosition({ lng: airport.CenterX, lat: airport.CenterY });
                 },
               }}
-            ></Marker>
+            />
           ))}
       </LayerGroup>
     </>
