@@ -26,12 +26,12 @@ export abstract class Parser {
 
       stream = fs.createReadStream(filePath);
     } else {
-      stream = s3
-        .getObject({
+      stream = (
+        await s3.getObject({
           Bucket: "database-sources-1",
           Key: this.sourceFileName,
         })
-        .createReadStream();
+      ).Body as Readable;
     }
 
     await this.setupDatabase(transactionClient);

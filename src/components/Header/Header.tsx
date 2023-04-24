@@ -49,6 +49,7 @@ export const Header = () => {
                 )}
               </li>
             ))}
+            {/* Skip for now */}
             {/* <li>
               <LanguageSwitch />
             </li> */}

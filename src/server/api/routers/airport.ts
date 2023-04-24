@@ -5,6 +5,7 @@ import { createTRPCRouter, publicProcedure } from "~/src/server/api/trpc";
 
 export interface AirportItem {
   Name: string;
+  Type: string;
   IATA: string;
   ICAO: string;
   City: string;
