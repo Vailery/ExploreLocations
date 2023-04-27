@@ -14,7 +14,7 @@ export {default as FacebookIcon} from "./facebookIcon.svg";
 export {default as InstagramIcon} from "./instagramIcon.svg";
 export {default as TwitterIcon} from "./twitterIcon.svg";
 export { default as SearchIcon } from "./searchIcon.svg";
-export { default as JosIcon } from "./josIcon.svg";
+export { default as IATAIcon } from "./iataIcon.svg";
 export { default as DirectionIcon } from "./directionIcon.svg";
 export { default as PassengersIcon } from "./passengersIcon.svg";
 export { default as AirportsIcon } from "./airportsIcon.svg";

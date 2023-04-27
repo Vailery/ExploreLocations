@@ -1,9 +1,15 @@
 import dynamic from "next/dynamic";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { InfoIcon, MarkersIcon } from "~/src/assets";
 import MarkerIcon from "~/src/assets/images/icons/marker.svg";
+import type { AirportItem, RegionType } from "~/src/utils/types";
 
-export const MapSection = () => {
+interface MapSectionProps {
+  airports: AirportItem[];
+  region: RegionType;
+}
+
+export const MapSection = ({ region, airports }: MapSectionProps) => {
   const ClientMap = useMemo(
     () =>
       dynamic(() => import("~/src/components/shared/Map/MapContainer"), {
@@ -12,17 +18,21 @@ export const MapSection = () => {
     []
   );
 
+  const [currentAirport, setCurrentAirport] = useState<AirportItem | null>(
+    airports[0] || null
+  );
+
   return (
     <section className="container mb-6 rounded-md bg-white pt-6 shadow-md lg:mb-9">
       <h3 className="mb-2 px-3 text-lg font-bold tracking-wide lg:mb-7 lg:px-7 lg:text-3xl lg:tracking-wider">
-        Airports in <span className="text-buttonBg">South America</span>
+        Airports in <span className="text-buttonBg">{region.Country}</span>
       </h3>
       <div className="relative">
         <div className="absolute right-3 top-11 z-30 w-[15.5rem] rounded-md bg-white p-4 lg:right-11 lg:top-6 lg:h-[21rem] lg:w-[21rem]">
           <div className="mb-6 flex items-center gap-3">
             <MarkerIcon className="w-10 text-redBg" />
             <div className="text-md font-bold leading-5 tracking-tight lg:text-lg">
-              Bern Airport
+              {currentAirport?.Name}
             </div>
           </div>
           <div className="mb-5 flex items-start gap-3">
@@ -48,7 +58,14 @@ export const MapSection = () => {
           </button>
         </div>
         <div className="relative z-0 h-[29rem] w-full pb-6 lg:h-[30.5rem] lg:px-7">
-          <ClientMap position={[2, 4]} zoom={14.5} />
+          {currentAirport && (
+            <ClientMap
+              position={[currentAirport.CenterY, currentAirport.CenterX]}
+              setSelectedAirport={setCurrentAirport}
+              airportsAround={airports}
+              zoom={14.5}
+            />
+          )}
         </div>
       </div>
     </section>

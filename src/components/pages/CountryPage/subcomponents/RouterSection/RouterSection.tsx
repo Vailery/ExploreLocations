@@ -1,8 +1,13 @@
 import { Fragment } from "react";
 import { PinIcon } from "~/src/assets";
+import type { RegionType } from "~/src/utils/types";
 
-export const RouterSection = () => {
-  const route = ["South America", "Airports"];
+interface RouterSectionProps {
+  region: RegionType;
+}
+
+export const RouterSection = ({region}: RouterSectionProps) => {
+  const route = [region.Country, "Airports"];
   return (
     <section className="container mb-5 mt-6 hidden lg:flex">
       <PinIcon className="mr-1 h-6 w-6" />

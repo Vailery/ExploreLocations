@@ -5,12 +5,12 @@ import { useEffect } from "react";
 import "leaflet/dist/leaflet.css";
 import MarkerIcon from "~/src/assets/images/icons/marker.svg";
 import ReactDOMServer from "react-dom/server";
-import type { AirportItem } from "~/src/server/api/routers/airport";
+import type { AirportItem } from "~/src/utils/types";
 
 interface MapProps {
   airportsAround?: AirportItem[];
-  position: LatLngExpression;
-  defaultPosition: LatLngExpression;
+  position?: LatLngExpression;
+  defaultPosition?: LatLngExpression;
   setSelectedAirport?: (airport: AirportItem | null) => void;
   setPosition: (position: LatLngExpression) => void;
   selectedAirport?: AirportItem | null;
@@ -71,7 +71,9 @@ export const Map = ({
   const map = useMap();
 
   useEffect(() => {
-    map.panTo(position);
+    if (position) {
+      map.panTo(position);
+    }
   }, [position, map]);
 
   return (
@@ -80,12 +82,11 @@ export const Map = ({
         attribution='&copy; <a href="https://api.stadiamaps.com/tz/lookup/v1/?api_key=f3730460-a3d1-4933-b30f-a3d60aa884aa">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
         url="https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png"
       />
-      <Marker position={defaultPosition} icon={icon} />
+      {defaultPosition && <Marker position={defaultPosition} icon={icon} />}
       {/* <Popup>{JSON.stringify(position)}</Popup> */}
       <LayerGroup>
         {airportsAround &&
           airportsAround.map((airport, idx) => (
-            // make markers scale on click
             <Marker
               key={idx}
               position={[airport.CenterY, airport.CenterX]}

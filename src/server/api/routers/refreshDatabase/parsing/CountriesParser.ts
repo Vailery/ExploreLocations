@@ -17,7 +17,6 @@ export class CountriesParser extends GeoJsonParser<CountryGeoJsonProperties> {
     geoJson: string,
     transactionClient: PrismaTransactionClient
   ): Promise<void> {
-    console.log(element);
     await transactionClient.$executeRaw`INSERT INTO "Countries" 
       ("id", "Geometry", "Name", "Code") 
       VALUES 

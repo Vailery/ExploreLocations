@@ -18,7 +18,7 @@ export const FaqBlock = ({ title, text, key }: FaqBlockProps) => {
     >
       <div
         className={clsx(
-          "absolute lg:right-6 right-2 top-1/2 ml-1 h-3 w-3 -translate-y-1/2 rotate-45 border-2 border-transparent border-b-grayColor border-r-grayColor transition-all",
+          "absolute lg:right-6 right-2 top-7 ml-1 h-3 w-3 rotate-45 border-2 border-transparent border-b-grayColor border-r-grayColor transition-all",
           isExpanded && "rotate-[225deg]"
         )}
       />

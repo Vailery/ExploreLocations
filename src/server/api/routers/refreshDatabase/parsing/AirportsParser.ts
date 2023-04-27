@@ -17,7 +17,6 @@ export class AirportsParser extends GeoJsonParser<AirportsGeoJsonProperties> {
     geoJson: string,
     transactionClient: PrismaTransactionClient
   ): Promise<void> {
-    console.log(element);
     await transactionClient.$executeRaw`INSERT INTO "Airports"
       ("id", "Geometry", "Center", "Name", "Type", "AltName", "IATA", "ICAO", "Passengers", "NameDe", "NameEn", "NameEs", "NameFr", "NameIT", "NameNL", "Operator", "City", "Country", "ElFeet", "ElMeters", "Website", "Wiki", "TimezoneS", "TimezoneD")
       VALUES
