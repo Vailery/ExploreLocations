@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import type { AirportItem } from "~/src/server/api/routers/airport";
+import type { AirportItem } from "~/src/utils/types";
 import { Fragment } from "react";
 
 interface AllAirportsSectionProps {

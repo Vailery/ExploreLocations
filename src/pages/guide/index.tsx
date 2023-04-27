@@ -1,8 +1,7 @@
 import type { GetServerSideProps, NextPage } from "next";
-import { CountryPage } from "~/src/components/pages/CountryPage";
 
 const Airport: NextPage = () => {
-  return <CountryPage />;
+  return <></>;
 };
 
 export default Airport;

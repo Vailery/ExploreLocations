@@ -2,7 +2,7 @@ import clsx from "clsx";
 import dynamic from "next/dynamic";
 import { InfoIcon, MarkersIcon } from "~/src/assets";
 import MarkerIcon from "~/src/assets/images/icons/marker.svg";
-import type { AirportItem } from "~/src/server/api/routers/airport";
+import type { AirportItem } from "~/src/utils/types";
 import { useMemo, useState } from "react";
 
 interface AirportsAroundSectionProps {

@@ -1,23 +1,32 @@
 import clsx from "clsx";
 import { UsaFlag } from "~/src/assets";
+import type { RegionType } from "~/src/utils/types";
 
-export const AirportsByCountrySection = () => {
+interface AirportsByCountrySectionProps {
+  regions: RegionType[];
+}
+
+export const AirportsByCountrySection = ({
+  regions,
+}: AirportsByCountrySectionProps) => {
   return (
-    <section className="container mt-5 rounded-md bg-white lg:py-6 py-1 shadow-md">
-      <h3 className="lg:mb-11 mb-3 lg:px-8 px-5 lg:text-3xl font-bold leading-8 tracking-wider">
-        Explore Airports in South America
+    <section className="container mt-5 rounded-md bg-white py-1 shadow-md lg:py-6">
+      <h3 className="mb-3 px-5 font-bold leading-8 tracking-wider lg:mb-11 lg:px-8 lg:text-3xl">
+        Explore Airports in {regions[0]?.Country}
       </h3>
-      <div className="grid lg:grid-cols-2 grid-cols-1 grid-rows-6 gap-x-24 gap-y-4 lg:px-8 px-4 pb-1">
-        {new Array(13).fill("").map((_, idx) => (
+      <div className="grid grid-cols-1 grid-rows-6 gap-x-24 gap-y-4 px-4 pb-1 lg:grid-cols-2 lg:px-8">
+        {regions.map((el, idx) => (
           <div
             className={clsx(
-              "flex lg:gap-2 gap-3",
-              idx !== 13 - 2 && idx !== 13 - 1 && "border-b border-grayBg pb-3"
+              "flex gap-3 lg:gap-2",
+              idx !== regions.length - 2 &&
+                idx !== regions.length - 1 &&
+                "border-b border-grayBg pb-3"
             )}
             key={idx}
           >
-            <UsaFlag className="lg:h-7 lg:w-7 w-6 h-6" />
-            <span className="text-buttonBg">Argentina</span>
+            <UsaFlag className="h-6 w-6 lg:h-7 lg:w-7" />
+            <span className="text-buttonBg">{el.Name}</span>
             (14 Airports)
           </div>
         ))}

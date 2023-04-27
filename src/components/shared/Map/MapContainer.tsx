@@ -3,11 +3,11 @@ import type { LatLngExpression } from "leaflet";
 import L from "leaflet";
 import { useEffect, useState } from "react";
 import "leaflet/dist/leaflet.css";
-import type { AirportItem } from "~/src/server/api/routers/airport";
+import type { AirportItem } from "~/src/utils/types";
 import { Map } from "./Map";
 
 interface MapProps {
-  position: LatLngExpression;
+  position?: LatLngExpression;
   zoom?: number;
   airportsAround?: AirportItem[];
   setSelectedAirport?: (airport: AirportItem | null) => void;
@@ -38,7 +38,6 @@ const MapContainerElement = ({
     <MapContainer center={defaultPosition} zoom={zoom} scrollWheelZoom={false}>
       <Map
         airportsAround={airportsAround}
-        defaultPosition={defaultPosition}
         setSelectedAirport={setSelectedAirport}
         setPosition={setPosition}
         position={position}

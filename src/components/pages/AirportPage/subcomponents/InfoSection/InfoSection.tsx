@@ -7,13 +7,12 @@ import {
   CoordinatesIcon,
   FlagIcon,
   HashtagIcon,
-  PathIcon,
   PlaneIcon,
   PlaneImageSlider,
 } from "~/src/assets";
 import { Navigation } from "swiper";
 import "swiper/css";
-import type { AirportItem } from "~/src/server/api/routers/airport";
+import type { AirportItem } from "~/src/utils/types";
 import { convertCoordinates } from "~/src/utils/convertCoordinates";
 
 interface InfoSectionProps {
@@ -48,11 +47,11 @@ export const InfoSection = ({ airportInfo }: InfoSectionProps) => {
         airportInfo.CenterY
       )}, Longitude: ${convertCoordinates(airportInfo.CenterX, true)}`,
     },
-    {
-      //  Skip for now
-      icon: <PathIcon className="w-6" />,
-      text: "Runways:  Direction: 10/28, Length: 9845 x 148 ft",
-    },
+    // {
+    //   //  Skip for now
+    //   icon: <PathIcon className="w-6" />,
+    //   text: "Runways:  Direction: 10/28, Length: 9845 x 148 ft",
+    // },
   ];
   const [currentSlide, setCurrentSlide] = useState(0);
   const prevButton = useRef(null);

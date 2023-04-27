@@ -1,4 +1,4 @@
-import type { AirportItem } from "~/src/server/api/routers/airport";
+import type { AirportItem } from "~/src/utils/types";
 import { Footer } from "../../Footer/Footer";
 import { Header } from "../../Header";
 import { AirportsAroundSection } from "./subcomponents/AirportsAroundSection/AirportsAroundSection";
