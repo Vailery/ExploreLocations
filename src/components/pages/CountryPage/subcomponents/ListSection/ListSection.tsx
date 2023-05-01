@@ -6,6 +6,7 @@ import type { AirportItem as AirportType, RegionType } from "~/src/utils/types";
 import { AirportItem } from "../AirportItem";
 import { api } from "~/src/utils/api";
 import { Pagination } from "./Pagination";
+import { useRouter } from "next/router";
 
 interface ListSectionProps {
   airports: AirportType[];
@@ -63,6 +64,8 @@ export const ListSection = ({
 
   const [currentRow, setCurrentRow] = useState(0);
 
+  const router = useRouter();
+
   const { data, refetch } = api.airport.getAirportsSort.useQuery({
     type: sortOption.toLowerCase(),
     country: region.Country,
@@ -77,15 +80,22 @@ export const ListSection = ({
 
   useEffect(() => {
     if (data) {
+      // void router.push(
+      //   {
+      //     href: "/guide/[guides]",
+      //     query: { page: currentRow + 1, guides: region.Country },
+      //   },
+      //   undefined,
+      //   { shallow: true }
+      // );
       setAirports(data?.airports);
       setAirportsCount(Number(data?.count));
-      console.log();
     }
-  }, [data]);
+  }, [data, currentRow, router, region.Country]);
 
   useEffect(() => {
-    console.log(pagesOffset);
-  }, [pagesOffset, airportsCount]);
+    console.log(data?.airports.map((item) => item.id));
+  }, [data]);
 
   return (
     <section className="container">

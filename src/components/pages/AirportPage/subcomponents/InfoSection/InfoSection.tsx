@@ -21,32 +21,83 @@ interface InfoSectionProps {
 
 export const InfoSection = ({ airportInfo }: InfoSectionProps) => {
   const info = [
-    {
-      icon: <PlaneIcon className="w-6" />,
-      text: `Airport name:  ${airportInfo.Name}`,
-    },
-    {
-      icon: <CityIcon className="w-6" />,
-      text: `City:  ${airportInfo.City}`,
-    },
-    {
-      icon: <FlagIcon className="w-6 text-white" />,
-      text: `JosCountry: ${airportInfo.Country}`,
-    },
-    {
-      icon: <HashtagIcon className="w-6" />,
-      text: `IATA Code: ${airportInfo.IATA}`,
-    },
-    {
-      icon: <HashtagIcon className="w-6" />,
-      text: `ICAO Code: ${airportInfo.ICAO}`,
-    },
-    {
-      icon: <CoordinatesIcon className="w-6" />,
-      text: `Coordinates: Latitude: ${convertCoordinates(
-        airportInfo.CenterY
-      )}, Longitude: ${convertCoordinates(airportInfo.CenterX, true)}`,
-    },
+    airportInfo.Name ? (
+      <>
+        <div className="flex gap-2">
+          <PlaneIcon className="w-6" />
+          <p className="tracking-wider text-white">
+            Airport name: {airportInfo.Name}
+          </p>
+        </div>
+        <hr className="my-[0.87rem] w-full lg:my-[1.05rem]" />
+      </>
+    ) : (
+      <></>
+    ),
+    airportInfo.City ? (
+      <>
+        <div className="flex gap-2">
+          <CityIcon className="w-6" />
+          <p className="tracking-wider text-white">City: {airportInfo.City}</p>
+        </div>
+        <hr className="my-[0.87rem] w-full lg:my-[1.05rem]" />
+      </>
+    ) : (
+      <></>
+    ),
+    airportInfo.Country ? (
+      <>
+        <div className="flex gap-2">
+          <FlagIcon className="w-6 text-white" />
+          <p className="tracking-wider text-white">
+            JosCountry: {airportInfo.Country}
+          </p>
+        </div>
+        <hr className="my-[0.87rem] w-full lg:my-[1.05rem]" />
+      </>
+    ) : (
+      <></>
+    ),
+    airportInfo.IATA ? (
+      <>
+        <div className="flex gap-2">
+          <HashtagIcon className="w-6" />
+          <p className="tracking-wider text-white">
+            IATA Code: {airportInfo.IATA}
+          </p>
+        </div>
+        <hr className="my-[0.87rem] w-full lg:my-[1.05rem]" />
+      </>
+    ) : (
+      <></>
+    ),
+    airportInfo.ICAO ? (
+      <>
+        <div className="flex gap-2">
+          <HashtagIcon className="w-6" />
+          <p className="tracking-wider text-white">
+            ICAO Code: {airportInfo.ICAO}
+          </p>
+        </div>
+        <hr className="my-[0.87rem] w-full lg:my-[1.05rem]" />
+      </>
+    ) : (
+      <></>
+    ),
+    airportInfo.CenterX && airportInfo.CenterY ? (
+      <>
+        <div className="flex gap-2">
+          <CoordinatesIcon className="w-9" />
+          <p className="tracking-wider text-white">
+            Coordinates: Latitude: {convertCoordinates(airportInfo.CenterY)},
+            Longitude: ${convertCoordinates(airportInfo.CenterX, true)}
+          </p>
+        </div>
+        <hr className="my-[0.87rem] w-full lg:my-[1.05rem]" />
+      </>
+    ) : (
+      <></>
+    ),
     // {
     //   //  Skip for now
     //   icon: <PathIcon className="w-6" />,
@@ -81,13 +132,7 @@ export const InfoSection = ({ airportInfo }: InfoSectionProps) => {
         <div>
           {info.map((item, idx) => (
             <Fragment key={idx}>
-              <div className="flex gap-2">
-                {item.icon}
-                <p className="tracking-wider text-white">{item.text}</p>
-              </div>
-              {idx !== info.length - 1 && (
-                <hr className="my-[0.87rem] w-full lg:my-[1.05rem]" />
-              )}
+              {item}
             </Fragment>
           ))}
         </div>
