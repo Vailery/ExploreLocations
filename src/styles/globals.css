@@ -21,3 +21,10 @@
 .leaflet-container {
   @apply h-full w-full;
 }
+
+.dashed-border {
+  background-image: linear-gradient(to right, #EC3343 0%, #EC3343 40%, transparent 40%, transparent 100%);
+  background-position: bottom;
+  background-size: 13px auto ;
+  background-repeat: repeat-x;
+}
