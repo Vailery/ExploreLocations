@@ -12,7 +12,7 @@ export const MapSection = () => {
   );
 
   return (
-    <section className="container mb-6 rounded-md bg-white pt-4 shadow-md lg:mb-5">
+    <section className="container mb-3 lg:rounded-md bg-white pt-3 lg:pt-4 lg:shadow-md lg:mb-5">
       <h3 className="mb-2 px-3 text-lg font-bold tracking-wide lg:mb-7 lg:px-7 lg:text-3xl lg:tracking-wider">
         Bucharest to London Flight Duration & Distance
       </h3>

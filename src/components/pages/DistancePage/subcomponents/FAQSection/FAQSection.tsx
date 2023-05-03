@@ -2,7 +2,7 @@ import { FaqBlock } from "./FAQBlock";
 
 export const FAQSection = () => {
   return (
-    <section className="container mb-5">
+    <section className="container lg:mb-5 mb-4">
       <h3 className="mb-4 px-5 font-bold leading-8 tracking-wider lg:mb-6 lg:px-8 lg:text-3xl">
         FAQ about Airports in South America
       </h3>

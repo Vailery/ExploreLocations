@@ -45,17 +45,17 @@ export const AirportSection = () => {
     },
   };
   return (
-    <div className="rounded-md bg-white px-8 pt-11 pb-7">
-      <h2 className="mb-5 text-3xl font-bold tracking-wide">
+    <div className="rounded-md bg-white lg:px-8 px-3 pt-1 lg:pt-11 pb-4 lg:pb-7 lg:w-1/2 w-full">
+      <h2 className="lg:mb-5 mb-4 text-lg lg:text-3xl font-bold tracking-wide">
         Henry Coanda International Airport
       </h2>
-      <div className="mb-6 h-64 w-full">
+      <div className="lg:mb-6 lg:h-64 h-56 w-full">
         <ClientMap position={[2, 3]} zoom={14.5} />
       </div>
       {Object.values(airportData).map((el, idx) => (
         <div
           className={clsx(
-            "flex items-center gap-3 py-5",
+            "flex items-center gap-3 lg:py-5 py-[0.84rem]",
             Object.values(airportData).length !== idx + 1 &&
               "border-b border-grayText"
           )}
