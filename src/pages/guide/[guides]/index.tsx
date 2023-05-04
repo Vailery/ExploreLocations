@@ -27,6 +27,9 @@ const RegionsPage: NextPage<RegionsPageProps> = ({
 export default RegionsPage;
 // eslint-disable-next-line @typescript-eslint/require-await
 export const getServerSideProps: GetServerSideProps = async (context) => {
+
+  console.log('/////////// \n ///////////////////')
+
   const regionName =
     typeof context.params?.guides === "string" ?
     context.params.guides
@@ -36,31 +39,29 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const pageNumber = context.query?.page ? +context.query?.page : 1;
 
-  console.log(pageNumber, context.query?.page);
-
   const regions = await prisma.$queryRaw<RegionType[]>(
     Prisma.sql`SELECT "id", "Code", "Country", "CountryI2", "Name", "TypeLocal", "TypeEn", "Type", "Points", "Points2" FROM "AdminRegions" WHERE "Country" = ${regionName}`
   );
 
   const airports = await prisma.$queryRawUnsafe<
     AirportItem[]
-  >(`SELECT ST_X(a."Center"::geometry) as "CenterX", ST_Y(a."Center"::geometry) as "CenterY", a."Passengers", a."Name", a."Type", a."IATA", a."ICAO", a."City", a."Country" 
+  >(`SELECT ST_X(a."Center"::geometry) as "CenterX", ST_Y(a."Center"::geometry) as "CenterY", a."Passengers", a."Name", a."Type", a."IATA", a."ICAO", a."City", a."Country"
                FROM "Airports" a
-               INNER JOIN "AdminRegions" r 
+               INNER JOIN "AdminRegions" r
                ON ST_Intersects(a."Center", r."Geometry") and r."Country" = '${regionName}'
-               ORDER BY a."Passengers" LIMIT 10 OFFSET '${
+               ORDER BY a."Passengers" LIMIT 20 OFFSET '${
                  (pageNumber - 1) * 10
                }'`);
 
   const airportsCount = await prisma.$queryRaw<[{ count: bigint }]>(
     Prisma.sql`SELECT COUNT(*) FROM "Airports" a
-               INNER JOIN "AdminRegions" r 
+               INNER JOIN "AdminRegions" r
                ON ST_Intersects(a."Center", r."Geometry") and r."Country" = ${regionName}`
   );
 
   return {
     props: {
-      regions: regions,
+      regions,
       airports,
       airportsCount: Number(airportsCount[0].count),
     },

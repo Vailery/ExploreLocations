@@ -48,7 +48,7 @@ const sortOptions = [
   },
 ] as const;
 
-const paginationLimit = 10;
+const paginationLimit = 20;
 
 export const ListSection = ({
   region,
@@ -64,9 +64,12 @@ export const ListSection = ({
 
   const router = useRouter();
 
-  const [currentRow, setCurrentRow] = useState(
-    router.query.page ? +router.query.page - 1 : 0
-  );
+  const [currentRow, setCurrentRow] = useState(0);
+
+  useEffect(() => {
+    if (router.query.page) setCurrentRow(+router.query.page - 1);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const { data, refetch } = api.airport.getAirportsSort.useQuery(
     {
@@ -85,19 +88,20 @@ export const ListSection = ({
 
   useEffect(() => {
     if (data) {
-      // void router.push(
-      //   {
-      //     href: "/guide/[guides]",
-      //     query: { page: currentRow + 1, guides: region.Country },
-      //   },
-      //   undefined,
-      //   { shallow: true }
-      // );
-      alert()
       setAirports(data?.airports);
       setAirportsCount(Number(data?.count));
     }
-  }, [data, currentRow, router, region.Country]);
+  }, [data]);
+
+  useEffect(() => {
+    void refetch();
+    void router.push(
+      { pathname: router.pathname, query: { ...router.query, page: `${currentRow + 1}` } },
+      undefined,
+      { shallow: true }
+    );
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentRow]);
 
   return (
     <section className="container">
@@ -196,12 +200,6 @@ export const ListSection = ({
             pagesOffset={pagesOffset}
             currentRow={currentRow}
             setCurrentRow={setCurrentRow}
-            refetch={() => {
-              void refetch();
-
-              router.query.page = `${currentRow + 1}`;
-              void router.push(router, undefined, { shallow: true });
-            }}
           />
         )}
       </div>
