@@ -14,7 +14,14 @@ export const airportRouter = createTRPCRouter({
     }),
 
   getAirportsSort: publicProcedure
-    .input(z.object({ type: z.string(), country: z.string(), offset: z.number(), limit: z.number() }))
+    .input(
+      z.object({
+        type: z.string(),
+        country: z.string(),
+        offset: z.number(),
+        limit: z.number(),
+      })
+    )
     .query(async ({ ctx, input }) => {
       const filteredAirports = await ctx.prisma.$queryRawUnsafe<
         AirportItem[]

@@ -58,9 +58,9 @@ export const AirportItem = ({ data }: AirportItemProps) => {
               <MarkerIcon
                 className={clsx(
                   "h-6 w-5",
-                  data.Type === "International"
+                  data.Type.toLowerCase() === "international"
                     ? "text-redBg"
-                    : data.Type === "Domestic"
+                    : data.Type.toLowerCase() === "domestic"
                     ? "text-buttonBg"
                     : "text-grayColor"
                 )}

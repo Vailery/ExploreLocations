@@ -5,8 +5,8 @@ import { Listbox, Transition } from "@headlessui/react";
 import type { AirportItem as AirportType, RegionType } from "~/src/utils/types";
 import { AirportItem } from "../AirportItem";
 import { api } from "~/src/utils/api";
-import { Pagination } from "./Pagination";
 import { useRouter } from "next/router";
+import { Pagination } from "./Pagination";
 
 interface ListSectionProps {
   airports: AirportType[];
@@ -62,16 +62,21 @@ export const ListSection = ({
   const [airports, setAirports] = useState(defaultAirports);
   const [airportsCount, setAirportsCount] = useState(defaultAirportsCount);
 
-  const [currentRow, setCurrentRow] = useState(0);
-
   const router = useRouter();
 
-  const { data, refetch } = api.airport.getAirportsSort.useQuery({
-    type: sortOption.toLowerCase(),
-    country: region.Country,
-    offset: currentRow * paginationLimit,
-    limit: paginationLimit,
-  });
+  const [currentRow, setCurrentRow] = useState(
+    router.query.page ? +router.query.page - 1 : 0
+  );
+
+  const { data, refetch } = api.airport.getAirportsSort.useQuery(
+    {
+      type: sortOption.toLowerCase(),
+      country: region.Country,
+      offset: currentRow * paginationLimit,
+      limit: paginationLimit,
+    },
+    { enabled: false }
+  );
 
   const pagesOffset = useMemo(
     () => Math.round(airportsCount / paginationLimit),
@@ -88,14 +93,11 @@ export const ListSection = ({
       //   undefined,
       //   { shallow: true }
       // );
+      alert()
       setAirports(data?.airports);
       setAirportsCount(Number(data?.count));
     }
   }, [data, currentRow, router, region.Country]);
-
-  useEffect(() => {
-    console.log(data?.airports.map((item) => item.id));
-  }, [data]);
 
   return (
     <section className="container">
@@ -189,13 +191,17 @@ export const ListSection = ({
           <AirportItem key={idx} data={el} />
         ))}
 
-        {/* Pagination section */}
         {pagesOffset > 1 && (
           <Pagination
             pagesOffset={pagesOffset}
             currentRow={currentRow}
             setCurrentRow={setCurrentRow}
-            refetch={() => void refetch()}
+            refetch={() => {
+              void refetch();
+
+              router.query.page = `${currentRow + 1}`;
+              void router.push(router, undefined, { shallow: true });
+            }}
           />
         )}
       </div>
