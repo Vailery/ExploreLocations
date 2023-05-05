@@ -5,11 +5,10 @@ import { useState } from "react";
 interface FaqBlockProps {
   title: string;
   text?: ReactNode;
-  key?: number;
 }
 
-export const FaqBlock = ({ title, text, key }: FaqBlockProps) => {
-  const [isExpanded, setIsExpanded] = useState(key === 0);
+export const FaqBlock = ({ title, text }: FaqBlockProps) => {
+  const [isExpanded, setIsExpanded] = useState(false);
 
   return (
     <div

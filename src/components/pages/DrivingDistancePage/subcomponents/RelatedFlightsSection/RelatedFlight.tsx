@@ -18,7 +18,7 @@ export const RelatedFlight = () => {
         </div>
       ))}
       <button className="mt-3 w-full rounded-md bg-buttonBg py-3 text-lg text-white">
-        All Flying Distances from Bucharest
+        All London Driving Distances
       </button>
     </div>
   );

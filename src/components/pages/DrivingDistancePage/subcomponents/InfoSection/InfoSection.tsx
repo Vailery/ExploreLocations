@@ -31,16 +31,16 @@ export const InfoSection = () => {
           , in United States. Playa del Carmen is located on the following
           coordinates: 20.6274, -87.0799 , in Mexico.
         </div>
-        <div className="mb-[19.8rem] leading-8 tracking-wider">
+        <div className="mb-8 lg:mb-[19.8rem] leading-8 tracking-wider">
           San Antonio and Playa del Carmen are located in different countries,
           so consider the time spent at the border crossing.
         </div>
-        <h3 className="mb-10 text-xl font-bold">
+        <h3 className="mb-10 lg:text-xl font-bold">
           Estimated Driving Time Between San Antonio and Playa del Carmen
         </h3>
         <div className="grid grid-cols-2 gap-y-[1.6rem]">
-          <span className="font-bold mb-6">Average Speed</span>
-          <span className="font-bold">Driving Time</span>
+          <span className="font-bold mb-6 lg:block hidden">Average Speed</span>
+          <span className="font-bold lg:block hidden">Driving Time</span>
           {new Array(7).fill(0).map((_, idx) => (
             <Fragment key={idx}>
               <span className="pb-2 border-b border-grayText">30 mph (48 km/h)</span>
@@ -51,7 +51,7 @@ export const InfoSection = () => {
       </div>
       <div className="mx-3 h-fit rounded-md bg-white lg:mx-0">
         <h3 className="rounded-[0.375rem_0.375rem_0_0] bg-redBg px-6 py-4 text-xl font-bold text-white lg:px-8 lg:py-5">
-          Flight Distance
+          Driving Distance
         </h3>
         <div className="px-8 pb-5 pt-7 text-lg lg:pb-7">
           <p className="">Search by point of interest name.</p>
