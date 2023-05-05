@@ -11,7 +11,7 @@ export const AllAirportsSection = ({
   country,
   airportsInCountry,
 }: AllAirportsSectionProps) => {
-  return country && (
+  return country ? (
     <section className="container mb-7 bg-white px-3 pb-5 pt-2 lg:mb-5 lg:rounded-md lg:px-7 lg:pb-7 lg:pt-6">
       <h3 className="mb-5 text-xl font-bold tracking-tight lg:mb-10 lg:text-3xl lg:tracking-wider">
         Airports in {country}
@@ -46,5 +46,7 @@ export const AllAirportsSection = ({
         </button>
       </div>
     </section>
+  ) : (
+    <></>
   );
 };
