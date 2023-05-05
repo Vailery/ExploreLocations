@@ -1,8 +1,9 @@
 import type Chain from "stream-chain";
 import { type Readable } from "stream";
-import { Parser, type PrismaTransactionClient } from "./Parser";
+import { type PrismaTransactionClient } from "./Parser";
+import { StreamParser } from "./StreamParser";
 
-export abstract class PipelineParser extends Parser {
+export abstract class PipelineParser extends StreamParser {
   async save(
     stream: Readable,
     transactionClient: PrismaTransactionClient
@@ -10,7 +11,6 @@ export abstract class PipelineParser extends Parser {
     await new Promise<void>((resolve, reject) => {
       const promises: Promise<void>[] = [];
 
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       const pipeline = this.buildChain(stream);
 
       const maxConcurent = 100;

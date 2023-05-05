@@ -32,6 +32,11 @@ model Airports {
     Center                      Unsupported("geography(Point, 4326)")
 
     Name                        String
+
+    IntroEn                     String
+    SeoTitleEn                  String
+    SeoDescriptionEn            String
+
     Type                        TypeOfAirport
     AltName                     String?
     IATA                        String?                                         //@unique
@@ -88,6 +93,60 @@ model AdminRegions {
     @@index([Center], name: "admin_regions_center_point_idx", type: Gist)
 }
 
+model Districts {
+    id          Int                                         @id @default(autoincrement())
+
+    Geometry    Unsupported("geography(MultiPolygon, 4326)")
+    Center      Unsupported("geography(Point, 4326)")
+
+    Code        String
+    Country     String
+    CountryID   Int
+    ParentADM   String
+    Name        String
+    TypeLocal   String
+    TypeEn      String
+    Type        String
+
+    @@index([Geometry], name: "districts_geometry_idx", type: Gist)
+    @@index([Center], name: "districts_center_point_idx", type: Gist)
+}
+
+model Municipalities{
+    id          Int                                         @id @default(autoincrement())
+
+    Geometry    Unsupported("geography(MultiPolygon, 4326)")
+    Center      Unsupported("geography(Point, 4326)")
+
+    Code        String
+    Country     String
+    CountryID   Int
+    ParentADM   String
+    ParentDIS   String
+    Name        String
+    TypeLocal   String
+    Type        String
+
+    @@index([Geometry], name: "municipalities_geometry_idx", type: Gist)
+    @@index([Center], name: "municipalities_center_point_idx", type: Gist)
+}
+
+model Cities {
+    id          Int                                     @id @default(autoincrement())
+
+    Geometry    Unsupported("geography(Point, 4326)")
+
+    Name        String
+    Type        String
+    NameAlt     String
+    Country     String
+    ISO2        String
+    ISO3        String
+    ParentADM   String
+    Capital     String
+    Population  String
+}
+
 model FlyingRoutes {
     id                          Int                                     @id @default(autoincrement())
 
@@ -111,7 +170,8 @@ model FlyingRoutes {
     OriginIata                  String
     OriginIcao                  String
 
-    OriginGpsCoordinates        Unsupported("geography(Point, 4326)")
+    OriginGpsCoordinates        String
+    OriginCoordinates           Unsupported("geography(Point, 4326)")
 
     DestinationAirportName      String
     DestinationAirportId        String?
@@ -122,18 +182,59 @@ model FlyingRoutes {
     DestinationIata             String
     DestinationIcao             String
 
-    DestinationGpsCoordinates   Unsupported("geography(Point, 4326)")
+    DestinationGpsCoordinates   String
+    DestinationCoordinates      Unsupported("geography(Point, 4326)")
 
     Airlines                    String[]
 
-    @@index([OriginGpsCoordinates], name: "flying_routes_origin_gps_сoordinate_idx", type: Gist)
-    @@index([DestinationGpsCoordinates], name: "flying_routes_destination_gps_сoordinate_idx", type: Gist)
+    @@index([OriginCoordinates], name: "flying_routes_origin_сoordinate_idx", type: Gist)
+    @@index([DestinationCoordinates], name: "flying_routes_destination_сoordinate_idx", type: Gist)
+}
+
+model DrivingRoutes {
+    id                              Int                                 @id @default(autoincrement())
+
+    TitleEn                         String
+    DistanceKm                      Int
+    DistanceMiles                   Int
+    DrivingTime                     Int?
+    FlightDistance                  Int
+    FlightDistanceMiles             Int
+
+    RegionFromCoordinates           Unsupported("geography(Point, 4326)")
+
+    RegionFromCoordinatesOriginal   String
+
+    RegionToCoordinates             Unsupported("geography(Point, 4326)")
+
+    RegionToCoordinatesOriginal     String
+
+    RegionFromCityName              String
+    RegionFromCityId                String?
+    CountryFromName                 String
+    CountryFromId                   String?
+    RegionToCityName                String
+    RegionToCityId                  String?
+    CountryToName                   String
+    CountryToId                     String?
+    MNI                             Boolean
+    SeoDemandEn                     Int?
+    MetaTitleEn                     String?
+    MetaDescriptionEn               String?
+    IntroEn                         String?
+    ContentEn                       String?
+    FaqQ1En                         String?
+    FaqA1En                         String?
+    FaqQ2En                         String?
+    FaqA2En                         String?
+
+    @@index([RegionFromCoordinates], name: "driving_routes_region_from_сoordinates_idx", type: Gist)
+    @@index([RegionToCoordinates], name: "driving_routes_region_to_сoordinates_idx", type: Gist)
 }
 
 
 
 // Remove if unnecessary
-
 model Example {
     id        String   @id @default(cuid())
     createdAt DateTime @default(now())
