@@ -17,7 +17,6 @@ export class AdminRegionParser extends GeoJsonParser<AdminReginGeoJsonProperties
     geoJson: string,
     transactionClient: PrismaTransactionClient
   ): Promise<void> {
-    console.log(element);
     await transactionClient.$executeRaw`INSERT INTO "AdminRegions"
         ("id", "Geometry", "Center", "Code", "Country", "CountryI2", "Name", "TypeLocal", "TypeEn", "Type", "Points", "Points2")
         VALUES

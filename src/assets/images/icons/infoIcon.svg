@@ -1,4 +1,4 @@
-<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg  viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g clip-path="url(#clip0_83_61)">
 <path fill-rule="evenodd" clip-rule="evenodd" d="M16 8C16 12.42 12.42 16 8 16C3.58 16 0 12.42 0 8C0 3.58 3.58 0 8 0C12.42 0 16 3.58 16 8ZM6.8 12C6.8 12.664 7.336 13.2 8 13.2C8.664 13.2 9.2 12.664 9.2 12V7.2C9.2 6.536 8.664 6 8 6C7.336 6 6.8 6.536 6.8 7.2V12ZM8 5.2C7.336 5.2 6.8 4.664 6.8 4C6.8 3.336 7.336 2.8 8 2.8C8.664 2.8 9.2 3.336 9.2 4C9.2 4.664 8.664 5.2 8 5.2Z" fill="currentColor"/>
 </g>
