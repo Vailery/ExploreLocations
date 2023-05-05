@@ -1,4 +1,5 @@
 export interface AirportItem {
+  id: number;
   Name: string;
   Type: AirportType;
   IATA: string;
@@ -12,7 +13,7 @@ export interface AirportItem {
 }
 
 export interface RegionType {
-  id: 6568;
+  id: number;
   Code: string;
   Country: string;
   CountryI2: number;

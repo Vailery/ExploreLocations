@@ -5,6 +5,7 @@ import { Listbox, Transition } from "@headlessui/react";
 import type { AirportItem as AirportType, RegionType } from "~/src/utils/types";
 import { AirportItem } from "../AirportItem";
 import { api } from "~/src/utils/api";
+import { useRouter } from "next/router";
 import { Pagination } from "./Pagination";
 
 interface ListSectionProps {
@@ -47,7 +48,7 @@ const sortOptions = [
   },
 ] as const;
 
-const paginationLimit = 10;
+const paginationLimit = 20;
 
 export const ListSection = ({
   region,
@@ -61,14 +62,24 @@ export const ListSection = ({
   const [airports, setAirports] = useState(defaultAirports);
   const [airportsCount, setAirportsCount] = useState(defaultAirportsCount);
 
+  const router = useRouter();
+
   const [currentRow, setCurrentRow] = useState(0);
 
-  const { data, refetch } = api.airport.getAirportsSort.useQuery({
-    type: sortOption.toLowerCase(),
-    country: region.Country,
-    offset: currentRow * paginationLimit,
-    limit: paginationLimit,
-  });
+  useEffect(() => {
+    if (router.query.page) setCurrentRow(+router.query.page - 1);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const { data, refetch } = api.airport.getAirportsSort.useQuery(
+    {
+      type: sortOption.toLowerCase(),
+      country: region.Country,
+      offset: currentRow * paginationLimit,
+      limit: paginationLimit,
+    },
+    { enabled: false }
+  );
 
   const pagesOffset = useMemo(
     () => Math.round(airportsCount / paginationLimit),
@@ -79,13 +90,18 @@ export const ListSection = ({
     if (data) {
       setAirports(data?.airports);
       setAirportsCount(Number(data?.count));
-      console.log();
     }
   }, [data]);
 
   useEffect(() => {
-    console.log(pagesOffset);
-  }, [pagesOffset, airportsCount]);
+    void refetch();
+    void router.push(
+      { pathname: router.pathname, query: { ...router.query, page: `${currentRow + 1}` } },
+      undefined,
+      { shallow: true }
+    );
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentRow]);
 
   return (
     <section className="container">
@@ -179,13 +195,11 @@ export const ListSection = ({
           <AirportItem key={idx} data={el} />
         ))}
 
-        {/* Pagination section */}
         {pagesOffset > 1 && (
           <Pagination
             pagesOffset={pagesOffset}
             currentRow={currentRow}
             setCurrentRow={setCurrentRow}
-            refetch={() => void refetch()}
           />
         )}
       </div>

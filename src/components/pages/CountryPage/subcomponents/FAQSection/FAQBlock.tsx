@@ -8,8 +8,8 @@ interface FaqBlockProps {
   key?: number;
 }
 
-export const FaqBlock = ({ title, text, key }: FaqBlockProps) => {
-  const [isExpanded, setIsExpanded] = useState(key === 0);
+export const FaqBlock = ({ title, text }: FaqBlockProps) => {
+  const [isExpanded, setIsExpanded] = useState(false);
 
   return (
     <div

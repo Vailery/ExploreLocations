@@ -15,8 +15,12 @@ export const RouterSection = ({ city, country, name }: RouterSectionProps) => {
       <div className="flex gap-4 text-sm text-grayColor">
         {route.map((item, index) => (
           <Fragment key={index}>
-            <div> / </div>
-            {item}
+            {item && (
+              <>
+                <div> / </div>
+                {item}
+              </>
+            )}
           </Fragment>
         ))}
       </div>

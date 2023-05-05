@@ -14,17 +14,26 @@ export const airportRouter = createTRPCRouter({
     }),
 
   getAirportsSort: publicProcedure
-    .input(z.object({ type: z.string(), country: z.string(), offset: z.number(), limit: z.number() }))
+    .input(
+      z.object({
+        type: z.string(),
+        country: z.string(),
+        offset: z.number(),
+        limit: z.number(),
+      })
+    )
     .query(async ({ ctx, input }) => {
       const filteredAirports = await ctx.prisma.$queryRawUnsafe<
         AirportItem[]
-      >(`SELECT ST_X(a."Center"::geometry) as "CenterX", ST_Y(a."Center"::geometry) as "CenterY", a."Passengers", a."Name", a."Type", a."IATA", a."ICAO", a."City", a."Country"
+      >(`SELECT ST_X(a."Center"::geometry) as "CenterX", ST_Y(a."Center"::geometry) as "CenterY", a."id", a."Passengers", a."Name", a."Type", a."IATA", a."ICAO", a."City", a."Country"
         FROM "Airports" a
         INNER JOIN "AdminRegions" r
         ON ST_Intersects(a."Center", r."Geometry") and r."Country" = '${
           input.country
         }'${input.type !== "all" ? ` and a."Type" = '${input.type}'` : ""}
-        ORDER BY a."Passengers" LIMIT '${input.limit}' OFFSET '${input.offset}'`);
+        ORDER BY a."Passengers" LIMIT '${input.limit}' OFFSET '${
+        input.offset
+      }'`);
 
       const airportsCount = await ctx.prisma.$queryRawUnsafe<
         [{ count: bigint }]

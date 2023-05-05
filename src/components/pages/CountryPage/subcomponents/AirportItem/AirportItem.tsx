@@ -29,15 +29,19 @@ export const AirportItem = ({ data }: AirportItemProps) => {
           className="h-32 min-w-full lg:min-w-[19.5rem]"
         />
         <div>
-          <div className="mb-3 flex w-full flex-wrap justify-between" onClick={() => {
-            void router.push(`/airports/${data.Name.replaceAll(" ", "-").toLowerCase()}`);
-          }}>
+          <div
+            className="mb-3 flex w-full flex-wrap justify-between"
+            onClick={() => {
+              void router.push(
+                `/airports/${data.Name.replaceAll(" ", "-").toLowerCase()}`
+              );
+            }}
+          >
             <h3 className="flex text-2xl font-bold">
               <MarkerIcon className={"h-10 w-10 text-redBg"} />
               {data.Name}
             </h3>
             <div className="ml-8 flex gap-2 lg:ml-0">
-              <UsaFlag className="h-7" />
               <UsaFlag className="h-7" />
             </div>
           </div>
@@ -54,23 +58,27 @@ export const AirportItem = ({ data }: AirportItemProps) => {
               <MarkerIcon
                 className={clsx(
                   "h-6 w-5",
-                  data.Type === "International"
+                  data.Type.toLowerCase() === "international"
                     ? "text-redBg"
-                    : data.Type === "Domestic"
+                    : data.Type.toLowerCase() === "domestic"
                     ? "text-buttonBg"
                     : "text-grayColor"
                 )}
               />
               {data.Type}
             </div>
-            <div className="flex items-center gap-3 border-b border-grayText text-lg lg:border-0">
-              <IATAIcon />
-              {data.IATA}
-            </div>
-            <div className="flex items-center gap-3 text-lg">
-              <PassengersIcon />
-              {data.Passengers}
-            </div>
+            {data.IATA && (
+              <div className="flex items-center gap-3 border-b border-grayText text-lg lg:border-0">
+                <IATAIcon />
+                {data.IATA}
+              </div>
+            )}
+            {data.Passengers && (
+              <div className="flex items-center gap-3 text-lg">
+                <PassengersIcon />
+                {data.Passengers}
+              </div>
+            )}
           </div>
         </div>
       </div>
