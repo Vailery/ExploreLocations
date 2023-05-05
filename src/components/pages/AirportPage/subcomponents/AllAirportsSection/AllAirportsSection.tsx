@@ -19,7 +19,7 @@ export const AllAirportsSection = ({
       <div className="mb-7 grid grid-cols-1 gap-10 pr-12 lg:mb-10 lg:grid-cols-3">
         {airportsInCountry.map((el, index) => (
           <Fragment key={index}>
-            {el.Type === "international" && (
+            {el.Type === "International" && (
               <div className="flex flex-col text-lg text-buttonBg" key={index}>
                 <p className="border-b border-grayBg pb-5 pt-3 lg:pt-0">
                   Airport name: {el.Name}
