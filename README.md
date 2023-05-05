@@ -1,6 +1,6 @@
 # Database setup
 
-After you have been granted access to aws (root user should add you to dev group), you need to setup aws sso authorization, also you need to set database url from `.env.example` file (for deploy to Versel you need tokens `AWS_ACCESS_KEY`, `AWS_SECRET_KEY`).
+After you have been granted access to aws (root user should add you to dev group), you need to setup aws sso authorization, also you need to set database url from `.env.example` file (for deploy to Versel you need tokens `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`).
 
 ## AWS SSO AUTHORIZATION
 

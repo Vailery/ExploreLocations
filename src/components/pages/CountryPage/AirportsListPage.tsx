@@ -15,7 +15,11 @@ interface CountryPageProps {
   airportsCount: number;
 }
 
-export const CountryPage = ({ regions, airports, airportsCount }: CountryPageProps) => {
+export const CountryPage = ({
+  regions,
+  airports,
+  airportsCount,
+}: CountryPageProps) => {
   return (
     <>
       <Header />

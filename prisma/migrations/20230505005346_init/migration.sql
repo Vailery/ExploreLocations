@@ -1,7 +1,7 @@
 CREATE EXTENSION IF NOT EXISTS postgis;
 
 -- CreateEnum
-CREATE TYPE "Type_Of_Airport" AS ENUM ('domestic', 'local', 'international');
+CREATE TYPE "TypeOfAirport" AS ENUM ('domestic', 'local', 'international');
 
 -- CreateEnum
 CREATE TYPE "FlyingRouteType" AS ENUM ('Local', 'International');
@@ -12,7 +12,10 @@ CREATE TABLE "Airports" (
     "Geometry" geography(MultiPolygon, 4326) NOT NULL,
     "Center" geography(Point, 4326) NOT NULL,
     "Name" TEXT NOT NULL,
-    "Type" "Type_Of_Airport" NOT NULL,
+    "IntroEn" TEXT NOT NULL,
+    "SeoTitleEn" TEXT NOT NULL,
+    "SeoDescriptionEn" TEXT NOT NULL,
+    "Type" "TypeOfAirport" NOT NULL,
     "AltName" TEXT,
     "IATA" TEXT,
     "ICAO" TEXT,
@@ -65,6 +68,57 @@ CREATE TABLE "AdminRegions" (
 );
 
 -- CreateTable
+CREATE TABLE "Districts" (
+    "id" SERIAL NOT NULL,
+    "Geometry" geography(MultiPolygon, 4326) NOT NULL,
+    "Center" geography(Point, 4326) NOT NULL,
+    "Code" TEXT NOT NULL,
+    "Country" TEXT NOT NULL,
+    "CountryID" INTEGER NOT NULL,
+    "ParentADM" TEXT NOT NULL,
+    "Name" TEXT NOT NULL,
+    "TypeLocal" TEXT NOT NULL,
+    "TypeEn" TEXT NOT NULL,
+    "Type" TEXT NOT NULL,
+
+    CONSTRAINT "Districts_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Municipalities" (
+    "id" SERIAL NOT NULL,
+    "Geometry" geography(MultiPolygon, 4326) NOT NULL,
+    "Center" geography(Point, 4326) NOT NULL,
+    "Code" TEXT NOT NULL,
+    "Country" TEXT NOT NULL,
+    "CountryID" INTEGER NOT NULL,
+    "ParentADM" TEXT NOT NULL,
+    "ParentDIS" TEXT NOT NULL,
+    "Name" TEXT NOT NULL,
+    "TypeLocal" TEXT NOT NULL,
+    "Type" TEXT NOT NULL,
+
+    CONSTRAINT "Municipalities_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Cities" (
+    "id" SERIAL NOT NULL,
+    "Geometry" geography(Point, 4326) NOT NULL,
+    "Name" TEXT NOT NULL,
+    "Type" TEXT NOT NULL,
+    "NameAlt" TEXT NOT NULL,
+    "Country" TEXT NOT NULL,
+    "ISO2" TEXT NOT NULL,
+    "ISO3" TEXT NOT NULL,
+    "ParentADM" TEXT NOT NULL,
+    "Capital" TEXT NOT NULL,
+    "Population" TEXT NOT NULL,
+
+    CONSTRAINT "Cities_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "FlyingRoutes" (
     "id" SERIAL NOT NULL,
     "RouteIata" TEXT NOT NULL,
@@ -85,7 +139,8 @@ CREATE TABLE "FlyingRoutes" (
     "OriginCountryId" TEXT,
     "OriginIata" TEXT NOT NULL,
     "OriginIcao" TEXT NOT NULL,
-    "OriginGpsCoordinates" geography(Point, 4326) NOT NULL,
+    "OriginGpsCoordinates" TEXT NOT NULL,
+    "OriginCoordinates" geography(Point, 4326) NOT NULL,
     "DestinationAirportName" TEXT NOT NULL,
     "DestinationAirportId" TEXT,
     "DestinationCityName" TEXT NOT NULL,
@@ -94,10 +149,46 @@ CREATE TABLE "FlyingRoutes" (
     "DestinationCountryId" TEXT,
     "DestinationIata" TEXT NOT NULL,
     "DestinationIcao" TEXT NOT NULL,
-    "DestinationGpsCoordinates" geography(Point, 4326) NOT NULL,
+    "DestinationGpsCoordinates" TEXT NOT NULL,
+    "DestinationCoordinates" geography(Point, 4326) NOT NULL,
     "Airlines" TEXT[],
 
     CONSTRAINT "FlyingRoutes_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "DrivingRoutes" (
+    "id" SERIAL NOT NULL,
+    "TitleEn" TEXT NOT NULL,
+    "DistanceKm" INTEGER NOT NULL,
+    "DistanceMiles" INTEGER NOT NULL,
+    "DrivingTime" INTEGER,
+    "FlightDistance" INTEGER NOT NULL,
+    "FlightDistanceMiles" INTEGER NOT NULL,
+    "RegionFromCoordinates" geography(Point, 4326) NOT NULL,
+    "RegionFromCoordinatesOriginal" TEXT NOT NULL,
+    "RegionToCoordinates" geography(Point, 4326) NOT NULL,
+    "RegionToCoordinatesOriginal" TEXT NOT NULL,
+    "RegionFromCityName" TEXT NOT NULL,
+    "RegionFromCityId" TEXT,
+    "CountryFromName" TEXT NOT NULL,
+    "CountryFromId" TEXT,
+    "RegionToCityName" TEXT NOT NULL,
+    "RegionToCityId" TEXT,
+    "CountryToName" TEXT NOT NULL,
+    "CountryToId" TEXT,
+    "MNI" BOOLEAN NOT NULL,
+    "SeoDemandEn" INTEGER,
+    "MetaTitleEn" TEXT,
+    "MetaDescriptionEn" TEXT,
+    "IntroEn" TEXT,
+    "ContentEn" TEXT,
+    "FaqQ1En" TEXT,
+    "FaqA1En" TEXT,
+    "FaqQ2En" TEXT,
+    "FaqA2En" TEXT,
+
+    CONSTRAINT "DrivingRoutes_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -156,9 +247,6 @@ CREATE TABLE "VerificationToken" (
 );
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Airports_IATA_key" ON "Airports"("IATA");
-
--- CreateIndex
 CREATE INDEX "airports_geometry_idx" ON "Airports" USING GIST ("Geometry");
 
 -- CreateIndex
@@ -174,10 +262,28 @@ CREATE INDEX "admin_regions_geometry_idx" ON "AdminRegions" USING GIST ("Geometr
 CREATE INDEX "admin_regions_center_point_idx" ON "AdminRegions" USING GIST ("Center");
 
 -- CreateIndex
-CREATE INDEX "flying_routes_origin_gps_сoordinate_idx" ON "FlyingRoutes" USING GIST ("OriginGpsCoordinates");
+CREATE INDEX "districts_geometry_idx" ON "Districts" USING GIST ("Geometry");
 
 -- CreateIndex
-CREATE INDEX "flying_routes_destination_gps_сoordinate_idx" ON "FlyingRoutes" USING GIST ("DestinationGpsCoordinates");
+CREATE INDEX "districts_center_point_idx" ON "Districts" USING GIST ("Center");
+
+-- CreateIndex
+CREATE INDEX "municipalities_geometry_idx" ON "Municipalities" USING GIST ("Geometry");
+
+-- CreateIndex
+CREATE INDEX "municipalities_center_point_idx" ON "Municipalities" USING GIST ("Center");
+
+-- CreateIndex
+CREATE INDEX "flying_routes_origin_сoordinate_idx" ON "FlyingRoutes" USING GIST ("OriginCoordinates");
+
+-- CreateIndex
+CREATE INDEX "flying_routes_destination_сoordinate_idx" ON "FlyingRoutes" USING GIST ("DestinationCoordinates");
+
+-- CreateIndex
+CREATE INDEX "driving_routes_region_from_сoordinates_idx" ON "DrivingRoutes" USING GIST ("RegionFromCoordinates");
+
+-- CreateIndex
+CREATE INDEX "driving_routes_region_to_сoordinates_idx" ON "DrivingRoutes" USING GIST ("RegionToCoordinates");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Account_provider_providerAccountId_key" ON "Account"("provider", "providerAccountId");
