@@ -5,7 +5,6 @@ import { useState } from "react";
 interface FaqBlockProps {
   title: string;
   text?: ReactNode;
-  key?: number;
 }
 
 export const FaqBlock = ({ title, text }: FaqBlockProps) => {

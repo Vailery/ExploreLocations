@@ -3,7 +3,7 @@ import { Footer } from "../../Footer";
 import { Header } from "../../Header";
 import { AirportsByCountrySection } from "./subcomponents/AirportsByCountrySection";
 import { DescriptionSection } from "./subcomponents/DescriptionSection";
-import { FAQSection } from "./subcomponents/FAQSection";
+import { FAQSection } from "../../shared/FAQSection";
 import { ListSection } from "./subcomponents/ListSection";
 import { MapSection } from "./subcomponents/MapSection";
 import { MoreSection } from "./subcomponents/MoreSection";

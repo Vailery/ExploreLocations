@@ -18,5 +18,10 @@ export { default as IATAIcon } from "./iataIcon.svg";
 export { default as DirectionIcon } from "./directionIcon.svg";
 export { default as PassengersIcon } from "./passengersIcon.svg";
 export { default as AirportsIcon } from "./airportsIcon.svg";
+export { default as CityColoredIcon } from "./cityColoredIcon.svg";
+export { default as ClockIcon } from "./clockIcon.svg";
+export { default as CarMarkerIcon } from "./carMarker.svg";
+export { default as MuseumMarkerIcon } from "./museumMarker.svg";
+export { default as ArrowRightIcon } from "./arrowRightIcon.svg";
 
 export * from "./languages";
