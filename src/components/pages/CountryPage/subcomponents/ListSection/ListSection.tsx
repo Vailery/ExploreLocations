@@ -68,7 +68,7 @@ export const ListSection = ({
 
   useEffect(() => {
     if (router.query.page) setCurrentRow(+router.query.page - 1);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const { data, refetch } = api.airport.getAirportsSort.useQuery(
@@ -82,7 +82,7 @@ export const ListSection = ({
   );
 
   const pagesOffset = useMemo(
-    () => Math.round(airportsCount / paginationLimit),
+    () => Math.floor(airportsCount / paginationLimit + 1),
     [airportsCount]
   );
 
@@ -96,12 +96,30 @@ export const ListSection = ({
   useEffect(() => {
     void refetch();
     void router.push(
-      { pathname: router.pathname, query: { ...router.query, page: `${currentRow + 1}` } },
+      {
+        pathname: router.pathname,
+        query: { ...router.query, page: `${currentRow + 1}` },
+      },
       undefined,
       { shallow: true }
     );
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentRow]);
+
+  useEffect(() => {
+    void refetch();
+    void router.replace(
+      {
+        pathname: router.pathname,
+        query: { ...router.query, page: "1" },
+      },
+      undefined,
+      { shallow: true }
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sortOption]);
+
+  console.log(pagesOffset);
 
   return (
     <section className="container">
@@ -155,7 +173,7 @@ export const ListSection = ({
                         sortOption === option.value && "font-bold"
                       )}
                       value={option.value}
-                      onClick={() => void refetch()}
+                      onClick={() => setSortOption(option.value)}
                     >
                       {sortOption === option.value && (
                         <div className="absolute bottom-0 left-0 h-full w-[0.3rem] rounded-[0_0.3rem_0.3rem_0] bg-redBg" />
@@ -173,7 +191,6 @@ export const ListSection = ({
               <button
                 onClick={() => {
                   setSortOption(option.value);
-                  void refetch();
                 }}
                 key={index}
                 className={clsx(

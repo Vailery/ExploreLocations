@@ -38,7 +38,16 @@ export const AirportItem = ({ data }: AirportItemProps) => {
             }}
           >
             <h3 className="flex text-2xl font-bold">
-              <MarkerIcon className={"h-10 w-10 text-redBg"} />
+              <MarkerIcon
+                className={clsx(
+                  "h-10 w-10 ",
+                  data.Type.toLowerCase() === "international"
+                    ? "text-redBg"
+                    : data.Type.toLowerCase() === "domestic"
+                    ? "text-buttonBg"
+                    : "text-grayColor"
+                )}
+              />
               {data.Name}
             </h3>
             <div className="ml-8 flex gap-2 lg:ml-0">
