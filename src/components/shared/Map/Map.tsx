@@ -92,14 +92,14 @@ export const Map = ({
               position={[airport.CenterY, airport.CenterX]}
               icon={
                 airport === selectedAirport
-                  ? airport.Type === "International"
+                  ? airport.Type.toLowerCase() === "international"
                     ? internationalSelectedIcon
-                    : airport.Type === "Domestic"
+                    : airport.Type.toLowerCase() === "domestic"
                     ? domesticSelectedIcon
                     : localSelectedIcon
-                  : airport.Type === "International"
+                  : airport.Type.toLowerCase() === "international"
                   ? internationalIcon
-                  : airport.Type === "Domestic"
+                  : airport.Type.toLowerCase() === "domestic"
                   ? domesticIcon
                   : localIcon
               }
