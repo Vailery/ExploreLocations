@@ -1,6 +1,6 @@
 import { Footer } from "../../Footer";
 import { Header } from "../../Header";
-import { FAQSection } from "./subcomponents/FAQSection";
+import { FAQSection } from "../../shared/FAQSection";
 import { DescriptionSection } from "./subcomponents/DescriptionSection";
 import { InfoSection } from "./subcomponents/InfoSection";
 import { MapSection } from "./subcomponents/MapSection";

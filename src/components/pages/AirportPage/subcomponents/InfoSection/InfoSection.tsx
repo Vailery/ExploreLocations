@@ -26,7 +26,7 @@ export const InfoSection = ({ airportInfo }: InfoSectionProps) => {
       text: `Airport name:  ${airportInfo.Name}`,
     },
     {
-      icon: <CityIcon className="w-6" />,
+      icon: <CityIcon className="w-6 text-white" />,
       text: `City:  ${airportInfo.City}`,
     },
     {

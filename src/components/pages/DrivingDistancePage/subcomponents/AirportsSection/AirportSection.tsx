@@ -4,10 +4,9 @@ import { useMemo } from "react";
 import {
   CityColoredIcon,
   ClockIcon,
-  DirectionIcon,
-  IATAIcon,
-  MarkerIcon,
+  PassengersIcon,
   UsaFlag,
+  ArrowRightIcon,
 } from "~/src/assets";
 
 export const AirportSection = () => {
@@ -19,43 +18,39 @@ export const AirportSection = () => {
     []
   );
   const airportData = {
-    name: {
-      value: "Bucharest Airport",
-      icon: <DirectionIcon />,
-    },
     city: {
-      value: "Bucharest, Ilfov",
+      value: "City",
       icon: <CityColoredIcon />,
     },
+    passengers: {
+      value: "21.54 million",
+      icon: <PassengersIcon />,
+    },
     country: {
-      value: "Romania",
+      value: "China",
       icon: <UsaFlag className="w-6" />,
     },
     iata: {
-      value: "IATA Code: OTP",
-      icon: <IATAIcon />,
-    },
-    type: {
-      value: "International Airport",
-      icon: <MarkerIcon className="w-5 text-redBg" />,
+      value: <span className="text-buttonBg">South East Asia / China</span>,
+      icon: <ArrowRightIcon />,
     },
     timezone: {
-      value: "Europe/Bucharest, GMT +2:00 hours",
+      value: "South East Asia / China, GMT +08:00 hours",
       icon: <ClockIcon />,
     },
   };
   return (
-    <div className="rounded-md bg-white lg:px-8 px-3 pt-1 lg:pt-11 pb-4 lg:pb-7 lg:w-1/2 w-full">
-      <h2 className="lg:mb-5 mb-4 text-lg lg:text-3xl font-bold tracking-wide">
-        Henry Coanda International Airport
+    <div className="w-full rounded-md bg-white px-3 pb-4 pt-1 lg:w-1/2 lg:px-5 lg:pb-7 lg:pt-11">
+      <h2 className="mb-4 text-lg font-bold tracking-wide lg:mb-5 lg:text-3xl">
+        San Antonio
       </h2>
-      <div className="lg:mb-6 lg:h-64 h-56 w-full">
+      <div className="h-56 w-full lg:h-64">
         <ClientMap position={[2, 3]} zoom={14.5} />
       </div>
       {Object.values(airportData).map((el, idx) => (
         <div
           className={clsx(
-            "flex items-center gap-3 lg:py-5 py-[0.84rem]",
+            "flex items-center gap-3 py-[0.84rem] lg:py-[1.1rem]",
             Object.values(airportData).length !== idx + 1 &&
               "border-b border-grayText"
           )}
