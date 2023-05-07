@@ -26,3 +26,20 @@ export interface RegionType {
 }
 
 export type AirportType = "All" | "International" | "Domestic" | "Local";
+
+export interface FlightDistanceType {
+  LengthKm: number;
+  FlightDuration: string;
+  OriginAirportName: string;
+  DestinationAirportName: string;
+  OriginCenterX: number;
+  OriginCenterY: number;
+  DestinationCenterX: number;
+  DestinationCenterY: number;
+  OriginCityName: string;
+  DestinationCityName: string;
+  OriginCountryName: string;
+  DestinationCountryName: string;
+  OriginIata: string;
+  DestinationIata: string;
+}
