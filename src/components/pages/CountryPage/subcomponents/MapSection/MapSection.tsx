@@ -1,6 +1,6 @@
 import dynamic from "next/dynamic";
 import { useMemo, useState } from "react";
-import { InfoIcon, MarkersIcon } from "~/src/assets";
+import { InfoIcon } from "~/src/assets";
 import MarkerIcon from "~/src/assets/images/icons/marker.svg";
 import type { AirportItem, RegionType } from "~/src/utils/types";
 
@@ -35,31 +35,24 @@ export const MapSection = ({ region, airports }: MapSectionProps) => {
               {currentAirport?.Name}
             </div>
           </div>
-          <div className="mb-5 flex items-start gap-3">
-            <MarkersIcon className="h-7 w-7" />
-            <p className="leading-7 tracking-wider">
-              <span className="font-bold">240km</span> away from Zurich Kloten
-              Airport
-            </p>
-          </div>
-          {currentAirport?.SeoDescriptionEn && <div className="flex items-start gap-3">
-            <InfoIcon className="h-7 w-10" />
-            <p className="leading-7 tracking-wider">
-              {currentAirport.SeoDescriptionEn.split(
-                " "
-              ).length > 20 ? currentAirport.SeoDescriptionEn.split(
-                " "
-              )
-                .slice(0, 20)
-                .join(" ") + '...' : currentAirport.SeoDescriptionEn}
-            </p>
-          </div>}
+          {currentAirport?.SeoDescriptionEn && (
+            <div className="flex items-start gap-3">
+              <InfoIcon className="h-7 w-10" />
+              <p className="leading-7 tracking-wider">
+                {currentAirport.SeoDescriptionEn.split(" ").length > 20
+                  ? currentAirport.SeoDescriptionEn.split(" ")
+                      .slice(0, 20)
+                      .join(" ") + "..."
+                  : currentAirport.SeoDescriptionEn}
+              </p>
+            </div>
+          )}
           {/* <p className="leading-7 lg:leading-8">
             Willkommen am schönsten Seeufer Zürichs. Hier liegt eine maritime
             Welt für sich
           </p> */}
           <button className="mt-4 w-full rounded-md bg-buttonBg py-3 text-lg text-white">
-            View distance
+            Explore airport
           </button>
         </div>
         <div className="relative z-0 h-[29rem] w-full pb-6 lg:h-[30.5rem] lg:px-7">

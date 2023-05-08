@@ -10,7 +10,6 @@ import { RelatedFlightsSection } from "./subcomponents/RelatedFlightsSection/Rel
 import { MoreSection } from "./subcomponents/MoreSection";
 import type { FlightDistanceType } from "~/src/utils/types";
 
-
 interface DistancePageProps {
   data: FlightDistanceType;
 }
@@ -38,12 +37,14 @@ export const DistancePage = ({ data }: DistancePageProps) => {
           OriginCityName={data.OriginCityName}
           DestinationCityName={data.DestinationCityName}
         />
-        <InfoSection 
+        <InfoSection
           FlightDuration={data.FlightDuration}
           OriginCityName={data.OriginCityName}
           DestinationCityName={data.DestinationCityName}
+          OriginCountryName={data.OriginCountryName}
+          DestinationCountryName={data.DestinationCountryName}
         />
-        <AirportsSection />
+        <AirportsSection data={data} />
         <FAQSection />
         <RelatedFlightsSection />
         <MoreSection />

@@ -41,7 +41,7 @@ export const MapSection = ({ name, position, description }: IMapSection) => {
           </button>
         </div>
         <div className="relative z-0 h-[29rem] w-full lg:h-[39rem]">
-          <ClientMap position={position} mainMarker={position} zoom={14.5} />
+          <ClientMap position={position} mainMarker={[position]} zoom={14.5} />
         </div>
       </div>
     </section>

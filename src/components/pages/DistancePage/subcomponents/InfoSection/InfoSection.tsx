@@ -2,12 +2,16 @@ interface InfoSectionProps {
   FlightDuration: string;
   OriginCityName: string;
   DestinationCityName: string;
+  OriginCountryName: string;
+  DestinationCountryName: string;
 }
 
 export const InfoSection = ({
   FlightDuration,
   OriginCityName,
   DestinationCityName,
+  OriginCountryName,
+  DestinationCountryName,
 }: InfoSectionProps) => {
   return (
     <section className="container mb-4 grid grid-cols-1 grid-rows-[auto_auto] gap-5 lg:grid-cols-[2fr,1fr] lg:grid-rows-1">
@@ -46,12 +50,12 @@ export const InfoSection = ({
           </li>
           <li>
             <h3 className="mb-9 hidden text-lg font-bold tracking-widest lg:block">
-              Flight time from Bucharest, Romania to airports near London,
-              United Kingdom
+              Flight time from {OriginCityName}, {OriginCountryName} to airports near {DestinationCityName},
+              {DestinationCountryName}
             </h3>
             <div className="mb-9 tracking-wide">
-              Non-stop flight time from Bucharest to London is around{" "}
-              <span className="font-bold">3 hours 45 minutes</span>
+              Non-stop flight time from {OriginCityName} to {DestinationCityName} is around{" "}
+              <span className="font-bold">{FlightDuration}</span>
             </div>
             <div className="grid lg:grid-cols-[1fr_3fr_1fr]">
               <div className="pb-2 text-lg font-bold">Journey</div>

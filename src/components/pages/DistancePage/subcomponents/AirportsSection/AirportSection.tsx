@@ -10,7 +10,23 @@ import {
   UsaFlag,
 } from "~/src/assets";
 
-export const AirportSection = () => {
+interface AirportSectionProps {
+  name: string;
+  city: string;
+  country: string;
+  iata: string;
+  x: number;
+  y: number;
+}
+
+export const AirportSection = ({
+  name,
+  city,
+  country,
+  iata,
+  x,
+  y,
+}: AirportSectionProps) => {
   const ClientMap = useMemo(
     () =>
       dynamic(() => import("~/src/components/shared/Map/MapContainer"), {
@@ -20,19 +36,19 @@ export const AirportSection = () => {
   );
   const airportData = {
     name: {
-      value: "Bucharest Airport",
+      value: name,
       icon: <DirectionIcon />,
     },
     city: {
-      value: "Bucharest, Ilfov",
+      value: city,
       icon: <CityColoredIcon />,
     },
     country: {
-      value: "Romania",
+      value: country,
       icon: <UsaFlag className="w-6" />,
     },
     iata: {
-      value: "IATA Code: OTP",
+      value: `IATA Code: ${iata}`,
       icon: <IATAIcon />,
     },
     type: {
@@ -45,17 +61,17 @@ export const AirportSection = () => {
     },
   };
   return (
-    <div className="rounded-md bg-white lg:px-8 px-3 pt-1 lg:pt-11 pb-4 lg:pb-7 lg:w-1/2 w-full">
-      <h2 className="lg:mb-5 mb-4 text-lg lg:text-3xl font-bold tracking-wide">
-        Henry Coanda International Airport
+    <div className="w-full rounded-md bg-white px-3 pb-4 pt-1 lg:w-1/2 lg:px-8 lg:pb-7 lg:pt-11">
+      <h2 className="mb-4 text-lg font-bold tracking-wide lg:mb-5 lg:text-3xl">
+        {name}
       </h2>
-      <div className="lg:mb-6 lg:h-64 h-56 w-full">
-        <ClientMap position={[2, 3]} zoom={14.5} />
+      <div className="h-56 w-full lg:mb-6 lg:h-64">
+        <ClientMap position={[y, x]} mainMarkers={[[y, x]]} zoom={10} />
       </div>
       {Object.values(airportData).map((el, idx) => (
         <div
           className={clsx(
-            "flex items-center gap-3 lg:py-5 py-[0.84rem]",
+            "flex items-center gap-3 py-[0.84rem] lg:py-5",
             Object.values(airportData).length !== idx + 1 &&
               "border-b border-grayText"
           )}
@@ -66,7 +82,7 @@ export const AirportSection = () => {
         </div>
       ))}
       <button className="mt-3 w-full rounded-md bg-buttonBg py-3 text-lg text-white">
-        View More
+        Explore airport
       </button>
     </div>
   );

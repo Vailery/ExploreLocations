@@ -32,7 +32,7 @@ export const MapSection = ({
   );
 
   return (
-    <section className="container mb-3 lg:rounded-md bg-white pt-3 lg:pt-4 lg:shadow-md lg:mb-5">
+    <section className="container mb-3 bg-white pt-3 lg:mb-5 lg:rounded-md lg:pt-4 lg:shadow-md">
       <h3 className="mb-2 px-3 text-lg font-bold tracking-wide lg:mb-7 lg:px-7 lg:text-3xl lg:tracking-wider">
         {OriginCityName} to {DestinationCityName} Flight Duration & Distance
       </h3>
@@ -45,8 +45,9 @@ export const MapSection = ({
             </div>
           </div>
           <div className="mb-4 leading-8 tracking-wider">
-            Distance between <span className="font-bold">{OriginCityName}</span> and{" "}
-            <span className="font-bold">{DestinationCityName}</span> is {LengthKm} kilometers
+            Distance between <span className="font-bold">{OriginCityName}</span>{" "}
+            and <span className="font-bold">{DestinationCityName}</span> is{" "}
+            {LengthKm} kilometers
           </div>
           <div className=" leading-8 tracking-wider">
             Average flight time is{" "}
@@ -54,7 +55,14 @@ export const MapSection = ({
           </div>
         </div>
         <div className="relative z-0 h-[29rem] w-full pb-6 lg:h-[30.5rem] lg:px-7">
-          <ClientMap  zoom={14.5} />
+          <ClientMap
+            position={[OriginCenterY, OriginCenterX]}
+            mainMarker={[
+              [OriginCenterY, OriginCenterX],
+              [DestinationCenterY, DestinationCenterX],
+            ]}
+            zoom={4}
+          />
         </div>
       </div>
     </section>
