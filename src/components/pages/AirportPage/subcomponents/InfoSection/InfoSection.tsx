@@ -37,7 +37,7 @@ export const InfoSection = ({ airportInfo }: InfoSectionProps) => {
     airportInfo.City ? (
       <>
         <div className="flex gap-2">
-          <CityIcon className="w-6" />
+          <CityIcon className="w-6 text-white" />
           <p className="tracking-wider text-white">City: {airportInfo.City}</p>
         </div>
         <hr className="my-[0.87rem] w-full lg:my-[1.05rem]" />
@@ -50,7 +50,7 @@ export const InfoSection = ({ airportInfo }: InfoSectionProps) => {
         <div className="flex gap-2">
           <FlagIcon className="w-6 text-white" />
           <p className="tracking-wider text-white">
-            JosCountry: {airportInfo.Country}
+            Country: {airportInfo.Country}
           </p>
         </div>
         <hr className="my-[0.87rem] w-full lg:my-[1.05rem]" />
@@ -122,18 +122,16 @@ export const InfoSection = ({ airportInfo }: InfoSectionProps) => {
             {airportInfo.Name}
           </h3>
         </div>
-        <p className="mb-4 leading-7 tracking-wider text-white lg:mb-7 lg:leading-8">
-          For years it has been known as &rdquo;Europe&apos;s Leading
-          Airport&rdquo;. Nowhere else do departing passengers, transiting
-          passengers and home-coming passengers feel more comfortable than here.
-          Zurich is also the home of SWISS.
-        </p>
+        {/* <p className="mb-4 leading-7 tracking-wider text-white lg:mb-7 lg:leading-8">
+          {airportInfo.SeoDescriptionEn.split(" ").length > 20
+            ? airportInfo.SeoDescriptionEn.split(" ").slice(0, 20).join(" ") +
+              "..."
+            : airportInfo.SeoDescriptionEn}
+        </p> */}
         <h4 className="mb-8 font-bold text-white lg:mb-10">Airport Details</h4>
         <div>
           {info.map((item, idx) => (
-            <Fragment key={idx}>
-              {item}
-            </Fragment>
+            <Fragment key={idx}>{item}</Fragment>
           ))}
         </div>
       </div>

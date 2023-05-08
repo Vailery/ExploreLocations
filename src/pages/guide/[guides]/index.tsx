@@ -45,7 +45,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const airports = await prisma.$queryRawUnsafe<
     AirportItem[]
-  >(`SELECT ST_X(a."Center"::geometry) as "CenterX", ST_Y(a."Center"::geometry) as "CenterY", a."Passengers", a."Name", a."Type", a."IATA", a."ICAO", a."City", a."Country"
+  >(`SELECT ST_X(a."Center"::geometry) as "CenterX", ST_Y(a."Center"::geometry) as "CenterY", a."Passengers", a."Name", a."Type", a."IATA", a."ICAO", a."City", a."Country", "IntroEn", "SeoTitleEn", "SeoDescriptionEn"
                FROM "Airports" a
                INNER JOIN "AdminRegions" r
                ON ST_Intersects(a."Center", r."Geometry") and r."Country" = '${regionName}'

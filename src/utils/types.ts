@@ -10,6 +10,9 @@ export interface AirportItem {
   CenterY: number;
   Distance?: number;
   Passengers: number;
+  IntroEn: string;
+  SeoTitleEn: string;
+  SeoDescriptionEn: string;
 }
 
 export interface RegionType {

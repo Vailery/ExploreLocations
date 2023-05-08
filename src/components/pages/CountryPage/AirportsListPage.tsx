@@ -8,6 +8,7 @@ import { ListSection } from "./subcomponents/ListSection";
 import { MapSection } from "./subcomponents/MapSection";
 import { MoreSection } from "./subcomponents/MoreSection";
 import { RouterSection } from "./subcomponents/RouterSection";
+import { useState } from "react";
 
 interface CountryPageProps {
   regions: RegionType[];
@@ -17,9 +18,10 @@ interface CountryPageProps {
 
 export const CountryPage = ({
   regions,
-  airports,
+  airports: defaultAirports,
   airportsCount,
 }: CountryPageProps) => {
+  const [airports, setAirports] = useState(defaultAirports);
   return (
     <>
       <Header />
@@ -30,6 +32,7 @@ export const CountryPage = ({
             <DescriptionSection region={regions[0]} />
             <MapSection region={regions[0]} airports={airports} />
             <ListSection
+              setAirports={setAirports}
               region={regions[0]}
               airports={airports}
               airportsCount={airportsCount}

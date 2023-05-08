@@ -29,14 +29,19 @@ export const AirportPage = ({
           country={airport.Country}
           name={airport.Name}
         />
-        <DescriptionSection name={airport.Name} />
+        <DescriptionSection
+          name={airport.Name}
+          description={airport.SeoDescriptionEn}
+        />
         <MapSection
           name={airport.Name}
+          description={airport.SeoDescriptionEn}
           position={{ lng: airport.CenterX, lat: airport.CenterY }}
         />
         <InfoSection airportInfo={airport} />
         <AirportsAroundSection
           name={airport.Name}
+          description={airport.SeoDescriptionEn}
           position={{ lng: airport.CenterX, lat: airport.CenterY }}
           airportsAround={airportsAround}
         />

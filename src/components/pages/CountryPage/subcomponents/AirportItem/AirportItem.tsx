@@ -55,8 +55,9 @@ export const AirportItem = ({ data }: AirportItemProps) => {
             </div>
           </div>
           <p className="mb-4 leading-[1.9rem] lg:mb-9 lg:px-2 lg:text-[1.11rem]">
-            São Paulo/Guarulhos – Governor André Franco Montoro International
-            Airport is the primary international airport serving São Paulo.
+            {data.SeoDescriptionEn.split(" ").length > 20
+              ? data.SeoDescriptionEn.split(" ").slice(0, 20).join(" ") + "..."
+              : data.SeoDescriptionEn}
           </p>
           <div className="flex flex-col gap-2 pb-4 lg:flex-row lg:gap-11 lg:px-2">
             <div className="flex items-center gap-3 border-b border-grayText text-lg lg:border-0">
@@ -94,7 +95,7 @@ export const AirportItem = ({ data }: AirportItemProps) => {
       <hr className="mt-4 hidden w-full border-b border-grayText opacity-50 lg:block" />
       <div className="mt-4 flex flex-wrap items-center gap-6">
         <button className="w-full rounded-md bg-buttonBg py-3 text-lg text-white lg:w-auto lg:px-9 lg:py-4">
-          View More
+          Explore airport
         </button>
         <div className="flex items-center gap-2 text-buttonBg">
           <FlagIcon className="h-4" />

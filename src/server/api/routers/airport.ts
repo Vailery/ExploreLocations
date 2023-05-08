@@ -8,7 +8,7 @@ export const airportRouter = createTRPCRouter({
     .input(z.object({ airport: z.number() }))
     .query(async ({ ctx, input }) => {
       const result = await ctx.prisma.$queryRaw<[AirportItem]>(
-        Prisma.sql`SELECT ST_X("Center"::geometry) as "CenterX", ST_Y("Center"::geometry) as "CenterY", "Name", "IATA", "ICAO", "City", "Country" FROM "Airports" WHERE "id" = ${input.airport}`
+        Prisma.sql`SELECT ST_X("Center"::geometry) as "CenterX", ST_Y("Center"::geometry) as "CenterY", "Name", "IATA", "ICAO", "City", "Country", "IntroEn", "SeoTitleEn", "SeoDescriptionEn" FROM "Airports" WHERE "id" = ${input.airport}`
       );
       return result[0] || null;
     }),
@@ -25,7 +25,7 @@ export const airportRouter = createTRPCRouter({
     .query(async ({ ctx, input }) => {
       const filteredAirports = await ctx.prisma.$queryRawUnsafe<
         AirportItem[]
-      >(`SELECT ST_X(a."Center"::geometry) as "CenterX", ST_Y(a."Center"::geometry) as "CenterY", a."id", a."Passengers", a."Name", a."Type", a."IATA", a."ICAO", a."City", a."Country"
+      >(`SELECT ST_X(a."Center"::geometry) as "CenterX", ST_Y(a."Center"::geometry) as "CenterY", a."id", a."Passengers", a."Name", a."Type", a."IATA", a."ICAO", a."City", a."Country", "IntroEn", "SeoTitleEn", "SeoDescriptionEn"
         FROM "Airports" a
         INNER JOIN "AdminRegions" r
         ON ST_Intersects(a."Center", r."Geometry") and r."Country" = '${

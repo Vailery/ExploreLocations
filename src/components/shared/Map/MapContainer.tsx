@@ -12,6 +12,7 @@ interface MapProps {
   airportsAround?: AirportItem[];
   setSelectedAirport?: (airport: AirportItem | null) => void;
   selectedAirport?: AirportItem | null;
+  mainMarker?: LatLngExpression;
 }
 
 const MapContainerElement = ({
@@ -20,6 +21,7 @@ const MapContainerElement = ({
   airportsAround,
   setSelectedAirport,
   selectedAirport,
+  mainMarker,
 }: MapProps) => {
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -37,6 +39,7 @@ const MapContainerElement = ({
   return (
     <MapContainer center={defaultPosition} zoom={zoom} scrollWheelZoom={false}>
       <Map
+        mainMarker={mainMarker}
         airportsAround={airportsAround}
         setSelectedAirport={setSelectedAirport}
         setPosition={setPosition}

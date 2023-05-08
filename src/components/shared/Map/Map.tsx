@@ -10,7 +10,7 @@ import type { AirportItem } from "~/src/utils/types";
 interface MapProps {
   airportsAround?: AirportItem[];
   position?: LatLngExpression;
-  defaultPosition?: LatLngExpression;
+  mainMarker?: LatLngExpression;
   setSelectedAirport?: (airport: AirportItem | null) => void;
   setPosition: (position: LatLngExpression) => void;
   selectedAirport?: AirportItem | null;
@@ -19,7 +19,7 @@ interface MapProps {
 export const Map = ({
   airportsAround,
   position,
-  defaultPosition,
+  mainMarker,
   setSelectedAirport,
   setPosition,
   selectedAirport,
@@ -82,8 +82,7 @@ export const Map = ({
         attribution='&copy; <a href="https://api.stadiamaps.com/tz/lookup/v1/?api_key=f3730460-a3d1-4933-b30f-a3d60aa884aa">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
         url="https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png"
       />
-      {defaultPosition && <Marker position={defaultPosition} icon={icon} />}
-      {/* <Popup>{JSON.stringify(position)}</Popup> */}
+      {mainMarker && <Marker position={mainMarker} icon={icon} />}
       <LayerGroup>
         {airportsAround &&
           airportsAround.map((airport, idx) => (

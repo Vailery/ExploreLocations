@@ -28,7 +28,7 @@ export const MapSection = ({ region, airports }: MapSectionProps) => {
         Airports in <span className="text-buttonBg">{region.Country}</span>
       </h3>
       <div className="relative">
-        <div className="absolute right-3 top-11 z-30 w-[15.5rem] rounded-md bg-white p-4 lg:right-11 lg:top-6 lg:h-[21rem] lg:w-[21rem]">
+        <div className="absolute right-3 top-11 z-30 w-[15.5rem] rounded-md bg-white p-4 lg:right-11 lg:top-6 lg:w-[21rem]">
           <div className="mb-6 flex items-center gap-3">
             <MarkerIcon className="w-10 text-redBg" />
             <div className="text-md font-bold leading-5 tracking-tight lg:text-lg">
@@ -42,13 +42,18 @@ export const MapSection = ({ region, airports }: MapSectionProps) => {
               Airport
             </p>
           </div>
-          <div className="flex items-start gap-3">
+          {currentAirport?.SeoDescriptionEn && <div className="flex items-start gap-3">
             <InfoIcon className="h-7 w-10" />
             <p className="leading-7 tracking-wider">
-              Willkommen am schönsten Seeufer Zürichs. Hier liegt eine maritime
-              Welt für sich
+              {currentAirport.SeoDescriptionEn.split(
+                " "
+              ).length > 20 ? currentAirport.SeoDescriptionEn.split(
+                " "
+              )
+                .slice(0, 20)
+                .join(" ") + '...' : currentAirport.SeoDescriptionEn}
             </p>
-          </div>
+          </div>}
           {/* <p className="leading-7 lg:leading-8">
             Willkommen am schönsten Seeufer Zürichs. Hier liegt eine maritime
             Welt für sich
@@ -63,7 +68,7 @@ export const MapSection = ({ region, airports }: MapSectionProps) => {
               position={[currentAirport.CenterY, currentAirport.CenterX]}
               setSelectedAirport={setCurrentAirport}
               airportsAround={airports}
-              zoom={14.5}
+              zoom={5.5}
             />
           )}
         </div>
