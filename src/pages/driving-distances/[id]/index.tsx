@@ -17,6 +17,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const drivingDistanceData = await getDrivingRoute(+id);
 
+  console.log(drivingDistanceData);
+
   return {
     props: {
       drivingDistanceData: drivingDistanceData[0],

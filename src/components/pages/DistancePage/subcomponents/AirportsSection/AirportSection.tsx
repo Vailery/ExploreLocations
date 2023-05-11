@@ -27,6 +27,8 @@ export const AirportSection = ({
   x,
   y,
 }: AirportSectionProps) => {
+  console.log(x, y);
+
   const ClientMap = useMemo(
     () =>
       dynamic(() => import("~/src/components/shared/Map/MapContainer"), {
@@ -66,7 +68,7 @@ export const AirportSection = ({
         {name}
       </h2>
       <div className="h-56 w-full lg:mb-6 lg:h-64">
-        <ClientMap position={[y, x]} mainMarkers={[[y, x]]} zoom={10} />
+        <ClientMap position={[y, x]} mainMarkers={[[y, x]]} zoom={13} />
       </div>
       {Object.values(airportData).map((el, idx) => (
         <div

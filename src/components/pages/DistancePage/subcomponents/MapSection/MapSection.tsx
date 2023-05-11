@@ -31,6 +31,27 @@ export const MapSection = ({
     []
   );
 
+  const middleCoords = useMemo(() => {
+    const srcLatRad = OriginCenterY * (Math.PI / 180);
+    const dstLatRad = DestinationCenterY * (Math.PI / 180);
+    const middleLatRad = Math.atan(
+      Math.sinh(
+        Math.log(
+          Math.sqrt(
+            (Math.tan(dstLatRad) + 1 / Math.cos(dstLatRad)) *
+              (Math.tan(srcLatRad) + 1 / Math.cos(srcLatRad))
+          )
+        )
+      )
+    );
+    const middleLat = middleLatRad * (180 / Math.PI);
+    const middleLng = (OriginCenterX + DestinationCenterX) / 2;
+    return {
+      lat: middleLat,
+      lng: middleLng,
+    };
+  }, [OriginCenterX, OriginCenterY, DestinationCenterX, DestinationCenterY]);
+
   return (
     <section className="container mb-3 bg-white pt-3 lg:mb-5 lg:rounded-md lg:pt-4 lg:shadow-md">
       <h3 className="mb-2 px-3 text-lg font-bold tracking-wide lg:mb-7 lg:px-7 lg:text-3xl lg:tracking-wider">
@@ -56,10 +77,7 @@ export const MapSection = ({
         </div>
         <div className="relative z-0 h-[29rem] w-full pb-6 lg:h-[30.5rem] lg:px-7">
           <ClientMap
-            position={[
-              (OriginCenterX + DestinationCenterX) / 2,
-              (OriginCenterY + DestinationCenterY) / 2,
-            ]}
+            position={middleCoords}
             mainMarkers={[
               [OriginCenterY, OriginCenterX],
               [DestinationCenterY, DestinationCenterX],
