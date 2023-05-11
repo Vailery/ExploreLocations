@@ -32,8 +32,8 @@ export const MapSection = ({ name, position, description }: IMapSection) => {
             </div>
           </div>
           <p className="leading-7 lg:leading-8">
-            {description.split(" ").length > 20
-              ? description.split(" ").slice(0, 20).join(" ") + "..."
+            {description.split(" ").length > 10
+              ? description.split(" ").slice(0, 10).join(" ") + "..."
               : description}
           </p>
           <button className="mt-4 w-full rounded-md bg-buttonBg py-3 text-lg text-white">
@@ -41,7 +41,7 @@ export const MapSection = ({ name, position, description }: IMapSection) => {
           </button>
         </div>
         <div className="relative z-0 h-[29rem] w-full lg:h-[39rem]">
-          <ClientMap position={position} mainMarker={[position]} zoom={14.5} />
+          <ClientMap position={position} mainMarkers={[position]} zoom={13} />
         </div>
       </div>
     </section>

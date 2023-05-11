@@ -56,12 +56,22 @@ export const MapSection = ({
         </div>
         <div className="relative z-0 h-[29rem] w-full pb-6 lg:h-[30.5rem] lg:px-7">
           <ClientMap
-            position={[OriginCenterY, OriginCenterX]}
-            mainMarker={[
+            position={[
+              (OriginCenterX + DestinationCenterX) / 2,
+              (OriginCenterY + DestinationCenterY) / 2,
+            ]}
+            mainMarkers={[
               [OriginCenterY, OriginCenterX],
               [DestinationCenterY, DestinationCenterX],
             ]}
-            zoom={4}
+            polyline={[
+              [OriginCenterY, OriginCenterX],
+              [DestinationCenterY, DestinationCenterX],
+            ]}
+            bounds={[
+              [OriginCenterY, OriginCenterX],
+              [DestinationCenterY, DestinationCenterX],
+            ]}
           />
         </div>
       </div>

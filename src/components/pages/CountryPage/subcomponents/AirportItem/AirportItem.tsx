@@ -1,6 +1,7 @@
 import clsx from "clsx";
-import Image from "next/image";
+import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
+import { useMemo } from "react";
 import {
   AirportsIcon,
   DirectionIcon,
@@ -8,7 +9,6 @@ import {
   IATAIcon,
   MarkerIcon,
   PassengersIcon,
-  PlaneImageSlider,
   UsaFlag,
 } from "~/src/assets";
 import type { AirportItem as AirportItemType } from "~/src/utils/types";
@@ -20,17 +20,28 @@ interface AirportItemProps {
 export const AirportItem = ({ data }: AirportItemProps) => {
   const router = useRouter();
 
+  const ClientMap = useMemo(
+    () =>
+      dynamic(() => import("~/src/components/shared/Map/MapContainer"), {
+        ssr: false,
+      }),
+    []
+  );
+
   return (
     <div className="rounded-md bg-white px-3 py-5 shadow-sm lg:p-7">
       <div className="flex flex-wrap gap-1 lg:flex-nowrap lg:gap-5">
-        <Image
-          src={PlaneImageSlider}
-          alt="Airport"
-          className="h-32 min-w-full lg:min-w-[19.5rem]"
-        />
-        <div>
+        <div className="h-52 lg:min-w-[19.5rem]">
+          <ClientMap
+            position={[data.CenterY, data.CenterX]}
+            airportsAround={[data]}
+            zoom={5.5}
+            disabled
+          />
+        </div>
+        <div className="w-full">
           <div
-            className="mb-3 flex w-full flex-wrap justify-between"
+            className="mb-3 flex flex-wrap justify-between"
             onClick={() => {
               void router.push(
                 `/airports/${data.Name.replaceAll(" ", "-").toLowerCase()}`
@@ -50,7 +61,7 @@ export const AirportItem = ({ data }: AirportItemProps) => {
               />
               {data.Name}
             </h3>
-            <div className="ml-8 flex gap-2 lg:ml-0">
+            <div className="flex gap-2">
               <UsaFlag className="h-7" />
             </div>
           </div>

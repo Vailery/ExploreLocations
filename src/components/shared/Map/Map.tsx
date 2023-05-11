@@ -1,4 +1,4 @@
-import { TileLayer, Marker, useMap, LayerGroup } from "react-leaflet";
+import { TileLayer, Marker, useMap, LayerGroup, Polyline } from "react-leaflet";
 import type { LatLngExpression } from "leaflet";
 import L from "leaflet";
 import { useEffect } from "react";
@@ -14,6 +14,7 @@ interface MapProps {
   setSelectedAirport?: (airport: AirportItem | null) => void;
   setPosition: (position: LatLngExpression) => void;
   selectedAirport?: AirportItem | null;
+  polyline?: LatLngExpression[];
 }
 
 export const Map = ({
@@ -23,11 +24,12 @@ export const Map = ({
   setSelectedAirport,
   setPosition,
   selectedAirport,
+  polyline,
 }: MapProps) => {
   const icon = L.divIcon({
     className: "custom-icon",
     html: ReactDOMServer.renderToString(
-      <MarkerIcon className="h-20 w-20 -translate-x-1/2 -translate-y-full text-redBg" />
+      <MarkerIcon className="h-20 w-20 -translate-x-1/2 -translate-y-[90%] text-redBg" />
     ),
   });
 
@@ -86,6 +88,9 @@ export const Map = ({
         mainMarkers.map((el, idx) => (
           <Marker key={idx} position={el} icon={icon} />
         ))}
+      {polyline && (
+        <Polyline positions={polyline} pathOptions={{ color: "#EC3343" }} />
+      )}
       <LayerGroup>
         {airportsAround &&
           airportsAround.map((airport, idx) => (

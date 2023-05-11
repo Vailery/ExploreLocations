@@ -1,5 +1,5 @@
 import { MapContainer } from "react-leaflet";
-import type { LatLngExpression } from "leaflet";
+import type { LatLngBoundsExpression, LatLngExpression } from "leaflet";
 import L from "leaflet";
 import { useEffect, useState } from "react";
 import "leaflet/dist/leaflet.css";
@@ -13,6 +13,9 @@ interface MapProps {
   setSelectedAirport?: (airport: AirportItem | null) => void;
   selectedAirport?: AirportItem | null;
   mainMarkers?: LatLngExpression[];
+  polyline?: LatLngExpression[];
+  disabled?: boolean;
+  bounds?: LatLngBoundsExpression;
 }
 
 const MapContainerElement = ({
@@ -22,6 +25,9 @@ const MapContainerElement = ({
   setSelectedAirport,
   selectedAirport,
   mainMarkers,
+  polyline,
+  disabled,
+  bounds
 }: MapProps) => {
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -37,7 +43,13 @@ const MapContainerElement = ({
   const [position, setPosition] = useState(defaultPosition);
 
   return (
-    <MapContainer center={defaultPosition} zoom={zoom} scrollWheelZoom={false}>
+    <MapContainer
+      center={defaultPosition}
+      zoom={zoom}
+      scrollWheelZoom={false}
+      dragging={!disabled}
+      bounds={bounds}
+    >
       <Map
         mainMarkers={mainMarkers}
         airportsAround={airportsAround}
@@ -45,6 +57,7 @@ const MapContainerElement = ({
         setPosition={setPosition}
         position={position}
         selectedAirport={selectedAirport}
+        polyline={polyline}
       />
     </MapContainer>
   );

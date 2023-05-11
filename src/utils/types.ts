@@ -46,3 +46,16 @@ export interface FlightDistanceType {
   OriginIata: string;
   DestinationIata: string;
 }
+
+export interface DrivingDistanceType {
+  DistanceKm: number;
+  DrivingTime: string;
+  RegionFromCityName: string;
+  RegionToCityName: string;
+  CountryFromName: string;
+  CountryToName: string;
+  OriginCenterX: number;
+  OriginCenterY: number;
+  DestinationCenterX: number;
+  DestinationCenterY: number;
+}

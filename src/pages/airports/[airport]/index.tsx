@@ -1,8 +1,10 @@
-import { Prisma } from "@prisma/client";
 import type { GetServerSideProps, NextPage } from "next";
 import { AirportPage } from "~/src/components/pages/AirportPage";
 import type { AirportItem } from "~/src/utils/types";
-import { prisma } from "~/src/server/db";
+import {
+  getAirports,
+  getAirportsAround,
+} from "~/src/utils/sqlQueries/airports";
 
 interface AirportPageProps {
   airport: AirportItem;
@@ -38,24 +40,15 @@ export const getServerSideProps: GetServerSideProps<AirportPageProps> = async (
           .join(" ")
       : "";
 
-  const airport = await prisma.$queryRawUnsafe<[AirportItem]>(
-    `SELECT ST_X("Center"::geometry) as "CenterX", ST_Y("Center"::geometry) as "CenterY", "Passengers", "Name", "Type", "IATA", "ICAO", "City", "Country", "IntroEn", "SeoTitleEn", "SeoDescriptionEn" FROM "Airports" WHERE "Name" = '${airportName}'`
-  );
+  const airport = await getAirports(`WHERE "Name" = '${airportName}'`);
 
-  const airportsAround = await (async () => {
-    //  Skip for now Add sorting by type
-    const resultInFiveHundred = await prisma.$queryRaw<AirportItem[]>(
-      Prisma.sql`SELECT ST_X("Center"::geometry) as "CenterX", ST_Y("Center"::geometry) as "CenterY", "Passengers", "Name", "Type", "IATA", "ICAO", "City", "Country", "IntroEn", "SeoTitleEn", "SeoDescriptionEn" FROM "Airports" WHERE ST_DWithin("Center"::geometry, ST_MakePoint(${airport[0].CenterX}, ${airport[0].CenterY})::geography, 500000) AND "Name" != ${airportName} LIMIT 20`
-    );
-    if (resultInFiveHundred.length < 0) {
-      const resultInThousand = await prisma.$queryRaw<AirportItem[]>(
-        Prisma.sql`SELECT ST_X("Center"::geometry) as "CenterX", ST_Y("Center"::geometry) as "CenterY", "Passengers", "Name", "Type", "IATA", "ICAO", "City", "Country", "IntroEn", "SeoTitleEn", "SeoDescriptionEn" FROM "Airports" WHERE ST_DWithin("Center"::geometry, ST_MakePoint(${airport[0].CenterX}, ${airport[0].CenterY})::geography, 1000000) AND "Name" != ${airportName} LIMIT 20`
-      );
-      return resultInThousand;
-    } else {
-      return resultInFiveHundred;
-    }
-  })();
+  console.log(airport);
+
+  const airportsAround = await getAirportsAround(
+    airport[0].CenterX,
+    airport[0].CenterY,
+    airport[0].id
+  );
 
   airportsAround.forEach((el) => {
     el.Distance = Math.round(
@@ -67,8 +60,8 @@ export const getServerSideProps: GetServerSideProps<AirportPageProps> = async (
   });
   airportsAround.sort((a, b) => (a.Distance || 0) - (b.Distance || 0));
 
-  const airportsInCountry = await prisma.$queryRaw<AirportItem[]>(
-    Prisma.sql`SELECT ST_X("Center"::geometry) as "CenterX", ST_Y("Center"::geometry) as "CenterY", "Passengers", "Name", "Type", "IATA", "ICAO", "City", "Country", "IntroEn", "SeoTitleEn", "SeoDescriptionEn" FROM "Airports" WHERE "Country" = ${airport[0].Country} LIMIT 20`
+  const airportsInCountry = await getAirports(
+    `WHERE "Country" = '${airport[0].Country}' LIMIT 20`
   );
 
   return {

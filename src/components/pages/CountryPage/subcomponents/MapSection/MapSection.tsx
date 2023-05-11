@@ -61,7 +61,7 @@ export const MapSection = ({ region, airports }: MapSectionProps) => {
               position={[currentAirport.CenterY, currentAirport.CenterX]}
               setSelectedAirport={setCurrentAirport}
               airportsAround={airports}
-              zoom={5.5}
+              bounds={airports.map((el) => [el.CenterY, el.CenterX])} 
             />
           )}
         </div>
