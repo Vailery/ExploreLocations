@@ -10,6 +10,9 @@ export interface AirportItem {
   CenterY: number;
   Distance?: number;
   Passengers: number;
+  IntroEn: string;
+  SeoTitleEn: string;
+  SeoDescriptionEn: string;
 }
 
 export interface RegionType {
@@ -26,3 +29,33 @@ export interface RegionType {
 }
 
 export type AirportType = "All" | "International" | "Domestic" | "Local";
+
+export interface FlightDistanceType {
+  LengthKm: number;
+  FlightDuration: string;
+  OriginAirportName: string;
+  DestinationAirportName: string;
+  OriginCenterX: number;
+  OriginCenterY: number;
+  DestinationCenterX: number;
+  DestinationCenterY: number;
+  OriginCityName: string;
+  DestinationCityName: string;
+  OriginCountryName: string;
+  DestinationCountryName: string;
+  OriginIata: string;
+  DestinationIata: string;
+}
+
+export interface DrivingDistanceType {
+  DistanceKm: number;
+  DrivingTime: string;
+  RegionFromCityName: string;
+  RegionToCityName: string;
+  CountryFromName: string;
+  CountryToName: string;
+  OriginCenterX: number;
+  OriginCenterY: number;
+  DestinationCenterX: number;
+  DestinationCenterY: number;
+}

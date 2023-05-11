@@ -1,4 +1,4 @@
-import { TileLayer, Marker, useMap, LayerGroup } from "react-leaflet";
+import { TileLayer, Marker, useMap, LayerGroup, Polyline } from "react-leaflet";
 import type { LatLngExpression } from "leaflet";
 import L from "leaflet";
 import { useEffect } from "react";
@@ -10,24 +10,26 @@ import type { AirportItem } from "~/src/utils/types";
 interface MapProps {
   airportsAround?: AirportItem[];
   position?: LatLngExpression;
-  defaultPosition?: LatLngExpression;
+  mainMarkers?: LatLngExpression[];
   setSelectedAirport?: (airport: AirportItem | null) => void;
   setPosition: (position: LatLngExpression) => void;
   selectedAirport?: AirportItem | null;
+  polyline?: LatLngExpression[];
 }
 
 export const Map = ({
   airportsAround,
   position,
-  defaultPosition,
+  mainMarkers,
   setSelectedAirport,
   setPosition,
   selectedAirport,
+  polyline,
 }: MapProps) => {
   const icon = L.divIcon({
     className: "custom-icon",
     html: ReactDOMServer.renderToString(
-      <MarkerIcon className="h-20 w-20 -translate-x-1/2 -translate-y-full text-redBg" />
+      <MarkerIcon className="h-20 w-20 -translate-x-1/2 -translate-y-[90%] text-redBg" />
     ),
   });
 
@@ -82,8 +84,13 @@ export const Map = ({
         attribution='&copy; <a href="https://api.stadiamaps.com/tz/lookup/v1/?api_key=f3730460-a3d1-4933-b30f-a3d60aa884aa">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
         url="https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png"
       />
-      {defaultPosition && <Marker position={defaultPosition} icon={icon} />}
-      {/* <Popup>{JSON.stringify(position)}</Popup> */}
+      {mainMarkers &&
+        mainMarkers.map((el, idx) => (
+          <Marker key={idx} position={el} icon={icon} />
+        ))}
+      {polyline && (
+        <Polyline positions={polyline} pathOptions={{ color: "#EC3343" }} />
+      )}
       <LayerGroup>
         {airportsAround &&
           airportsAround.map((airport, idx) => (

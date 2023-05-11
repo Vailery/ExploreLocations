@@ -1,5 +1,4 @@
 import clsx from "clsx";
-import { useEffect } from "react";
 
 interface PaginationProps {
   currentRow: number;
@@ -12,7 +11,6 @@ export const Pagination = ({
   setCurrentRow,
   pagesOffset,
 }: PaginationProps) => {
-  
   return (
     <div className="rounded-md bg-white">
       <div className="grid max-w-xl grid-cols-7 gap-2 px-3 py-2 shadow-sm lg:px-7">

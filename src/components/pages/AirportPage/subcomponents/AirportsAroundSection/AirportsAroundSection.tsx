@@ -11,6 +11,7 @@ interface AirportsAroundSectionProps {
     lat: number;
     lng: number;
   };
+  description: string;
   airportsAround: AirportItem[];
 }
 
@@ -18,6 +19,7 @@ export const AirportsAroundSection = ({
   name,
   position,
   airportsAround,
+  description,
 }: AirportsAroundSectionProps) => {
   const ClientMap = useMemo(
     () =>
@@ -60,15 +62,18 @@ export const AirportsAroundSection = ({
               away from {name}
             </p>
           </div>
-          <div className="flex items-start gap-3">
-            <InfoIcon className="h-8 w-8" />
-            <p className="leading-7 tracking-wider">
-              Willkommen am schönsten Seeufer Zürichs. Hier liegt eine maritime
-              Welt für sich
-            </p>
-          </div>
+          {description && (
+            <div className="flex items-start gap-3">
+              <InfoIcon className="h-8 w-8" />
+              <p className="leading-7 tracking-wider">
+                {description.split(" ").length > 20
+                  ? description.split(" ").slice(0, 20).join(" ") + "..."
+                  : description}
+              </p>
+            </div>
+          )}
           <button className="mt-4 w-full rounded-md bg-buttonBg py-3 text-lg text-white">
-            Learn more
+            Explore airport
           </button>
         </div>
       </div>

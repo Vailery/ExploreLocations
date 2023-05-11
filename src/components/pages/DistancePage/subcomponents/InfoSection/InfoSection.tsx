@@ -1,18 +1,30 @@
-import "swiper/css";
+interface InfoSectionProps {
+  FlightDuration: string;
+  OriginCityName: string;
+  DestinationCityName: string;
+  OriginCountryName: string;
+  DestinationCountryName: string;
+}
 
-export const InfoSection = () => {
+export const InfoSection = ({
+  FlightDuration,
+  OriginCityName,
+  DestinationCityName,
+  OriginCountryName,
+  DestinationCountryName,
+}: InfoSectionProps) => {
   return (
     <section className="container mb-4 grid grid-cols-1 grid-rows-[auto_auto] gap-5 lg:grid-cols-[2fr,1fr] lg:grid-rows-1">
       <div className="bg-white px-3 pb-5 pt-4 lg:rounded-md lg:px-8 lg:py-5">
         <div className="mb-4 flex items-center gap-2 lg:mb-10 lg:gap-5">
           <h3 className="text-lg font-bold tracking-[0.08em] lg:text-3xl">
-            How long does it take to fly from Zurich to London?
+            How long does it take to fly from {OriginCityName} to {DestinationCityName}?
           </h3>
         </div>
         <ul>
           <li className="mb-5 leading-8 tracking-wide lg:mb-7">
-            Non-stop flight time from Bucharest to London is around{" "}
-            <span className="font-bold">3 hours 45 minutes.</span>
+            Non-stop flight time from {OriginCityName} to {DestinationCityName} is around{" "}
+            <span className="font-bold">{FlightDuration}.</span>
           </li>
           <li className="mb-5 leading-8  tracking-wide lg:mb-7">
             <span className="font-bold">
@@ -24,11 +36,11 @@ export const InfoSection = () => {
           </li>
           <li className="mb-5 leading-8  tracking-wide lg:mb-7">
             This is the average non-stop flight time from any of the two
-            airports in Bucharest to airports in London.
+            airports in {OriginCityName} to airports in {DestinationCityName}.
           </li>
           <li className="mb-5 leading-8  tracking-wide lg:mb-7">
             Apparently, connecting flights and direct flights with stopover take
-            longer time than non-stop flights. In such cases, Bucharest - London
+            longer time than non-stop flights. In such cases, {OriginCityName} - {DestinationCityName}
             flight time depend on the layover destination specified by your
             airline or the one you choose while booking your ticket.
           </li>
@@ -38,12 +50,12 @@ export const InfoSection = () => {
           </li>
           <li>
             <h3 className="mb-9 hidden text-lg font-bold tracking-widest lg:block">
-              Flight time from Bucharest, Romania to airports near London,
-              United Kingdom
+              Flight time from {OriginCityName}, {OriginCountryName} to airports near {DestinationCityName},
+              {DestinationCountryName}
             </h3>
             <div className="mb-9 tracking-wide">
-              Non-stop flight time from Bucharest to London is around{" "}
-              <span className="font-bold">3 hours 45 minutes</span>
+              Non-stop flight time from {OriginCityName} to {DestinationCityName} is around{" "}
+              <span className="font-bold">{FlightDuration}</span>
             </div>
             <div className="grid lg:grid-cols-[1fr_3fr_1fr]">
               <div className="pb-2 text-lg font-bold">Journey</div>
@@ -77,17 +89,17 @@ export const InfoSection = () => {
         </ul>
       </div>
       <div className="mx-3 h-fit rounded-md bg-white lg:mx-0">
-        <h3 className="rounded-[0.375rem_0.375rem_0_0] bg-redBg lg:px-8 px-6 lg:py-5 py-4 text-xl font-bold text-white">
+        <h3 className="rounded-[0.375rem_0.375rem_0_0] bg-redBg px-6 py-4 text-xl font-bold text-white lg:px-8 lg:py-5">
           Flight Distance
         </h3>
         <div className="px-8 pb-5 pt-7 text-lg lg:pb-7">
           <p className="">Search by airport name, city or IATA airport code.</p>
           <input
-            className="mt-3 w-full rounded-md bg-grayBg px-3 lg:py-4 py-3 italic text-white"
+            className="mt-3 w-full rounded-md bg-grayBg px-3 py-3 italic text-white lg:py-4"
             placeholder="Name, city or IATA"
           />
           <input
-            className="mt-3 w-full rounded-md bg-grayBg px-3 lg:py-4 py-3 italic text-white"
+            className="mt-3 w-full rounded-md bg-grayBg px-3 py-3 italic text-white lg:py-4"
             placeholder="Name, city or IATA"
           />
           <button className="mt-5 w-full rounded-md bg-buttonBg py-3 text-lg text-white lg:mt-7">

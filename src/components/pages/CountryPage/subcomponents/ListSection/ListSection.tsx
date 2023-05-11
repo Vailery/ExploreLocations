@@ -12,6 +12,7 @@ interface ListSectionProps {
   airports: AirportType[];
   region: RegionType;
   airportsCount: number;
+  setAirports: (airports: AirportType[]) => void;
 }
 
 const sortOptions = [
@@ -52,14 +53,14 @@ const paginationLimit = 20;
 
 export const ListSection = ({
   region,
-  airports: defaultAirports,
+  airports,
   airportsCount: defaultAirportsCount,
+  setAirports,
 }: ListSectionProps) => {
   const [sortOption, setSortOption] = useState<
     (typeof sortOptions)[number]["value"]
   >(sortOptions[0].value);
 
-  const [airports, setAirports] = useState(defaultAirports);
   const [airportsCount, setAirportsCount] = useState(defaultAirportsCount);
 
   const router = useRouter();
@@ -91,7 +92,7 @@ export const ListSection = ({
       setAirports(data?.airports);
       setAirportsCount(Number(data?.count));
     }
-  }, [data]);
+  }, [data, setAirports]);
 
   useEffect(() => {
     void refetch();
@@ -118,8 +119,6 @@ export const ListSection = ({
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sortOption]);
-
-  console.log(pagesOffset);
 
   return (
     <section className="container">
@@ -186,7 +185,6 @@ export const ListSection = ({
             </div>
           </Listbox>
           <div className="hidden gap-2 lg:flex">
-            <span className="py-4 font-bold">Show only</span>
             {sortOptions.map((option, index) => (
               <button
                 onClick={() => {
