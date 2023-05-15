@@ -17,18 +17,14 @@ export const AirportsSection = ({originX, originY, destinationX, destinationY, f
       <AirportSection
         x={originX}
         y={originY}
-        from={from}
-        to={to}
-        countryTo={countryTo}
-        countryFrom={countryFrom}
+        name={from}
+        country={countryFrom}
       />
       <AirportSection
         x={destinationX}
         y={destinationY}
-        from={from}
-        to={to}
-        countryTo={countryTo}
-        countryFrom={countryFrom}
+        name={to}
+        country={countryTo}
       />
     </section>
   );

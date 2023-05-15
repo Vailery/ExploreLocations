@@ -12,13 +12,11 @@ import {
 interface AirportSectionProps {
   x: number;
   y: number;
-  from: string;
-  to: string;
-  countryTo: string;
-  countryFrom: string;
+  name: string
+  country: string;
 }
 
-export const AirportSection = ({ x, y }: AirportSectionProps) => {
+export const AirportSection = ({ x, y, country, name }: AirportSectionProps) => {
   const ClientMap = useMemo(
     () =>
       dynamic(() => import("~/src/components/shared/Map/MapContainer"), {
@@ -36,7 +34,7 @@ export const AirportSection = ({ x, y }: AirportSectionProps) => {
       icon: <PassengersIcon />,
     },
     country: {
-      value: "China",
+      value: country,
       icon: <UsaFlag className="w-6" />,
     },
     iata: {
@@ -51,10 +49,10 @@ export const AirportSection = ({ x, y }: AirportSectionProps) => {
   return (
     <div className="w-full rounded-md bg-white px-3 pb-4 pt-1 lg:w-1/2 lg:px-5 lg:pb-7 lg:pt-11">
       <h2 className="mb-4 text-lg font-bold tracking-wide lg:mb-5 lg:text-3xl">
-        San Antonio
+        {name}
       </h2>
       <div className="h-56 w-full lg:h-64">
-        <ClientMap position={[x, y]} zoom={14.5} />
+        <ClientMap position={[y, x]} mainMarkers={[[y, x]]} zoom={14.5} />
       </div>
       {Object.values(airportData).map((el, idx) => (
         <div
