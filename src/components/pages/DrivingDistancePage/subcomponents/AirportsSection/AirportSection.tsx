@@ -9,7 +9,16 @@ import {
   ArrowRightIcon,
 } from "~/src/assets";
 
-export const AirportSection = () => {
+interface AirportSectionProps {
+  x: number;
+  y: number;
+  from: string;
+  to: string;
+  countryTo: string;
+  countryFrom: string;
+}
+
+export const AirportSection = ({ x, y }: AirportSectionProps) => {
   const ClientMap = useMemo(
     () =>
       dynamic(() => import("~/src/components/shared/Map/MapContainer"), {
@@ -45,7 +54,7 @@ export const AirportSection = () => {
         San Antonio
       </h2>
       <div className="h-56 w-full lg:h-64">
-        <ClientMap position={[2, 3]} zoom={14.5} />
+        <ClientMap position={[x, y]} zoom={14.5} />
       </div>
       {Object.values(airportData).map((el, idx) => (
         <div

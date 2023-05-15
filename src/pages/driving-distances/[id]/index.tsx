@@ -5,8 +5,12 @@ import { DrivingDistancePage } from "../../../components/pages/DrivingDistancePa
 
 const DrivingDistance: NextPage<{
   drivingDistanceData: DrivingDistanceType;
-}> = () => {
-  return <DrivingDistancePage />;
+}> = (drivingDistanceData) => {
+  return (
+    <DrivingDistancePage
+      drivingDistanceData={drivingDistanceData.drivingDistanceData}
+    />
+  );
 };
 
 export default DrivingDistance;
