@@ -1,4 +1,5 @@
 import dynamic from "next/dynamic";
+import Link from "next/link";
 import { useMemo, useState } from "react";
 import { InfoIcon } from "~/src/assets";
 import MarkerIcon from "~/src/assets/images/icons/marker.svg";
@@ -22,6 +23,20 @@ export const MapSection = ({ region, airports }: MapSectionProps) => {
     airports[0] || null
   );
 
+  const markersCenter = useMemo(() => {
+    const coords = {
+      lat: 0,
+      lng: 0,
+    };
+    airports.forEach((el) => {
+      coords.lat += el.CenterY;
+      coords.lng += el.CenterX;
+    })
+    coords.lat = coords.lat / airports.length;
+    coords.lng = coords.lng / airports.length;
+    return coords;
+  }, [airports]);
+
   return (
     <section className="container mb-6 rounded-md bg-white pt-6 shadow-md lg:mb-9">
       <h3 className="mb-2 px-3 text-lg font-bold tracking-wide lg:mb-7 lg:px-7 lg:text-3xl lg:tracking-wider">
@@ -37,7 +52,7 @@ export const MapSection = ({ region, airports }: MapSectionProps) => {
           </div>
           {currentAirport?.SeoDescriptionEn && (
             <div className="flex items-start gap-3">
-              <InfoIcon className="h-7 w-10" />
+              <InfoIcon className="h-10 w-16" />
               <p className="leading-7 tracking-wider">
                 {currentAirport.SeoDescriptionEn.split(" ").length > 20
                   ? currentAirport.SeoDescriptionEn.split(" ")
@@ -51,17 +66,20 @@ export const MapSection = ({ region, airports }: MapSectionProps) => {
             Willkommen am schönsten Seeufer Zürichs. Hier liegt eine maritime
             Welt für sich
           </p> */}
-          <button className="mt-4 w-full rounded-md bg-buttonBg py-3 text-lg text-white">
+          <Link
+            className="mt-4 w-full block text-center rounded-md bg-buttonBg py-3 text-lg text-white"
+            href={`/airports/${currentAirport?.Name.replaceAll(" ", "-").toLowerCase() || ''}`}
+          >
             Explore airport
-          </button>
+          </Link>
         </div>
         <div className="relative z-0 h-[29rem] w-full pb-6 lg:h-[30.5rem] lg:px-7">
           {currentAirport && (
             <ClientMap
-              position={[currentAirport.CenterY, currentAirport.CenterX]}
+              position={markersCenter}
               setSelectedAirport={setCurrentAirport}
               airportsAround={airports}
-              bounds={airports.map((el) => [el.CenterY, el.CenterX])} 
+              bounds={airports.map((el) => [el.CenterY, el.CenterX])}
             />
           )}
         </div>

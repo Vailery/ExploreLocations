@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import dynamic from "next/dynamic";
-import { useRouter } from "next/router";
+import Link from "next/link";
 import { useMemo } from "react";
 import {
   AirportsIcon,
@@ -18,8 +18,6 @@ interface AirportItemProps {
 }
 
 export const AirportItem = ({ data }: AirportItemProps) => {
-  const router = useRouter();
-
   const ClientMap = useMemo(
     () =>
       dynamic(() => import("~/src/components/shared/Map/MapContainer"), {
@@ -37,17 +35,11 @@ export const AirportItem = ({ data }: AirportItemProps) => {
             airportsAround={[data]}
             zoom={5.5}
             disabled
+            isStatic
           />
         </div>
         <div className="w-full">
-          <div
-            className="mb-3 flex flex-wrap justify-between"
-            onClick={() => {
-              void router.push(
-                `/airports/${data.Name.replaceAll(" ", "-").toLowerCase()}`
-              );
-            }}
-          >
+          <div className="mb-3 flex flex-wrap justify-between">
             <h3 className="flex text-2xl font-bold">
               <MarkerIcon
                 className={clsx(
@@ -105,9 +97,14 @@ export const AirportItem = ({ data }: AirportItemProps) => {
       </div>
       <hr className="mt-4 hidden w-full border-b border-grayText opacity-50 lg:block" />
       <div className="mt-4 flex flex-wrap items-center gap-6">
-        <button className="w-full rounded-md bg-buttonBg py-3 text-lg text-white lg:w-auto lg:px-9 lg:py-4">
+        <Link
+          className="w-full rounded-md bg-buttonBg py-3 text-lg text-white lg:w-auto lg:px-9 lg:py-4"
+          href={`/airports/${
+            data?.Name.replaceAll(" ", "-").toLowerCase() || ""
+          }`}
+        >
           Explore airport
-        </button>
+        </Link>
         <div className="flex items-center gap-2 text-buttonBg">
           <FlagIcon className="h-4" />
           <p className="lg:text-lg">View Flying routes</p>

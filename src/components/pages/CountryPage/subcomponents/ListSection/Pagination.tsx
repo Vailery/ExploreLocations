@@ -21,7 +21,6 @@ export const Pagination = ({
           )}
           onClick={() => {
             setCurrentRow(0);
-            // // refetch();
           }}
         >
           1
@@ -34,7 +33,6 @@ export const Pagination = ({
             )}
             onClick={() => {
               currentRow < 4 && setCurrentRow(1);
-              // // refetch();
             }}
           >
             {currentRow < 4 ? 2 : "..."}
@@ -52,7 +50,6 @@ export const Pagination = ({
                 : currentRow >= pagesOffset - 4
                 ? setCurrentRow(pagesOffset - 5)
                 : setCurrentRow(currentRow - 1);
-              // refetch();
             }}
           >
             {currentRow < 4
@@ -75,7 +72,6 @@ export const Pagination = ({
                 ? setCurrentRow(3)
                 : currentRow >= pagesOffset - 4 &&
                   setCurrentRow(pagesOffset - 4);
-              // refetch();
             }}
           >
             {currentRow < 4
@@ -98,7 +94,6 @@ export const Pagination = ({
                   : currentRow > pagesOffset - 5
                   ? setCurrentRow(pagesOffset - 3)
                   : setCurrentRow(currentRow + 1);
-                // refetch();
               }}
             >
               {currentRow < 4
@@ -114,7 +109,6 @@ export const Pagination = ({
               )}
               onClick={() => {
                 currentRow >= pagesOffset - 4 && setCurrentRow(pagesOffset - 2);
-                // refetch();
               }}
             >
               {currentRow >= pagesOffset - 4 ? pagesOffset - 1 : "..."}
@@ -126,7 +120,6 @@ export const Pagination = ({
               )}
               onClick={() => {
                 setCurrentRow(pagesOffset - 1);
-                // refetch();
               }}
             >
               {pagesOffset}

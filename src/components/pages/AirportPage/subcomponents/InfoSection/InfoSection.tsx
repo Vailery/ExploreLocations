@@ -1,16 +1,11 @@
-import Image from "next/image";
-import { Fragment, useState, useRef, useEffect } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
+import { Fragment } from "react";
 import {
-  ArrowIcon,
   CityIcon,
   CoordinatesIcon,
   FlagIcon,
   HashtagIcon,
   PlaneIcon,
-  PlaneImageSlider,
 } from "~/src/assets";
-import { Navigation } from "swiper";
 import "swiper/css";
 import type { AirportItem } from "~/src/utils/types";
 import { convertCoordinates } from "~/src/utils/convertCoordinates";
@@ -104,15 +99,15 @@ export const InfoSection = ({ airportInfo }: InfoSectionProps) => {
     //   text: "Runways:  Direction: 10/28, Length: 9845 x 148 ft",
     // },
   ];
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const prevButton = useRef(null);
-  const nextButton = useRef(null);
+  // const [currentSlide, setCurrentSlide] = useState(0);
+  // const prevButton = useRef(null);
+  // const nextButton = useRef(null);
 
-  const [hasMounted, setHasMounted] = useState(false);
+  // const [hasMounted, setHasMounted] = useState(false);
 
-  useEffect(() => {
-    setHasMounted(true);
-  }, []);
+  // useEffect(() => {
+  //   setHasMounted(true);
+  // }, []);
   return (
     <section className="container mb-3 grid grid-cols-1 grid-rows-[auto_auto] gap-5 lg:grid-cols-[2fr,1fr] lg:grid-rows-1">
       <div className="bg-gradientRight px-3 pb-5 pt-3 lg:rounded-md lg:px-8 lg:py-6">
@@ -152,7 +147,7 @@ export const InfoSection = ({ airportInfo }: InfoSectionProps) => {
           <button className="mt-1 w-full rounded-md bg-buttonBg py-3 text-lg text-white lg:mt-7">
             Calculate Distance
           </button>
-          <p className="mt-6 text-base font-bold lg:mt-8">{airportInfo.Name}</p>
+          {/* <p className="mt-6 text-base font-bold lg:mt-8">{airportInfo.Name}</p>
           <div className="relative mt-6">
             {hasMounted && (
               <Swiper
@@ -183,7 +178,7 @@ export const InfoSection = ({ airportInfo }: InfoSectionProps) => {
                 <ArrowIcon className="w-7 rotate-180 cursor-pointer" />
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </section>
