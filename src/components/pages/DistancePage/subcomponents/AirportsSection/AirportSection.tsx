@@ -28,8 +28,6 @@ export const AirportSection = ({
   x,
   y,
 }: AirportSectionProps) => {
-  console.log(x, y);
-
   const ClientMap = useMemo(
     () =>
       dynamic(() => import("~/src/components/shared/Map/MapContainer"), {
