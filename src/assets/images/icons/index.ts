@@ -23,5 +23,12 @@ export { default as ClockIcon } from "./clockIcon.svg";
 export { default as CarMarkerIcon } from "./carMarker.svg";
 export { default as MuseumMarkerIcon } from "./museumMarker.svg";
 export { default as ArrowRightIcon } from "./arrowRightIcon.svg";
+export { default as DiscoverDrivingIcon } from "./discoverDriving.svg";
+export { default as DiscoverAirportsIcon } from "./discoverAirports.svg";
+export { default as DiscoverRoutesIcon } from "./discoverRoutes.svg";
+export { default as MedalIcon } from "./medal.svg";
+export { default as NotificationIcon } from "./notification.svg";
+
+
 
 export * from "./languages";
