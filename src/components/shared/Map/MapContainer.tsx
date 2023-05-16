@@ -16,6 +16,7 @@ interface MapProps {
   polyline?: LatLngExpression[];
   disabled?: boolean;
   bounds?: LatLngBoundsExpression;
+  isStatic?: boolean;
 }
 
 const MapContainerElement = ({
@@ -27,7 +28,8 @@ const MapContainerElement = ({
   mainMarkers,
   polyline,
   disabled,
-  bounds
+  bounds,
+  isStatic,
 }: MapProps) => {
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -42,6 +44,10 @@ const MapContainerElement = ({
 
   const [position, setPosition] = useState(defaultPosition);
 
+  useEffect(() => {
+    if (isStatic) setPosition(defaultPosition);
+  }, [defaultPosition, isStatic]);
+
   return (
     <MapContainer
       center={defaultPosition}
@@ -49,7 +55,7 @@ const MapContainerElement = ({
       scrollWheelZoom={false}
       dragging={!disabled}
       bounds={bounds}
-    >
+      >
       <Map
         mainMarkers={mainMarkers}
         airportsAround={airportsAround}

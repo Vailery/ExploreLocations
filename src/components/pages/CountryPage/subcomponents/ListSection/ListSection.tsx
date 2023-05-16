@@ -1,5 +1,12 @@
 import { SearchIcon, MarkerIcon } from "~/src/assets";
-import { useState, Fragment, useEffect, useMemo } from "react";
+import {
+  useState,
+  Fragment,
+  useEffect,
+  useMemo,
+  useRef,
+  useLayoutEffect,
+} from "react";
 import clsx from "clsx";
 import { Listbox, Transition } from "@headlessui/react";
 import type { AirportItem as AirportType, RegionType } from "~/src/utils/types";
@@ -65,12 +72,7 @@ export const ListSection = ({
 
   const router = useRouter();
 
-  const [currentRow, setCurrentRow] = useState(0);
-
-  useEffect(() => {
-    if (router.query.page) setCurrentRow(+router.query.page - 1);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const [currentRow, setCurrentRow] = useState(router.query.page ? +router.query.page - 1 : 0);
 
   const { data, refetch } = api.airport.getAirportsSort.useQuery(
     {
@@ -94,7 +96,19 @@ export const ListSection = ({
     }
   }, [data, setAirports]);
 
+  const listTop = useRef<HTMLHeadingElement | null>(null);
+
+  const [isFirstRender, setIsFirstRender] = useState<boolean>(true);
+
+  
   useEffect(() => {
+    if (!isFirstRender && listTop.current) {
+      void window.scrollTo({
+        left: 0,
+        top: listTop.current.offsetTop,
+        behavior: "smooth",
+      });
+    }
     void refetch();
     void router.push(
       {
@@ -107,22 +121,31 @@ export const ListSection = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentRow]);
 
+  useLayoutEffect(() => {
+    setIsFirstRender(false);
+  }, []);
+
   useEffect(() => {
-    void refetch();
-    void router.replace(
-      {
-        pathname: router.pathname,
-        query: { ...router.query, page: "1" },
-      },
-      undefined,
-      { shallow: true }
-    );
+    if (!isFirstRender) {
+      void refetch();
+      void router.replace(
+        {
+          pathname: router.pathname,
+          query: { ...router.query, page: "1" },
+        },
+        undefined,
+        { shallow: true }
+      );
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sortOption]);
 
   return (
     <section className="container">
-      <h3 className="mx-3 mb-5 text-lg font-bold tracking-wide lg:text-3xl">
+      <h3
+        className="mx-3 mb-5 text-lg font-bold tracking-wide lg:text-3xl"
+        ref={listTop}
+      >
         {airportsCount} Airports in{" "}
         <span className="text-buttonBg">{region.Country}</span>
       </h3>

@@ -4,20 +4,16 @@ import { InfoIcon, MarkersIcon } from "~/src/assets";
 import MarkerIcon from "~/src/assets/images/icons/marker.svg";
 import type { AirportItem } from "~/src/utils/types";
 import { useMemo, useState } from "react";
+import Link from "next/link";
 
 interface AirportsAroundSectionProps {
   name: string;
-  position: {
-    lat: number;
-    lng: number;
-  };
   description: string;
   airportsAround: AirportItem[];
 }
 
 export const AirportsAroundSection = ({
   name,
-  position,
   airportsAround,
   description,
 }: AirportsAroundSectionProps) => {
@@ -33,6 +29,20 @@ export const AirportsAroundSection = ({
     airportsAround.at(0) || null
   );
 
+  const markersCenter = useMemo(() => {
+    const coords = {
+      lat: 0,
+      lng: 0,
+    };
+    airportsAround.forEach((el) => {
+      coords.lat += el.CenterY;
+      coords.lng += el.CenterX;
+    });
+    coords.lat = coords.lat / airportsAround.length;
+    coords.lng = coords.lng / airportsAround.length;
+    return coords;
+  }, [airportsAround]);
+
   return (
     <section className="container mb-5 bg-white pb-6 pt-3 lg:rounded-md lg:px-7 lg:pb-0 lg:pt-6">
       <h3 className="px-3 text-lg font-bold tracking-wide lg:text-3xl lg:tracking-wider">
@@ -41,8 +51,8 @@ export const AirportsAroundSection = ({
       <div className="relative mt-3 h-[29.6rem] w-full lg:mb-6 lg:mt-6">
         <div className="relative z-0 h-full">
           <ClientMap
-            position={position}
-            zoom={7}
+            position={markersCenter}
+            bounds={airportsAround.map((el) => [el.CenterY, el.CenterX])}
             airportsAround={airportsAround}
             setSelectedAirport={setSelectedAirport}
             selectedAirport={selectedAirport}
@@ -72,9 +82,14 @@ export const AirportsAroundSection = ({
               </p>
             </div>
           )}
-          <button className="mt-4 w-full rounded-md bg-buttonBg py-3 text-lg text-white">
+          <Link
+            className="mt-4 block w-full rounded-md bg-buttonBg py-3 text-center text-lg text-white"
+            href={`/airports/${
+              selectedAirport?.Name.replaceAll(" ", "-").toLowerCase() || ""
+            }`}
+          >
             Explore airport
-          </button>
+          </Link>
         </div>
       </div>
       <div className="grid grid-rows-5 gap-x-20 px-3 pb-4 lg:grid-cols-2">

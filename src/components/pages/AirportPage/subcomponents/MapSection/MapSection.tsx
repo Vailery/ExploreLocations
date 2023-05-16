@@ -37,7 +37,7 @@ export const MapSection = ({ name, position, description }: IMapSection) => {
               : description}
           </p>
           <button className="mt-4 w-full rounded-md bg-buttonBg py-3 text-lg text-white">
-            View distance
+            View flying routes
           </button>
         </div>
         <div className="relative z-0 h-[29rem] w-full lg:h-[39rem]">

@@ -5,6 +5,9 @@ export const getDrivingRoute = async (id: number) =>
   await prisma.$queryRawUnsafe<[DrivingDistanceType]>(
     `SELECT 
     "DistanceKm", 
+    "DistanceMiles",
+    "FlightDistance",
+    "FlightDistanceMiles",
     "DrivingTime", 
     "RegionFromCityName",
     "RegionToCityName",

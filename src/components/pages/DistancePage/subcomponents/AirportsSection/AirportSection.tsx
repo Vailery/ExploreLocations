@@ -1,5 +1,6 @@
 import clsx from "clsx";
 import dynamic from "next/dynamic";
+import Link from "next/link";
 import { useMemo } from "react";
 import {
   CityColoredIcon,
@@ -83,9 +84,12 @@ export const AirportSection = ({
           <span>{el.value}</span>
         </div>
       ))}
-      <button className="mt-3 w-full rounded-md bg-buttonBg py-3 text-lg text-white">
+      <Link
+        className="mt-3 w-full block text-center rounded-md bg-buttonBg py-3 text-lg text-white"
+        href={`/airports/${name.replaceAll(" ", "-").toLowerCase() || ""}`}
+      >
         Explore airport
-      </button>
+      </Link>
     </div>
   );
 };

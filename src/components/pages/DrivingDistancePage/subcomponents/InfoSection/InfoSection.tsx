@@ -1,50 +1,85 @@
 import { Fragment } from "react";
-import "swiper/css";
 
-export const InfoSection = () => {
+interface InfoSectionProps {
+  originX: number;
+  originY: number;
+  destinationX: number;
+  destinationY: number;
+  from: string;
+  to: string;
+  distance: number;
+  distanceMiles: number;
+  flightKm: number;
+  flightMiles: number;
+  time: string;
+  countryTo: string;
+  countryFrom: string;
+}
+
+export const InfoSection = ({
+  originX,
+  originY,
+  destinationX,
+  destinationY,
+  from,
+  to,
+  distance,
+  distanceMiles,
+  flightKm,
+  flightMiles,
+  time,
+  countryTo,
+  countryFrom,
+}: InfoSectionProps) => {
   return (
     <section className="container mb-4 grid grid-cols-1 grid-rows-[auto_auto] gap-5 lg:grid-cols-[2fr,1fr] lg:grid-rows-1">
-      <div className="bg-white px-3 pb-5 pt-4 lg:rounded-md lg:px-6 lg:pt-4 lg:pb-32">
+      <div className="bg-white px-3 pb-5 pt-4 lg:rounded-md lg:px-6 lg:pt-4">
         <div className="mb-4 flex items-center gap-2 lg:mb-4 lg:gap-5">
           <h3 className="text-lg font-bold tracking-[0.08em] lg:text-3xl">
-            How far is San Antonio from Playa del Carmen?
+            How far is {from} from {to}?
           </h3>
         </div>
         <div className="mb-8 leading-8 tracking-wider">
-          The driving distance from San Antonio to Playa del Carmen is 2,719
-          miles which is the equivalent of 1,689 km.
+          The driving distance from {from} to {to} is {distanceMiles} miles
+          which is the equivalent of {distance} km.
         </div>
         <div className="mb-8 leading-8 tracking-wider">
-          If you were to drive without a stop, it would take you around 24 hours
-          and 16 minutes to complete the journey.
+          If you were to drive without a stop, it would take you around {time}{" "}
+          to complete the journey.
         </div>
         <div className="mb-1 leading-8 tracking-wider">
-          The driving route between Playa del Carmen and San Antonio is long, so
-          it&apos;s probably best to make it a multi-day journey.
+          The driving route between {to} and {from} is long, so it&apos;s
+          probably best to make it a multi-day journey.
         </div>
         <div className="mb-8 leading-8 tracking-wider">
-          The straight line flight distance is 1,508 km which is the equivalent
-          of 937 miles.
+          The straight line flight distance is {flightKm} km which is the
+          equivalent of {flightMiles} miles.
         </div>
         <div className="mb-8 leading-8 tracking-wider">
-          San Antonio is located on the following coordinates: 29.4241, -98.4936
-          , in United States. Playa del Carmen is located on the following
-          coordinates: 20.6274, -87.0799 , in Mexico.
+          {from} is located on the following coordinates: {originX}, {originY},
+          in {countryFrom}. {to} is located on the following coordinates:{" "}
+          {destinationX}, {destinationY} , in {countryTo}.
         </div>
-        <div className="mb-8 lg:mb-[19.8rem] leading-8 tracking-wider">
-          San Antonio and Playa del Carmen are located in different countries,
-          so consider the time spent at the border crossing.
-        </div>
-        <h3 className="mb-10 lg:text-xl font-bold">
-          Estimated Driving Time Between San Antonio and Playa del Carmen
+        {countryFrom !== countryTo && (
+          <div className="mb-8 leading-8 tracking-wider">
+            {from} and {to} are located in different countries, so consider the
+            time spent at the border crossing.
+          </div>
+        )}
+        <h3 className="mb-10 font-bold lg:text-xl">
+          Estimated Driving Time Between {from} and {to}
         </h3>
         <div className="grid grid-cols-2 gap-y-[1.6rem]">
-          <span className="font-bold mb-6 lg:block hidden">Average Speed</span>
-          <span className="font-bold lg:block hidden">Driving Time</span>
+          <span className="mb-6 hidden font-bold lg:block">Average Speed</span>
+          <span className="hidden font-bold lg:block">Driving Time</span>
           {new Array(7).fill(0).map((_, idx) => (
             <Fragment key={idx}>
-              <span className="pb-2 border-b border-grayText">30 mph (48 km/h)</span>
-              <span className="pb-2 border-b border-grayText">09 hours 19 minutes</span>
+              <span className="border-b border-grayText pb-2">
+                30 mph (48 km/h)
+              </span>
+              <span className="border-b border-grayText pb-2">
+                09 hours 19 minutes
+              </span>
             </Fragment>
           ))}
         </div>

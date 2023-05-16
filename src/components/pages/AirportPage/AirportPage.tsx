@@ -42,7 +42,6 @@ export const AirportPage = ({
         <AirportsAroundSection
           name={airport.Name}
           description={airport.SeoDescriptionEn}
-          position={{ lng: airport.CenterX, lat: airport.CenterY }}
           airportsAround={airportsAround}
         />
         <AllAirportsSection

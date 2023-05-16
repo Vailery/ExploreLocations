@@ -8,9 +8,9 @@
   box-sizing: border-box;
 }
 
-@layer utilities{
+@layer utilities {
   body {
-    @apply bg-bodyBg
+    @apply bg-bodyBg;
   }
 
   .container {
@@ -22,9 +22,19 @@
   @apply h-full w-full;
 }
 
+.leaflet-bottom {
+    display: none!important;
+  }
+
 .dashed-border {
-  background-image: linear-gradient(to right, #EC3343 0%, #EC3343 40%, transparent 40%, transparent 100%);
+  background-image: linear-gradient(
+    to right,
+    #ec3343 0%,
+    #ec3343 40%,
+    transparent 40%,
+    transparent 100%
+  );
   background-position: bottom;
-  background-size: 13px auto ;
+  background-size: 13px auto;
   background-repeat: repeat-x;
 }

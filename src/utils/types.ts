@@ -49,6 +49,9 @@ export interface FlightDistanceType {
 
 export interface DrivingDistanceType {
   DistanceKm: number;
+  DistanceMiles: number;
+  FlightDistance: number;
+  FlightDistanceMiles: number; 
   DrivingTime: string;
   RegionFromCityName: string;
   RegionToCityName: string;
