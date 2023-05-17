@@ -36,7 +36,7 @@ export const NavigationSection = () => (
       <br />
       deals, export to Google maps, and much more
     </h3>
-    <div className="grid lg:grid-cols-3 grid-rows-3 lg:gap-5 gap-4">
+    <div className="grid lg:grid-cols-3 lg:grid-rows-1 grid-rows-3 lg:gap-5 gap-4">
       {data.map(({ title, icon, link, buttonText }, idx) => (
         <div
           key={idx}
