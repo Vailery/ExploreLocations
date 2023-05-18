@@ -17,12 +17,16 @@ export const DrivingHubPage = () => {
   return (
     <>
       <Header />
-      <main className="mb-5 min-h-screen lg:mb-10">
+      <main className="mb-6 min-h-screen">
         <RouterSection />
         <DescriptionSection />
-        <TopLocationsSection />
+        <TopLocationsSection defaultOpen />
         {countries.map((el, idx) => (
-          <CountryLocationsSection key={idx} country={el} />
+          <CountryLocationsSection
+            key={idx}
+            country={el}
+            defaultOpen={idx === 0}
+          />
         ))}
       </main>
       <Footer />

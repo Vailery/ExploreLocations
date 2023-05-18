@@ -1,40 +1,28 @@
-import { Menu, Transition } from "@headlessui/react";
-import { Fragment } from "react";
+import clsx from "clsx";
 import type { ReactNode } from "react";
 
 interface SectionDropdownProps {
   button: ReactNode | ReactNode[];
   children: ReactNode | ReactNode[];
-  defaultOpen?: boolean;
+  isOpen: boolean;
 }
 
 export const SectionDropdown = ({
   button,
   children,
-  defaultOpen,
+  isOpen,
 }: SectionDropdownProps) => {
   return (
-    <Menu
-      as={"section"}
-      defaultChecked={defaultOpen}
-      className="container rounded-md bg-white px-8 py-5 mb-5"
-    >
-      <>
-        {button}
-        <Transition
-          as={Fragment}
-          enter="transition ease-out duration-100"
-          enterFrom="transform opacity-0 scale-95"
-          enterTo="transform opacity-100 scale-100"
-          leave="transition ease-in duration-75"
-          leaveFrom="transform opacity-100 scale-100"
-          leaveTo="transform opacity-0 scale-95"
-        >
-          <Menu.Items static>
-            <Menu.Item>{children}</Menu.Item>
-          </Menu.Items>
-        </Transition>
-      </>
-    </Menu>
+    <section className="container mb-5 rounded-md bg-white px-3 lg:px-8 py-2 lg:py-5">
+      {button}
+      <div
+        className={clsx(
+          "max-h-0 overflow-hidden transition-all duration-500",
+          isOpen && "max-h-[100rem]"
+        )}
+      >
+        {children}
+      </div>
+    </section>
   );
 };

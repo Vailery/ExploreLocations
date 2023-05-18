@@ -7,11 +7,11 @@ export const TopLocation = () => {
   return (
     <Menu
       as={"div"}
-      className="h-fit rounded-md border border-grayText bg-grayBg px-3 py-3"
+      className="h-fit rounded-md border border-grayText bg-grayBg px-4 lg:px-3 py-1 lg:py-3"
     >
       <Menu.Button className={"w-full"}>
         {({ open }) => (
-          <div className="relative flex w-full gap-4">
+          <div className="relative flex w-full gap-2 lg:gap-4">
             <UsaFlag className="h-12 w-12" />
             <div className="flex flex-col items-start">
               <h4 className="text-buttonBg">Brasil</h4>
