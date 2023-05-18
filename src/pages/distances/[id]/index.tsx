@@ -16,6 +16,21 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const id = context.query.id as string;
 
   const flightDistanceData = await getFlightRoute(+id);
+
+  const originAirportName = flightDistanceData[0].OriginAirportName;
+  const destinationAirportName = flightDistanceData[0].DestinationAirportName;
+
+  console.log(originAirportName, destinationAirportName);
+
+  // const originAirport = await getAirports(
+  //   `WHERE 'Name' = '${originAirportName}'`
+  // );
+  // const destinationAirport = await getAirports(
+  //   `WHERE 'Name' = '${destinationAirportName}'`
+  // );
+
+  // console.log(originAirport, destinationAirport);
+
   return {
     props: {
       flightDistanceData: flightDistanceData[0],

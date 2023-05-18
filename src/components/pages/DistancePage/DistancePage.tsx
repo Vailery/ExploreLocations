@@ -15,6 +15,9 @@ interface DistancePageProps {
 }
 
 export const DistancePage = ({ data }: DistancePageProps) => {
+
+  console.log(data);
+  
   return (
     <>
       <Header />

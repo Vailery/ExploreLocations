@@ -1,25 +1,35 @@
 import { Menu, Transition } from "@headlessui/react";
 import clsx from "clsx";
 import { Fragment } from "react";
-import { CarIcon, UsaFlag } from "~/src/assets";
+import ReactCountryFlag from "react-country-flag";
+import { CarIcon } from "~/src/assets";
 
 export const TopLocation = () => {
   return (
     <Menu
       as={"div"}
-      className="h-fit rounded-md border border-grayText bg-grayBg px-4 lg:px-3 py-1 lg:py-3"
+      className="h-fit rounded-md border border-grayText bg-grayBg px-4 py-1 lg:px-3 lg:py-3"
     >
       <Menu.Button className={"w-full"}>
         {({ open }) => (
           <div className="relative flex w-full gap-2 lg:gap-4">
-            <UsaFlag className="h-12 w-12" />
+            <div className="h-8 w-11 overflow-hidden rounded-md">
+              <ReactCountryFlag
+                countryCode={"US"}
+                svg
+                style={{
+                  width: "100%",
+                  height: "100%",
+                }}
+              />
+            </div>
             <div className="flex flex-col items-start">
               <h4 className="text-buttonBg">Brasil</h4>
               <h5>2415 POIs</h5>
             </div>
             <div
               className={clsx(
-                "h-3 w-3 absolute right-1 top-2 rotate-45 border-2 border-transparent border-b-grayColor border-r-grayColor transition-all",
+                "absolute right-1 top-2 h-3 w-3 rotate-45 border-2 border-transparent border-b-grayColor border-r-grayColor transition-all",
                 open && "rotate-[225deg]"
               )}
             />

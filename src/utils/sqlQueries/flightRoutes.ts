@@ -7,6 +7,8 @@ export const getFlightRoute = async (id: number) =>
     "LengthKm", 
     "OriginAirportName", 
     "DestinationAirportName", 
+    "DestinationAirportId",
+    "OriginAirportId",
     "FlightDuration", 
     ST_X("OriginCoordinates"::geometry) as "OriginCenterX", 
     ST_Y("OriginCoordinates"::geometry) as "OriginCenterY", 

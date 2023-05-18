@@ -1,22 +1,27 @@
 import clsx from "clsx";
 import dynamic from "next/dynamic";
 import { useMemo } from "react";
+import ReactCountryFlag from "react-country-flag";
 import {
   CityColoredIcon,
   ClockIcon,
   PassengersIcon,
-  UsaFlag,
   ArrowRightIcon,
 } from "~/src/assets";
 
 interface AirportSectionProps {
   x: number;
   y: number;
-  name: string
+  name: string;
   country: string;
 }
 
-export const AirportSection = ({ x, y, country, name }: AirportSectionProps) => {
+export const AirportSection = ({
+  x,
+  y,
+  country,
+  name,
+}: AirportSectionProps) => {
   const ClientMap = useMemo(
     () =>
       dynamic(() => import("~/src/components/shared/Map/MapContainer"), {
@@ -35,7 +40,18 @@ export const AirportSection = ({ x, y, country, name }: AirportSectionProps) => 
     },
     country: {
       value: country,
-      icon: <UsaFlag className="w-6" />,
+      icon: (
+        <div className="h-6 w-7">
+          <ReactCountryFlag
+            countryCode={"US"}
+            svg
+            style={{
+              width: "100%",
+              height: "100%",
+            }}
+          />
+        </div>
+      ),
     },
     iata: {
       value: <span className="text-buttonBg">South East Asia / China</span>,

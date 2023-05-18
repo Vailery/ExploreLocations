@@ -9,15 +9,16 @@ import {
   IATAIcon,
   MarkerIcon,
   PassengersIcon,
-  UsaFlag,
 } from "~/src/assets";
 import type { AirportItem as AirportItemType } from "~/src/utils/types";
+import { ReactCountryFlag } from "react-country-flag";
 
 interface AirportItemProps {
   data: AirportItemType;
+  countryCode: string;
 }
 
-export const AirportItem = ({ data }: AirportItemProps) => {
+export const AirportItem = ({ data, countryCode }: AirportItemProps) => {
   const ClientMap = useMemo(
     () =>
       dynamic(() => import("~/src/components/shared/Map/MapContainer"), {
@@ -25,6 +26,7 @@ export const AirportItem = ({ data }: AirportItemProps) => {
       }),
     []
   );
+console.log(countryCode.substring(0, 1));
 
   return (
     <div className="rounded-md bg-white px-3 py-5 shadow-sm lg:p-7">
@@ -54,7 +56,16 @@ export const AirportItem = ({ data }: AirportItemProps) => {
               {data.Name}
             </h3>
             <div className="flex gap-2">
-              <UsaFlag className="h-7" />
+              <div className="h-7 w-9 overflow-hidden rounded-md">
+                <ReactCountryFlag
+                  countryCode={countryCode.substring(0, 2)}
+                  svg
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                  }}
+                />
+              </div>
             </div>
           </div>
           <p className="mb-4 leading-[1.9rem] lg:mb-9 lg:px-2 lg:text-[1.11rem]">
@@ -65,7 +76,8 @@ export const AirportItem = ({ data }: AirportItemProps) => {
           <div className="flex flex-col gap-2 pb-4 lg:flex-row lg:gap-11 lg:px-2">
             <div className="flex items-center gap-3 border-b border-grayText text-lg lg:border-0">
               <DirectionIcon />
-              Romania - Bucuresti
+              Romania - Bucuresti 
+              {/* hardcoded */}
             </div>
             <div className="flex items-center gap-3 border-b border-grayText text-lg lg:border-0">
               <MarkerIcon

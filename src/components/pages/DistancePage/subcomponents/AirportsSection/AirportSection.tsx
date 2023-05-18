@@ -2,13 +2,13 @@ import clsx from "clsx";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useMemo } from "react";
+import ReactCountryFlag from "react-country-flag";
 import {
   CityColoredIcon,
   ClockIcon,
   DirectionIcon,
   IATAIcon,
   MarkerIcon,
-  UsaFlag,
 } from "~/src/assets";
 
 interface AirportSectionProps {
@@ -46,7 +46,18 @@ export const AirportSection = ({
     },
     country: {
       value: country,
-      icon: <UsaFlag className="w-6" />,
+      icon: (
+        <div className="h-6 w-7">
+          <ReactCountryFlag
+            countryCode={"US"}
+            svg
+            style={{
+              width: "100%",
+              height: "100%",
+            }}
+          />
+        </div>
+      ),
     },
     iata: {
       value: `IATA Code: ${iata}`,
@@ -60,6 +71,7 @@ export const AirportSection = ({
       value: "Europe/Bucharest, GMT +2:00 hours",
       icon: <ClockIcon />,
     },
+    // hardcoded
   };
   return (
     <div className="w-full rounded-md bg-white px-3 pb-4 pt-1 lg:w-1/2 lg:px-8 lg:pb-7 lg:pt-11">
@@ -83,7 +95,7 @@ export const AirportSection = ({
         </div>
       ))}
       <Link
-        className="mt-3 w-full block text-center rounded-md bg-buttonBg py-3 text-lg text-white"
+        className="mt-3 block w-full rounded-md bg-buttonBg py-3 text-center text-lg text-white"
         href={`/airports/${name.replaceAll(" ", "-").toLowerCase() || ""}`}
       >
         Explore airport

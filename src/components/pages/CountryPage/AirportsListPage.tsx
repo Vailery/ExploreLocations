@@ -38,7 +38,7 @@ export const CountryPage = ({
               airportsCount={airportsCount}
             />
             <FAQSection region={regions[0]} />
-            <AirportsByCountrySection regions={regions} />
+            <AirportsByCountrySection regions={regions} countryCode={regions[0].Code} />
             <MoreSection region={regions[0]} />
           </>
         )}
