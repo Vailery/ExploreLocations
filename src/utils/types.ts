@@ -13,6 +13,7 @@ export interface AirportItem {
   IntroEn: string;
   SeoTitleEn: string;
   SeoDescriptionEn: string;
+  TimezoneD: string;
 }
 
 export interface RegionType {
@@ -31,6 +32,7 @@ export interface RegionType {
 export type AirportType = "All" | "International" | "Domestic" | "Local";
 
 export interface FlightDistanceType {
+  id: number;
   LengthKm: number;
   FlightDuration: string;
   OriginAirportName: string;
@@ -50,6 +52,7 @@ export interface FlightDistanceType {
 }
 
 export interface DrivingDistanceType {
+  id: number;
   DistanceKm: number;
   DistanceMiles: number;
   FlightDistance: number;
@@ -63,4 +66,19 @@ export interface DrivingDistanceType {
   OriginCenterY: number;
   DestinationCenterX: number;
   DestinationCenterY: number;
+}
+
+export interface CityType {
+  id: number;
+  CenterX: number;
+  CenterY: number;
+  Name: string;
+  Type: string;
+  NameAlt: string;
+  Country: string;
+  ISO2: string;
+  ISO3: string;
+  ParentADM: string;
+  Capital: string;
+  Population: string;
 }

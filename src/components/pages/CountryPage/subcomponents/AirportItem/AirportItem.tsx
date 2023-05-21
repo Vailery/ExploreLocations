@@ -26,8 +26,6 @@ export const AirportItem = ({ data, countryCode }: AirportItemProps) => {
       }),
     []
   );
-console.log(countryCode.substring(0, 1));
-
   return (
     <div className="rounded-md bg-white px-3 py-5 shadow-sm lg:p-7">
       <div className="flex flex-wrap gap-1 lg:flex-nowrap lg:gap-5">
@@ -76,7 +74,7 @@ console.log(countryCode.substring(0, 1));
           <div className="flex flex-col gap-2 pb-4 lg:flex-row lg:gap-11 lg:px-2">
             <div className="flex items-center gap-3 border-b border-grayText text-lg lg:border-0">
               <DirectionIcon />
-              Romania - Bucuresti 
+              Romania - Bucuresti
               {/* hardcoded */}
             </div>
             <div className="flex items-center gap-3 border-b border-grayText text-lg lg:border-0">
@@ -90,7 +88,10 @@ console.log(countryCode.substring(0, 1));
                     : "text-grayColor"
                 )}
               />
-              {data.Type}
+              {`${data.Type[0]?.toUpperCase() || ""}${data.Type.substring(
+                1,
+                data.Type.length
+              )}`}
             </div>
             {data.IATA && (
               <div className="flex items-center gap-3 border-b border-grayText text-lg lg:border-0">

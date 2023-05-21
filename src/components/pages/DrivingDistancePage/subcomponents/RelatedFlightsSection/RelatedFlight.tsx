@@ -1,24 +1,38 @@
-export const RelatedFlight = () => {
+import Link from "next/link";
+import type { DrivingDistanceType } from "~/src/utils/types";
+
+interface RelatedFlightProps {
+  city: string;
+  relatedDistances: DrivingDistanceType[];
+}
+
+export const RelatedFlight = ({
+  city,
+  relatedDistances,
+}: RelatedFlightProps) => {
   return (
-    <div className="lg:w-1/2 w-full rounded-md bg-white px-3 lg:px-8 lg:pt-9 pt-2 pb-5 lg:pb-7">
-      <h3 className="lg:mb-7 text-xl lg:text-3xl font-bold">
-        Driving Distances San Antonio 
+    <div className="w-full rounded-md bg-white px-3 pb-5 pt-2 lg:w-1/2 lg:px-8 lg:pb-7 lg:pt-9">
+      <h3 className="text-xl font-bold lg:mb-7 lg:text-3xl">
+        Driving Distances {city}
       </h3>
-      <div className="mb-4 lg:flex justify-between hidden">
+      <div className="mb-4 hidden justify-between lg:flex">
         <div className="text-xl font-bold">Cities</div>
         <div className="text-xl font-bold">Distance</div>
       </div>
-      {new Array(5).fill(0).map((_, idx) => (
-        <div
+      {relatedDistances.map((el, idx) => (
+        <Link
+          href={`/driving-distances/${el.id}`}
           key={idx}
-          className="flex justify-between border-b border-grayText lg:py-4 py-[0.85rem]"
+          className="flex justify-between border-b border-grayText py-[0.85rem] lg:py-4"
         >
-          <div className="text-buttonBg">Bucharest to Iasi</div>
-          <div>389 km</div>
-        </div>
+          <div className="text-buttonBg">
+            {el.RegionFromCityName} to {el.RegionToCityName}
+          </div>
+          <div>{el.DistanceKm} km</div>
+        </Link>
       ))}
       <button className="mt-3 w-full rounded-md bg-buttonBg py-3 text-lg text-white">
-        All London Driving Distances
+        All {city } Driving Distances
       </button>
     </div>
   );

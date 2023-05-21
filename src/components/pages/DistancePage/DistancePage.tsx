@@ -8,16 +8,23 @@ import { RouterSection } from "./subcomponents/RouterSection";
 import { AirportsSection } from "./subcomponents/AirportsSection";
 import { RelatedFlightsSection } from "./subcomponents/RelatedFlightsSection/RelatedFlightsSection";
 import { MoreSection } from "./subcomponents/MoreSection";
-import type { FlightDistanceType } from "~/src/utils/types";
+import type { AirportItem, FlightDistanceType } from "~/src/utils/types";
 
 interface DistancePageProps {
   data: FlightDistanceType;
+  relatedOriginAirports: FlightDistanceType[];
+  relatedDestinationAirports: FlightDistanceType[];
+  originAirport: AirportItem | null;
+  destinationAirport: AirportItem | null;
 }
 
-export const DistancePage = ({ data }: DistancePageProps) => {
-
-  console.log(data);
-  
+export const DistancePage = ({
+  data,
+  relatedDestinationAirports,
+  relatedOriginAirports,
+  originAirport,
+  destinationAirport,
+}: DistancePageProps) => {
   return (
     <>
       <Header />
@@ -47,9 +54,18 @@ export const DistancePage = ({ data }: DistancePageProps) => {
           OriginCountryName={data.OriginCountryName}
           DestinationCountryName={data.DestinationCountryName}
         />
-        <AirportsSection data={data} />
+        <AirportsSection
+          data={data}
+          originAirport={originAirport}
+          destinationAirport={destinationAirport}
+        />
         <FAQSection />
-        <RelatedFlightsSection />
+        <RelatedFlightsSection
+          originCountry={data.OriginCountryName}
+          destinationCountry={data.DestinationCountryName}
+          relatedOriginAirports={relatedOriginAirports}
+          relatedDestinationAirports={relatedDestinationAirports}
+        />
         <MoreSection />
         <MoreSection />
       </main>

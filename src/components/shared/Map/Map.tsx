@@ -6,6 +6,7 @@ import "leaflet/dist/leaflet.css";
 import MarkerIcon from "~/src/assets/images/icons/marker.svg";
 import ReactDOMServer from "react-dom/server";
 import type { AirportItem } from "~/src/utils/types";
+import { MuseumMarkerIcon } from "~/src/assets";
 
 interface MapProps {
   airportsAround?: AirportItem[];
@@ -15,6 +16,7 @@ interface MapProps {
   setPosition: (position: LatLngExpression) => void;
   selectedAirport?: AirportItem | null;
   polyline?: LatLngExpression[];
+  isMuseum?: boolean;
 }
 
 export const Map = ({
@@ -25,6 +27,7 @@ export const Map = ({
   setPosition,
   selectedAirport,
   polyline,
+  isMuseum,
 }: MapProps) => {
   const icon = L.divIcon({
     className: "custom-icon",
@@ -69,6 +72,10 @@ export const Map = ({
       <MarkerIcon className="h-16 w-16 -translate-x-1/2 -translate-y-full text-grayColor" />
     ),
   });
+  const museumIcon = L.divIcon({
+    className: "custom-icon",
+    html: ReactDOMServer.renderToString(<MuseumMarkerIcon />),
+  });
 
   const map = useMap();
 
@@ -77,7 +84,6 @@ export const Map = ({
       map.panTo(position);
     }
   }, [position, map]);
-
   return (
     <>
       <TileLayer
@@ -98,7 +104,9 @@ export const Map = ({
               key={idx}
               position={[airport.CenterY, airport.CenterX]}
               icon={
-                airport === selectedAirport
+                isMuseum
+                  ? museumIcon
+                  : airport === selectedAirport
                   ? airport.Type.toLowerCase() === "international"
                     ? internationalSelectedIcon
                     : airport.Type.toLowerCase() === "domestic"

@@ -1,28 +1,38 @@
-import type { FlightDistanceType } from "~/src/utils/types";
+import type { AirportItem, FlightDistanceType } from "~/src/utils/types";
 import { AirportSection } from "./AirportSection";
 
 interface AirportsSectionProps {
   data: FlightDistanceType;
+  originAirport: AirportItem | null;
+  destinationAirport: AirportItem | null;
 }
 
-export const AirportsSection = ({ data }: AirportsSectionProps) => {
+export const AirportsSection = ({
+  data,
+  originAirport,
+  destinationAirport,
+}: AirportsSectionProps) => {
   return (
     <section className="container mb-6 flex flex-col gap-5 lg:flex-row">
       <AirportSection
-        name={data.OriginAirportName}
-        city={data.OriginCityName}
-        country={data.OriginCountryName}
-        iata={data.OriginIata}
-        x={data.OriginCenterX}
-        y={data.OriginCenterY}
+        name={originAirport?.Name || data.OriginAirportName}
+        city={originAirport?.City || data.OriginCityName}
+        country={originAirport?.Country || data.OriginCountryName}
+        iata={originAirport?.IATA || data.OriginIata}
+        x={originAirport?.CenterX || data.OriginCenterX}
+        y={originAirport?.CenterY || data.OriginCenterY}
+        type={originAirport?.Type}
+        timezone={originAirport?.TimezoneD}
       />
       <AirportSection
-        name={data.DestinationAirportName}
-        city={data.DestinationCityName}
-        country={data.DestinationCountryName}
-        iata={data.DestinationIata}
-        x={data.DestinationCenterX}
-        y={data.DestinationCenterY}
+        name={destinationAirport?.Name || data.DestinationAirportName}
+        city={destinationAirport?.City || data.DestinationCityName}
+        country={destinationAirport?.Country || data.DestinationCountryName}
+        iata={destinationAirport?.IATA || data.DestinationIata}
+        x={destinationAirport?.CenterX || data.DestinationCenterX}
+        y={destinationAirport?.CenterY || data.DestinationCenterY}
+        type={destinationAirport?.Type}
+        timezone={destinationAirport?.TimezoneD}
       />
     </section>
   );

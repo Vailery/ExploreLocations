@@ -1,3 +1,4 @@
+import type { CityType } from "~/src/utils/types";
 import { AirportSection } from "./AirportSection";
 
 interface InfoSectionProps {
@@ -9,9 +10,22 @@ interface InfoSectionProps {
   to: string;
   countryTo: string;
   countryFrom: string;
+  dataFrom: CityType | null;
+  dataTo: CityType | null;
 }
 
-export const AirportsSection = ({originX, originY, destinationX, destinationY, from, to, countryTo, countryFrom}: InfoSectionProps) => {
+export const AirportsSection = ({
+  originX,
+  originY,
+  destinationX,
+  destinationY,
+  from,
+  to,
+  countryTo,
+  countryFrom,
+  dataFrom,
+  dataTo,
+}: InfoSectionProps) => {
   return (
     <section className="container mb-5 flex flex-col gap-5 lg:flex-row">
       <AirportSection
@@ -19,12 +33,14 @@ export const AirportsSection = ({originX, originY, destinationX, destinationY, f
         y={originY}
         name={from}
         country={countryFrom}
+        data={dataFrom || null}
       />
       <AirportSection
         x={destinationX}
         y={destinationY}
         name={to}
         country={countryTo}
+        data={dataTo || null}
       />
     </section>
   );

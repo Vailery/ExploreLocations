@@ -8,14 +8,22 @@ import { AirportsSection } from "./subcomponents/AirportsSection";
 import { RelatedFlightsSection } from "./subcomponents/RelatedFlightsSection/RelatedFlightsSection";
 import { MoreSection } from "./subcomponents/MoreSection";
 import { FAQSection } from "../../shared/FAQSection";
-import type { DrivingDistanceType } from "~/src/utils/types";
+import type { CityType, DrivingDistanceType } from "~/src/utils/types";
 
 interface DrivingDistancePageProps {
   drivingDistanceData: DrivingDistanceType;
+  relatedOriginDistances: DrivingDistanceType[];
+  relatedDestinationDistances: DrivingDistanceType[];
+  originCity: CityType | null;
+  destinationCity: CityType | null;
 }
 
 export const DrivingDistancePage = ({
   drivingDistanceData,
+  relatedDestinationDistances,
+  relatedOriginDistances,
+  originCity,
+  destinationCity,
 }: DrivingDistancePageProps) => {
   const {
     CountryFromName,
@@ -79,9 +87,16 @@ export const DrivingDistancePage = ({
           countryTo={CountryToName}
           from={RegionFromCityName}
           to={RegionToCityName}
+          dataFrom={originCity}
+          dataTo={destinationCity}
         />
         <FAQSection />
-        <RelatedFlightsSection />
+        <RelatedFlightsSection
+          fromCity={RegionFromCityName}
+          toCity={RegionToCityName}
+          relatedDestinationDistances={relatedOriginDistances}
+          relatedOriginDistances={relatedDestinationDistances}
+        />
         <MoreSection />
         <MoreSection />
       </main>
