@@ -1,11 +1,11 @@
 import type { GetServerSideProps, NextPage } from "next";
-import { DrivingHubPage } from "~/src/components/pages/DrivingHubPage";
+import { FlyingHubPage } from "~/src/components/pages/FlyingHubPage";
 
-const DrivingHub: NextPage = () => {
-  return <DrivingHubPage />;
+const FlyingHub: NextPage = () => {
+  return <FlyingHubPage />;
 };
 
-export default DrivingHub;
+export default FlyingHub;
 
 // eslint-disable-next-line @typescript-eslint/require-await
 export const getServerSideProps: GetServerSideProps = async () => {

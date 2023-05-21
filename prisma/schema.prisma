@@ -55,7 +55,7 @@ model Airports {
     ElMeters                    Float
     Website                     String?
     Wiki                        String?
-    TimezoneS                   String?
+q                   String?
     TimezoneD                   String?
     
     @@index([Geometry], name: "airports_geometry_idx", type: Gist)

@@ -12,15 +12,15 @@ export const Header = () => {
     },
     {
       name: "Guides",
-      url: "/guides",
+      url: "/guide/Germany",
     },
     {
       name: "Driving Distances",
-      url: "/driving-distances",
+      url: "/driving-distances/216309",
     },
     {
       name: "Flying time & distances",
-      url: "/flying-time-distances",
+      url: "/distances/1",
     },
     {
       name: "Explore nearby",
@@ -44,7 +44,7 @@ export const Header = () => {
                 <Link href={item.url} className="lg:whitespace-nowrap">
                   {item.name}
                 </Link>
-                {router.pathname === item.url && (
+                {router.pathname.includes(item.url.toLowerCase()) && (
                   <div className="absolute bottom-0 left-1/2 w-[5.3rem] -translate-x-1/2 rounded-[0.2rem_0.2rem_0_0] border-0 border-t-2 border-redText transition-all" />
                 )}
               </li>

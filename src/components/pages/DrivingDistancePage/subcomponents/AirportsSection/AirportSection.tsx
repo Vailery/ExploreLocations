@@ -1,22 +1,30 @@
 import clsx from "clsx";
 import dynamic from "next/dynamic";
 import { useMemo } from "react";
+import ReactCountryFlag from "react-country-flag";
 import {
   CityColoredIcon,
   ClockIcon,
   PassengersIcon,
-  UsaFlag,
   ArrowRightIcon,
 } from "~/src/assets";
+import type { CityType } from "~/src/utils/types";
 
 interface AirportSectionProps {
   x: number;
   y: number;
-  name: string
+  name: string;
   country: string;
+  data: CityType | null;
 }
 
-export const AirportSection = ({ x, y, country, name }: AirportSectionProps) => {
+export const AirportSection = ({
+  x,
+  y,
+  country,
+  name,
+  data,
+}: AirportSectionProps) => {
   const ClientMap = useMemo(
     () =>
       dynamic(() => import("~/src/components/shared/Map/MapContainer"), {
@@ -30,15 +38,26 @@ export const AirportSection = ({ x, y, country, name }: AirportSectionProps) => 
       icon: <CityColoredIcon />,
     },
     passengers: {
-      value: "21.54 million",
+      value: data ? `${data.Population} million` : null,
       icon: <PassengersIcon />,
     },
     country: {
-      value: country,
-      icon: <UsaFlag className="w-6" />,
+      value: data?.Country || country,
+      icon: (
+        <div className="h-6 w-7">
+          <ReactCountryFlag
+            countryCode={"US"}
+            svg
+            style={{
+              width: "100%",
+              height: "100%",
+            }}
+          />
+        </div>
+      ),
     },
     iata: {
-      value: <span className="text-buttonBg">South East Asia / China</span>,
+      value: data ? <span className="text-buttonBg">{'{Region here}'} / {data.Country}</span> : null,
       icon: <ArrowRightIcon />,
     },
     timezone: {
@@ -54,19 +73,22 @@ export const AirportSection = ({ x, y, country, name }: AirportSectionProps) => 
       <div className="h-56 w-full lg:h-64">
         <ClientMap position={[y, x]} mainMarkers={[[y, x]]} zoom={14.5} />
       </div>
-      {Object.values(airportData).map((el, idx) => (
-        <div
-          className={clsx(
-            "flex items-center gap-3 py-[0.84rem] lg:py-[1.1rem]",
-            Object.values(airportData).length !== idx + 1 &&
-              "border-b border-grayText"
-          )}
-          key={idx}
-        >
-          {el.icon}
-          <span>{el.value}</span>
-        </div>
-      ))}
+      {Object.values(airportData).map(
+        (el, idx) =>
+          el.value && (
+            <div
+              className={clsx(
+                "flex items-center gap-3 py-[0.84rem] lg:py-[1.1rem]",
+                Object.values(airportData).length !== idx + 1 &&
+                  "border-b border-grayText"
+              )}
+              key={idx}
+            >
+              {el.icon}
+              <span>{el.value}</span>
+            </div>
+          )
+      )}
       <button className="mt-3 w-full rounded-md bg-buttonBg py-3 text-lg text-white">
         View More
       </button>

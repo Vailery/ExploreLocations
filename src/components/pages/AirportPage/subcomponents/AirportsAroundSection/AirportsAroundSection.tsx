@@ -94,7 +94,7 @@ export const AirportsAroundSection = ({
       </div>
       <div className="grid grid-rows-5 gap-x-20 px-3 pb-4 lg:grid-cols-2">
         {airportsAround.map((el, index) => (
-          <p
+          <Link
             key={index}
             className={clsx(
               "pt-4 lg:text-xl lg:tracking-tighter",
@@ -102,10 +102,11 @@ export const AirportsAroundSection = ({
                 index !== airportsAround.length - 1 &&
                 "border-b border-grayBg py-4"
             )}
+            href={`/airports/${el.Name.replaceAll(" ", "-").toLowerCase()}`}
           >
             <span className="text-buttonBg">{el.Name}</span> ({el.Distance} km
             away)
-          </p>
+          </Link>
         ))}
       </div>
     </section>

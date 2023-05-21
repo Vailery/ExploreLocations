@@ -3,7 +3,7 @@ import type { AirportItem } from "../types";
 
 export const getAirports = async (param?: string) =>
   await prisma.$queryRawUnsafe<[AirportItem]>(
-    `SELECT ST_X("Center"::geometry) as "CenterX", ST_Y("Center"::geometry) as "CenterY", "Passengers", "Name", "Type", "IATA", "ICAO", "City", "Country", "IntroEn", "SeoTitleEn", "SeoDescriptionEn", "id" FROM "Airports" ${
+    `SELECT "TimezoneD", ST_X("Center"::geometry) as "CenterX", ST_Y("Center"::geometry) as "CenterY", "Passengers", "Name", "Type", "IATA", "ICAO", "City", "Country", "IntroEn", "SeoTitleEn", "SeoDescriptionEn", "id" FROM "Airports" ${
       param || ""
     }`
   );

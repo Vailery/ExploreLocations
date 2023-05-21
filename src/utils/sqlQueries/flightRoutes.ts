@@ -1,12 +1,15 @@
 import { prisma } from "~/src/server/db";
 import type { FlightDistanceType } from "../types";
 
-export const getFlightRoute = async (id: number) =>
+export const getFlightRouteData = async (condition: string) =>
   await prisma.$queryRawUnsafe<[FlightDistanceType]>(
     `SELECT 
+    "id",
     "LengthKm", 
     "OriginAirportName", 
     "DestinationAirportName", 
+    "DestinationAirportId",
+    "OriginAirportId",
     "FlightDuration", 
     ST_X("OriginCoordinates"::geometry) as "OriginCenterX", 
     ST_Y("OriginCoordinates"::geometry) as "OriginCenterY", 
@@ -18,5 +21,11 @@ export const getFlightRoute = async (id: number) =>
     "DestinationCountryName",
     "OriginIata",
     "DestinationIata"
-     FROM "FlyingRoutes" WHERE "id" = ${id}`
+     FROM "FlyingRoutes" ${condition}`
   );
+
+export const getFlightRoute = async (id: number) =>
+  await getFlightRouteData(`WHERE "id" = ${id}`);
+
+export const getFlyingDistances = async (country: string, id: number) =>
+  await getFlightRouteData(`WHERE "OriginCityName" = '${country}' AND "id" != '${id}' LIMIT 20`);

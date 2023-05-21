@@ -85,7 +85,7 @@ export const InfoSection = ({ airportInfo }: InfoSectionProps) => {
           <CoordinatesIcon className="w-9" />
           <p className="tracking-wider text-white">
             Coordinates: Latitude: {convertCoordinates(airportInfo.CenterY)},
-            Longitude: ${convertCoordinates(airportInfo.CenterX, true)}
+            Longitude: {convertCoordinates(airportInfo.CenterX, true)}
           </p>
         </div>
         <hr className="my-[0.87rem] w-full lg:my-[1.05rem]" />

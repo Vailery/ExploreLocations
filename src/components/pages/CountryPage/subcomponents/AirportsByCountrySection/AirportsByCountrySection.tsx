@@ -1,13 +1,15 @@
 import clsx from "clsx";
-import { UsaFlag } from "~/src/assets";
 import type { RegionType } from "~/src/utils/types";
+import { ReactCountryFlag } from "react-country-flag";
 
 interface AirportsByCountrySectionProps {
   regions: RegionType[];
+  countryCode: string;
 }
 
 export const AirportsByCountrySection = ({
   regions,
+  countryCode,
 }: AirportsByCountrySectionProps) => {
   return (
     <section className="container mt-5 rounded-md bg-white py-1 shadow-md lg:py-6">
@@ -25,9 +27,19 @@ export const AirportsByCountrySection = ({
             )}
             key={idx}
           >
-            <UsaFlag className="h-6 w-6 lg:h-7 lg:w-7" />
+            <div className="h-6 w-6 overflow-hidden rounded-md lg:h-7 lg:w-7">
+              <ReactCountryFlag
+                countryCode={countryCode.substring(0, 2)}
+                svg
+                style={{
+                  width: "100%",
+                  height: "100%",
+                }}
+              />
+            </div>
             <span className="text-buttonBg">{el.Name}</span>
             (14 Airports)
+            {/* hardcoded */}
           </div>
         ))}
       </div>

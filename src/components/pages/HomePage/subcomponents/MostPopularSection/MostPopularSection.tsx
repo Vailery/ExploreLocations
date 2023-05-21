@@ -1,7 +1,8 @@
 import { Listbox, Transition } from "@headlessui/react";
 import clsx from "clsx";
 import { Fragment, useState } from "react";
-import { MedalIcon, UsaFlag } from "~/src/assets";
+import { MedalIcon } from "~/src/assets";
+import { TopLocation } from "~/src/components/shared/TopLocation";
 
 export const MostPopularSection = () => {
   const [selectedType, setSelectedType] = useState("Most Popular Airports");
@@ -110,17 +111,7 @@ export const MostPopularSection = () => {
         <h4 className="mb-4 lg:mb-6">See our Top 13 Locations</h4>
         <div className="mb-7 grid gap-x-5 gap-y-3 lg:grid-cols-3">
           {new Array(26).fill(0).map((_, idx) => (
-            <div
-              key={idx}
-              className="relative flex gap-2 rounded-md border border-grayText bg-gray-100 px-3 py-2 lg:gap-3 lg:px-5 lg:py-4"
-            >
-              <UsaFlag className="h-10 w-12" />
-              <div>
-                <div className="text-lg text-buttonBg">Romania</div>
-                <div className="text-lg leading-5">2415 POIs</div>
-              </div>
-              <div className="absolute right-2 top-4 h-3 w-3 rotate-45 border-b-2 border-r-2 border-black lg:right-4 lg:top-6" />
-            </div>
+            <TopLocation key={idx} />
           ))}
         </div>
         <button className="mx-auto block w-full rounded-md bg-buttonBg px-10 py-3 text-lg text-white lg:w-auto">

@@ -1,12 +1,11 @@
 import { Menu } from "@headlessui/react";
 import clsx from "clsx";
-import Image from "next/image";
-import { UsaFlag } from "~/src/assets";
+import ReactCountryFlag from "react-country-flag";
 
 const languages = [
   {
     name: "EN",
-    img: <UsaFlag width={30} height={30} />,
+    img: <ReactCountryFlag countryCode={"US"} svg className="h-8 w-8" />,
   },
 ];
 
@@ -17,7 +16,11 @@ export const LanguageSwitch = () => {
         {({ open }) => (
           <div className="flex items-center gap-2">
             <p>EN</p>
-            <UsaFlag width={30} height={30} />
+            <ReactCountryFlag
+              countryCode={"US"}
+              className="h-8 w-8"
+              svg
+            />
             <div
               className={clsx(
                 "ml-1 h-2 w-2 rotate-45 border-2 border-transparent border-b-grayColor border-r-grayColor transition-all",

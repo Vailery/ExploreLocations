@@ -46,7 +46,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     await getAirportsInRegion(`ON ST_Intersects(a."Center", r."Geometry") and r."Country" = '${regionName}'
     ORDER BY a."Passengers" LIMIT 20 OFFSET '${(pageNumber - 1) * 10}'`);
 
-  const airportsCount = await getAirportsInRegionCount(`ON ST_Intersects(a."Center", r."Geometry") and r."Country" = '${regionName}'`);
+  const airportsCount = await getAirportsInRegionCount(
+    `ON ST_Intersects(a."Center", r."Geometry") and r."Country" = '${regionName}'`
+  );
 
   return {
     props: {

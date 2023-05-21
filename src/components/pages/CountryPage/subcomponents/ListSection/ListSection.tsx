@@ -72,7 +72,9 @@ export const ListSection = ({
 
   const router = useRouter();
 
-  const [currentRow, setCurrentRow] = useState(router.query.page ? +router.query.page - 1 : 0);
+  const [currentRow, setCurrentRow] = useState(
+    router.query.page ? +router.query.page - 1 : 0
+  );
 
   const { data, refetch } = api.airport.getAirportsSort.useQuery(
     {
@@ -100,7 +102,6 @@ export const ListSection = ({
 
   const [isFirstRender, setIsFirstRender] = useState<boolean>(true);
 
-  
   useEffect(() => {
     if (!isFirstRender && listTop.current) {
       void window.scrollTo({
@@ -230,7 +231,7 @@ export const ListSection = ({
       </div>
       <div className="my-5 flex flex-col gap-3">
         {airports.map((el, idx) => (
-          <AirportItem key={idx} data={el} />
+          <AirportItem key={idx} data={el} countryCode={region.Code} />
         ))}
 
         {pagesOffset > 1 && (

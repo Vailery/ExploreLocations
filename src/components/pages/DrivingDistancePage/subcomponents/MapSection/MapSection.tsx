@@ -91,6 +91,7 @@ export const MapSection = ({
               [originY, originX],
               [destinationY, destinationX],
             ]}
+            isMuseum
           />
         </div>
       </div>
