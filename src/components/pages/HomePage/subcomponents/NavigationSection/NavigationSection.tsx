@@ -15,13 +15,13 @@ const data = [
   {
     title: "Discover Flying Routes",
     icon: <DiscoverRoutesIcon />,
-    link: "/distances",
+    link: "/flying-hub",
     buttonText: "View Flying Routes",
   },
   {
     title: "Discover Driving Routes",
     icon: <DiscoverDrivingIcon />,
-    link: "/driving-distances",
+    link: "/driving-hub",
     buttonText: "View Driving Routes",
   },
 ];

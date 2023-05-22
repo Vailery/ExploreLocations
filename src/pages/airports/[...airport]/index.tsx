@@ -33,10 +33,15 @@ export const getServerSideProps: GetServerSideProps<AirportPageProps> = async (
   context
 ) => {
   const airportName =
-    typeof context.params?.airport === "string"
+    context.params && Array.isArray(context.params.airport)
       ? context.params.airport
-          .split("-")
-          .map((el) => (el = el.charAt(0).toUpperCase() + el.slice(1)))
+          .flat()
+          .map(
+            (el) =>
+              `${el[0] ? el[0].toUpperCase() : ""}${el.substring(1, el.length)}`
+          )
+          .join("/")
+          .split("_")
           .join(" ")
       : "";
 

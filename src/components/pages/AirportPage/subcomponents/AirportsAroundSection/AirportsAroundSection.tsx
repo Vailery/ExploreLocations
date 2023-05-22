@@ -26,7 +26,7 @@ export const AirportsAroundSection = ({
   );
 
   const [selectedAirport, setSelectedAirport] = useState<AirportItem | null>(
-    airportsAround.at(0) || null
+    null
   );
 
   const markersCenter = useMemo(() => {
@@ -58,39 +58,41 @@ export const AirportsAroundSection = ({
             selectedAirport={selectedAirport}
           />
         </div>
-        <div className="absolute right-5 top-7 z-10 hidden w-[20.8rem] rounded-md bg-white p-4 lg:block">
-          <div className="mb-4 flex items-center gap-3">
-            <MarkerIcon className="w-10 text-redBg" />
-            <div className="text-lg font-bold leading-5 tracking-tight">
-              {selectedAirport?.Name}
+        {selectedAirport && (
+          <div className="absolute right-5 top-7 z-10 hidden w-[20.8rem] rounded-md bg-white p-4 lg:block">
+            <div className="mb-4 flex items-center gap-3">
+              <MarkerIcon className="w-10 text-redBg" />
+              <div className="text-lg font-bold leading-5 tracking-tight">
+                {selectedAirport?.Name}
+              </div>
             </div>
-          </div>
-          <div className="mb-5 flex items-start gap-3">
-            <MarkersIcon className="h-8 w-8" />
-            <p className="leading-7 tracking-wider">
-              <span className="font-bold">{selectedAirport?.Distance}km</span>{" "}
-              away from {name}
-            </p>
-          </div>
-          {description && (
-            <div className="flex items-start gap-3">
-              <InfoIcon className="h-8 w-8" />
+            <div className="mb-5 flex items-start gap-3">
+              <MarkersIcon className="h-8 w-8" />
               <p className="leading-7 tracking-wider">
-                {description.split(" ").length > 20
-                  ? description.split(" ").slice(0, 20).join(" ") + "..."
-                  : description}
+                <span className="font-bold">{selectedAirport?.Distance}km</span>{" "}
+                away from {name}
               </p>
             </div>
-          )}
-          <Link
-            className="mt-4 block w-full rounded-md bg-buttonBg py-3 text-center text-lg text-white"
-            href={`/airports/${
-              selectedAirport?.Name.replaceAll(" ", "-").toLowerCase() || ""
-            }`}
-          >
-            Explore airport
-          </Link>
-        </div>
+            {description && (
+              <div className="flex items-start gap-3">
+                <InfoIcon className="h-8 w-8" />
+                <p className="leading-7 tracking-wider">
+                  {description.split(" ").length > 20
+                    ? description.split(" ").slice(0, 20).join(" ") + "..."
+                    : description}
+                </p>
+              </div>
+            )}
+            <Link
+              className="mt-4 block w-full rounded-md bg-buttonBg py-3 text-center text-lg text-white"
+              href={`/airports/${
+                selectedAirport?.Name.replaceAll(" ", "_") || ""
+              }`}
+            >
+              Explore airport
+            </Link>
+          </div>
+        )}
       </div>
       <div className="grid grid-rows-5 gap-x-20 px-3 pb-4 lg:grid-cols-2">
         {airportsAround.map((el, index) => (
@@ -102,7 +104,7 @@ export const AirportsAroundSection = ({
                 index !== airportsAround.length - 1 &&
                 "border-b border-grayBg py-4"
             )}
-            href={`/airports/${el.Name.replaceAll(" ", "-").toLowerCase()}`}
+            href={`/airports/${el.Name.replaceAll(" ", "_")}`}
           >
             <span className="text-buttonBg">{el.Name}</span> ({el.Distance} km
             away)

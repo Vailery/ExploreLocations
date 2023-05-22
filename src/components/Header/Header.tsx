@@ -8,19 +8,19 @@ export const Header = () => {
   const navData = [
     {
       name: "Regions",
-      url: "/",
+      url: "/regions",
     },
     {
       name: "Guides",
-      url: "/guide/Germany",
+      url: "/guide",
     },
     {
       name: "Driving Distances",
-      url: "/driving-distances/216309",
+      url: "/driving-hub",
     },
     {
       name: "Flying time & distances",
-      url: "/distances/1",
+      url: "/flying-hub",
     },
     {
       name: "Explore nearby",
@@ -31,7 +31,9 @@ export const Header = () => {
   return (
     <div className="w-full bg-white shadow-[0px_4px_4px_#00000009]">
       <header className="container flex w-full items-center px-3 py-3 lg:h-[6.3rem] lg:py-0">
-        <Logo />
+        <Link href="/">
+          <Logo />
+        </Link>
         <nav className="ml-20 hidden h-full lg:block">
           <ul className="flex h-full items-center gap-[2.38rem]">
             {navData.map((item, idx) => (
@@ -45,7 +47,7 @@ export const Header = () => {
                   {item.name}
                 </Link>
                 {router.pathname.includes(item.url.toLowerCase()) && (
-                  <div className="absolute bottom-0 left-1/2 w-[5.3rem] -translate-x-1/2 rounded-[0.2rem_0.2rem_0_0] border-0 border-t-2 border-redText transition-all" />
+                  <div className="absolute bottom-0 left-1/2 w-full -translate-x-1/2 rounded-[0.2rem_0.2rem_0_0] border-0 border-t-2 border-redText transition-all" />
                 )}
               </li>
             ))}

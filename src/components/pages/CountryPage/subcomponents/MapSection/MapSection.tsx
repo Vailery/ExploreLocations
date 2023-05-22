@@ -20,7 +20,7 @@ export const MapSection = ({ region, airports }: MapSectionProps) => {
   );
 
   const [currentAirport, setCurrentAirport] = useState<AirportItem | null>(
-    airports[0] || null
+    null
   );
 
   const markersCenter = useMemo(() => {
@@ -31,7 +31,7 @@ export const MapSection = ({ region, airports }: MapSectionProps) => {
     airports.forEach((el) => {
       coords.lat += el.CenterY;
       coords.lng += el.CenterX;
-    })
+    });
     coords.lat = coords.lat / airports.length;
     coords.lng = coords.lng / airports.length;
     return coords;
@@ -43,45 +43,48 @@ export const MapSection = ({ region, airports }: MapSectionProps) => {
         Airports in <span className="text-buttonBg">{region.Country}</span>
       </h3>
       <div className="relative">
-        <div className="absolute right-3 top-11 z-30 w-[15.5rem] rounded-md bg-white p-4 lg:right-11 lg:top-6 lg:w-[21rem]">
-          <div className="mb-6 flex items-center gap-3">
-            <MarkerIcon className="w-10 text-redBg" />
-            <div className="text-md font-bold leading-5 tracking-tight lg:text-lg">
-              {currentAirport?.Name}
+        {currentAirport && (
+          <div className="absolute right-3 top-11 z-30 w-[15.5rem] rounded-md bg-white p-4 lg:right-11 lg:top-6 lg:w-[21rem]">
+            <div className="mb-6 flex items-center gap-3">
+              <MarkerIcon className="w-10 text-redBg" />
+              <div className="text-md font-bold leading-5 tracking-tight lg:text-lg">
+                {currentAirport?.Name}
+              </div>
             </div>
-          </div>
-          {currentAirport?.SeoDescriptionEn && (
-            <div className="flex items-start gap-3">
-              <InfoIcon className="h-10 w-16" />
-              <p className="leading-7 tracking-wider">
-                {currentAirport.SeoDescriptionEn.split(" ").length > 20
-                  ? currentAirport.SeoDescriptionEn.split(" ")
-                      .slice(0, 20)
-                      .join(" ") + "..."
-                  : currentAirport.SeoDescriptionEn}
-              </p>
-            </div>
-          )}
-          {/* <p className="leading-7 lg:leading-8">
+            {currentAirport?.SeoDescriptionEn && (
+              <div className="flex items-start gap-3">
+                <InfoIcon className="h-10 w-16" />
+                <p className="leading-7 tracking-wider">
+                  {currentAirport.SeoDescriptionEn.split(" ").length > 20
+                    ? currentAirport.SeoDescriptionEn.split(" ")
+                        .slice(0, 20)
+                        .join(" ") + "..."
+                    : currentAirport.SeoDescriptionEn}
+                </p>
+              </div>
+            )}
+            {/* <p className="leading-7 lg:leading-8">
             Willkommen am schönsten Seeufer Zürichs. Hier liegt eine maritime
             Welt für sich
           </p> */}
-          <Link
-            className="mt-4 w-full block text-center rounded-md bg-buttonBg py-3 text-lg text-white"
-            href={`/airports/${currentAirport?.Name.replaceAll(" ", "-").toLowerCase() || ''}`}
-          >
-            Explore airport
-          </Link>
-        </div>
+            <Link
+              className="mt-4 block w-full rounded-md bg-buttonBg py-3 text-center text-lg text-white"
+              href={`/airports/${
+                currentAirport?.Name.replaceAll(" ", "_") || ""
+              }`}
+            >
+              Explore airport
+            </Link>
+          </div>
+        )}
         <div className="relative z-0 h-[29rem] w-full pb-6 lg:h-[30.5rem] lg:px-7">
-          {currentAirport && (
-            <ClientMap
-              position={markersCenter}
-              setSelectedAirport={setCurrentAirport}
-              airportsAround={airports}
-              bounds={airports.map((el) => [el.CenterY, el.CenterX])}
-            />
-          )}
+          <ClientMap
+            position={markersCenter}
+            setSelectedAirport={setCurrentAirport}
+            airportsAround={airports}
+            bounds={airports.map((el) => [el.CenterY, el.CenterX])}
+            selectedAirport={currentAirport}
+          />
         </div>
       </div>
     </section>

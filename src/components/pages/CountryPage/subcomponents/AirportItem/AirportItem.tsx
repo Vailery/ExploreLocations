@@ -28,8 +28,8 @@ export const AirportItem = ({ data, countryCode }: AirportItemProps) => {
   );
   return (
     <div className="rounded-md bg-white px-3 py-5 shadow-sm lg:p-7">
-      <div className="flex flex-wrap gap-1 lg:flex-nowrap lg:gap-5">
-        <div className="h-52 lg:min-w-[19.5rem]">
+      <div className="flex flex-wrap gap-3 lg:flex-nowrap lg:gap-5">
+        <div className="h-52 min-w-full lg:min-w-[19.5rem]">
           <ClientMap
             position={[data.CenterY, data.CenterX]}
             airportsAround={[data]}
@@ -102,7 +102,7 @@ export const AirportItem = ({ data, countryCode }: AirportItemProps) => {
             {data.Passengers && (
               <div className="flex items-center gap-3 text-lg">
                 <PassengersIcon />
-                {data.Passengers}
+                {(+data.Passengers).toLocaleString("en-US")}
               </div>
             )}
           </div>
@@ -111,10 +111,8 @@ export const AirportItem = ({ data, countryCode }: AirportItemProps) => {
       <hr className="mt-4 hidden w-full border-b border-grayText opacity-50 lg:block" />
       <div className="mt-4 flex flex-wrap items-center gap-6">
         <Link
-          className="w-full rounded-md bg-buttonBg py-3 text-lg text-white lg:w-auto lg:px-9 lg:py-4"
-          href={`/airports/${
-            data?.Name.replaceAll(" ", "-").toLowerCase() || ""
-          }`}
+          className="w-full rounded-md bg-buttonBg py-3 text-center text-lg text-white lg:w-auto lg:px-9 lg:py-4"
+          href={`/airports/${data?.Name.replaceAll(" ", "_") || ""}`}
         >
           Explore airport
         </Link>

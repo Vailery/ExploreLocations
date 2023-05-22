@@ -24,8 +24,10 @@ export const RelatedFlight = ({
           className="flex justify-between border-b border-grayText py-[0.85rem] lg:py-4"
           href={`/distances/${el.id}`}
         >
-          <div className="text-buttonBg">{el.OriginCityName} to {el.DestinationCityName}</div>
-          <div>{el.LengthKm} km</div>
+          <div className="text-buttonBg">
+            {el.OriginCityName} to {el.DestinationCityName}
+          </div>
+          <div>{el.LengthKm.toLocaleString("en-US")} km</div>
         </Link>
       ))}
       <button className="mt-3 w-full rounded-md bg-buttonBg py-3 text-lg text-white">

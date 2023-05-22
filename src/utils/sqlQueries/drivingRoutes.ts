@@ -21,8 +21,8 @@ export const getDrivingRouteData = async (param: string) =>
     FROM "DrivingRoutes" ${param}`
   );
 
-export const getDrivingRoute = async (id: number) =>
-  await getDrivingRouteData(`WHERE "id" = ${id}`);
+export const getDrivingRoute = async (from:string, to: string) =>
+  await getDrivingRouteData(`WHERE "RegionFromCityName" = '${from}' AND "RegionToCityName" = '${to}'`);
 
 export const getDrivingDistances = async (country: string, id: number) =>
   await getDrivingRouteData(
