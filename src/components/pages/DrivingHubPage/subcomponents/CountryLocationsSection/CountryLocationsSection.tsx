@@ -1,7 +1,7 @@
 import { PlanetIcon } from "~/src/assets";
-import { TopLocation } from "../TopLocation/TopLocation";
 import { SectionDropdown } from "../SectionDropdown";
 import { useState } from "react";
+import { TopLocation } from "~/src/components/shared/TopLocation";
 
 interface CountryLocationsSectionProps {
   country: string;

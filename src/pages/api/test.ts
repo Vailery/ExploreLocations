@@ -4,10 +4,11 @@ const a = async () => {
   const airportNames = await prisma.$queryRawUnsafe<
     { OriginAirportName: string }[]
   >(
-    `SELECT DISTINCT
-    "Name"
-    FROM "Cities" WHERE "Name" = 'Derby'
-  `);
+    `SELECT
+    "RegionFromCityName", "RegionToCityName"
+    FROM "DrivingRoutes" WHERE "id" = '216309'
+  `
+  );
   console.log(airportNames);
 
   // const a = await prisma.$queryRawUnsafe<string[]>(`

@@ -24,8 +24,8 @@ export const getFlightRouteData = async (condition: string) =>
      FROM "FlyingRoutes" ${condition}`
   );
 
-export const getFlightRoute = async (id: number) =>
-  await getFlightRouteData(`WHERE "id" = ${id}`);
+export const getFlightRoute = async (from: string, to: string) =>
+  await getFlightRouteData(`WHERE "OriginCityName" = '${from}' AND "DestinationCityName" = '${to}'`);
 
 export const getFlyingDistances = async (country: string, id: number) =>
   await getFlightRouteData(`WHERE "OriginCityName" = '${country}' AND "id" != '${id}' LIMIT 20`);

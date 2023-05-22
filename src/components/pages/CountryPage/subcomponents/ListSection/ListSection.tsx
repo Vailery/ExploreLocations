@@ -111,14 +111,25 @@ export const ListSection = ({
       });
     }
     void refetch();
-    void router.push(
-      {
-        pathname: router.pathname,
-        query: { ...router.query, page: `${currentRow + 1}` },
-      },
-      undefined,
-      { shallow: true }
-    );
+    if (currentRow !== 0) {
+      void router.push(
+        {
+          pathname: router.pathname,
+          query: { ...router.query, page: `${currentRow + 1}` },
+        },
+        undefined,
+        { shallow: true }
+      );
+    } else {
+      void router.push(
+        {
+          pathname: router.pathname,
+          query: { guides: router.query.guides },
+        },
+        router.pathname,
+        { shallow: true }
+      );
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentRow]);
 
@@ -132,7 +143,7 @@ export const ListSection = ({
       void router.replace(
         {
           pathname: router.pathname,
-          query: { ...router.query, page: "1" },
+          query: { guides: router.query.guides },
         },
         undefined,
         { shallow: true }

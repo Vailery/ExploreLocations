@@ -28,7 +28,7 @@ export const RelatedFlight = ({
           <div className="text-buttonBg">
             {el.RegionFromCityName} to {el.RegionToCityName}
           </div>
-          <div>{el.DistanceKm} km</div>
+          <div>{el.DistanceKm.toLocaleString("en-US")} km</div>
         </Link>
       ))}
       <button className="mt-3 w-full rounded-md bg-buttonBg py-3 text-lg text-white">

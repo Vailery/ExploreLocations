@@ -38,7 +38,9 @@ export const AirportSection = ({
       icon: <CityColoredIcon />,
     },
     passengers: {
-      value: data ? `${data.Population} million` : null,
+      value: data?.Population
+        ? `${data.Population} million`
+        : null,
       icon: <PassengersIcon />,
     },
     country: {
@@ -57,7 +59,11 @@ export const AirportSection = ({
       ),
     },
     iata: {
-      value: data ? <span className="text-buttonBg">{'{Region here}'} / {data.Country}</span> : null,
+      value: data ? (
+        <span className="text-buttonBg">
+          {"{Region here}"} / {data.Country}
+        </span>
+      ) : null,
       icon: <ArrowRightIcon />,
     },
     timezone: {
