@@ -1,6 +1,7 @@
 import clsx from "clsx";
 import type { AirportItem } from "~/src/utils/types";
 import { Fragment } from "react";
+import Link from "next/link";
 
 interface AllAirportsSectionProps {
   country: string;
@@ -19,31 +20,38 @@ export const AllAirportsSection = ({
       <div className="mb-7 grid grid-cols-1 gap-10 pr-12 lg:mb-10 lg:grid-cols-3">
         {airportsInCountry.map((el, index) => (
           <Fragment key={index}>
-            {el.Type === "International" && (
-              <div className="flex flex-col text-lg text-buttonBg" key={index}>
+            {el.Name && (
+              <Link href={`/airport/${el.Name.replaceAll(' ', '_')}`} className="flex flex-col text-lg text-buttonBg" key={index}>
                 <p className="border-b border-grayBg pb-5 pt-3 lg:pt-0">
                   Airport name: {el.Name}
                 </p>
-                <p className="border-b border-grayBg pb-5 pt-3 lg:pt-2">
-                  City: {el.City}
-                </p>
-                <p
-                  className={clsx(
-                    "pt-2",
-                    index !== 2 && "border-b border-grayBg pb-5"
-                  )}
-                >
-                  IATA Code: {el.IATA}
-                </p>
-              </div>
+                {el.City && (
+                  <p className="border-b border-grayBg pb-5 pt-3 lg:pt-2">
+                    City: {el.City}
+                  </p>
+                )}
+                {el.IATA && (
+                  <p
+                    className={clsx(
+                      "pt-2",
+                      index !== 2 && "border-b border-grayBg pb-5"
+                    )}
+                  >
+                    IATA Code: {el.IATA}
+                  </p>
+                )}
+              </Link>
             )}
           </Fragment>
         ))}
       </div>
       <div className="flex">
-        <button className="mx-auto mt-4 rounded-md bg-buttonBg px-16 py-3 text-lg text-white">
+        <Link
+          href={`/airports/${country.replaceAll(" ", "_")}`}
+          className="mx-auto mt-4 rounded-md bg-buttonBg px-16 py-3 text-lg text-white"
+        >
           Airports in {country}
-        </button>
+        </Link>
       </div>
     </section>
   ) : (

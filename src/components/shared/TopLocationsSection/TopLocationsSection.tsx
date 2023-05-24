@@ -25,7 +25,7 @@ export const TopLocationsSection = ({
               <h2 className="text-xl font-bold leading-5 lg:text-3xl">
                 Top Locations
               </h2>
-              <h4>See our Top 13 Locations</h4>
+              <h4>See our Top {locations.length} Locations</h4>
             </div>
           </div>
           <div

@@ -1,4 +1,4 @@
-import type { GetStaticProps, NextPage } from "next";
+import type { GetServerSideProps, NextPage } from "next";
 import { AirportPage } from "~/src/components/pages/AirportPage";
 import type { AirportItem } from "~/src/utils/types";
 import {
@@ -29,7 +29,7 @@ const Airport: NextPage<AirportPageProps> = ({
 export default Airport;
 
 // eslint-disable-next-line @typescript-eslint/require-await
-export const getStaticProps: GetStaticProps<AirportPageProps> = async (
+export const getServerSideProps: GetServerSideProps<AirportPageProps> = async (
   context
 ) => {
   const airportName =
@@ -64,7 +64,7 @@ export const getStaticProps: GetStaticProps<AirportPageProps> = async (
   airportsAround.sort((a, b) => (a.Distance || 0) - (b.Distance || 0));
 
   const airportsInCountry = await getAirports(
-    `WHERE "Country" = '${airport[0].Country}' LIMIT 20`
+    `WHERE "Country" = '${airport[0].Country}' LIMIT 9`
   );
 
   return {
