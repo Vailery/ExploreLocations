@@ -104,7 +104,7 @@ export const AirportSection = ({
       )}
       <Link
         className="mt-3 block w-full rounded-md bg-buttonBg py-3 text-center text-lg text-white"
-        href={`/airports/${name.replaceAll(" ", "_") || ""}`}
+        href={`/airport/${name.replaceAll(" ", "_") || ""}`}
       >
         Explore airport
       </Link>

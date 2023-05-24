@@ -1,10 +1,16 @@
 import { Menu, Transition } from "@headlessui/react";
 import clsx from "clsx";
+import Link from "next/link";
 import { Fragment } from "react";
 import ReactCountryFlag from "react-country-flag";
 import { CarIcon } from "~/src/assets";
+import type { LocationsType } from "~/src/utils/types";
 
-export const TopLocation = () => {
+interface TopLocationProps {
+  location: LocationsType;
+}
+
+export const TopLocation = ({ location }: TopLocationProps) => {
   return (
     <Menu
       as={"div"}
@@ -15,7 +21,7 @@ export const TopLocation = () => {
           <div className="relative flex w-full gap-2 lg:gap-4">
             <div className="h-8 w-11 overflow-hidden rounded-md">
               <ReactCountryFlag
-                countryCode={"US"}
+                countryCode={location.code.substring(0, 2)}
                 svg
                 style={{
                   width: "100%",
@@ -24,8 +30,8 @@ export const TopLocation = () => {
               />
             </div>
             <div className="flex flex-col items-start">
-              <h4 className="text-buttonBg">Brasil</h4>
-              <h5>2415 POIs</h5>
+              <h4 className="text-buttonBg">{location.country}</h4>
+              <h5>{(+location.points).toLocaleString("en-US")} POIs</h5>
             </div>
             <div
               className={clsx(
@@ -51,8 +57,12 @@ export const TopLocation = () => {
               <h5 className="text-lg font-bold">
                 5 most popular driving distances
               </h5>
-              {new Array(5).fill(0).map((el, idx) => (
-                <div
+              {location.locations.map((el, idx) => (
+                <Link
+                  href={`/driving-route/${el.from.replaceAll(
+                    " ",
+                    "_"
+                  )}/${el.to.replaceAll(" ", "_")}`}
                   key={idx}
                   className={clsx(
                     "flex items-center gap-3 border-grayColor py-[0.9rem]",
@@ -60,8 +70,10 @@ export const TopLocation = () => {
                   )}
                 >
                   <CarIcon />
-                  <h6 className="text-lg text-buttonBg">Beijing to Macau</h6>
-                </div>
+                  <h6 className="text-lg text-buttonBg">
+                    {el.from} to {el.to}
+                  </h6>
+                </Link>
               ))}
             </div>
           </Menu.Item>

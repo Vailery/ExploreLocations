@@ -1,4 +1,4 @@
-import type { GetServerSideProps, NextPage } from "next";
+import type { GetStaticProps, NextPage } from "next";
 
 const Airport: NextPage = () => {
   return <></>;
@@ -7,7 +7,7 @@ const Airport: NextPage = () => {
 export default Airport;
 
 // eslint-disable-next-line @typescript-eslint/require-await
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getStaticProps: GetStaticProps = async (context) => {
   return {
     props: {},
   };

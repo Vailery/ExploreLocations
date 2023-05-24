@@ -28,7 +28,9 @@ export const airportRouter = createTRPCRouter({
         `ON ST_Intersects(a."Center", r."Geometry") and r."Country" = '${
           input.country
         }'${input.type !== "all" ? ` and a."Type" = '${input.type}'` : ""}
-        ORDER BY a."Passengers" LIMIT '${input.limit}' OFFSET '${input.offset}'`
+        ORDER BY COALESCE(CAST(a."Passengers" AS INTEGER), 0) DESC  LIMIT '${
+          input.limit
+        }' OFFSET '${input.offset}'`
       );
 
       const airportsCount = await getAirportsInRegionCount(

@@ -69,7 +69,7 @@ export const MapSection = ({ region, airports }: MapSectionProps) => {
           </p> */}
             <Link
               className="mt-4 block w-full rounded-md bg-buttonBg py-3 text-center text-lg text-white"
-              href={`/airports/${
+              href={`/airport/${
                 currentAirport?.Name.replaceAll(" ", "_") || ""
               }`}
             >

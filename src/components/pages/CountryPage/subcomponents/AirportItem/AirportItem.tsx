@@ -112,7 +112,7 @@ export const AirportItem = ({ data, countryCode }: AirportItemProps) => {
       <div className="mt-4 flex flex-wrap items-center gap-6">
         <Link
           className="w-full rounded-md bg-buttonBg py-3 text-center text-lg text-white lg:w-auto lg:px-9 lg:py-4"
-          href={`/airports/${data?.Name.replaceAll(" ", "_") || ""}`}
+          href={`/airport/${data?.Name.replaceAll(" ", "_") || ""}`}
         >
           Explore airport
         </Link>
