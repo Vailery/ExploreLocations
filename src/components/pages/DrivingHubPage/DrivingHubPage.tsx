@@ -4,34 +4,35 @@ import { Header } from "../../Header";
 import { DescriptionSection } from "./subcomponents/DescriptionSection";
 import { RouterSection } from "./subcomponents/RouterSection";
 import { TopLocationsSection } from "../../shared/TopLocationsSection";
+import { CountryLocationsSection } from "./subcomponents/CountryLocationsSection";
 
 interface DrivingHubPageProps {
-  topLocations: LocationsType[];
+  topLocations?: LocationsType[];
+  countryLocations?: LocationsType[];
+  countryName?: string;
 }
 
-const countries = [
-  "Europe",
-  "Asia",
-  "Africa",
-  "North America",
-  "South America",
-];
-
-export const DrivingHubPage = ({ topLocations }: DrivingHubPageProps) => {
+export const DrivingHubPage = ({
+  topLocations,
+  countryLocations,
+  countryName,
+}: DrivingHubPageProps) => {
   return (
     <>
       <Header />
       <main className="mb-6 min-h-screen">
         <RouterSection />
         <DescriptionSection />
-        <TopLocationsSection locations={topLocations} defaultOpen />
-        {/* {countries.map((el, idx) => (
+        {topLocations && (
+          <TopLocationsSection locations={topLocations} defaultOpen />
+        )}
+        {countryLocations && (
           <CountryLocationsSection
-            key={idx}
-            country={el}
-            defaultOpen={idx === 0}
+            countryLocations={countryLocations}
+            countryName={countryName}
+            defaultOpen
           />
-        ))} */}
+        )}
       </main>
       <Footer />
     </>

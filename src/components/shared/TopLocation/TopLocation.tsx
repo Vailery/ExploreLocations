@@ -55,7 +55,7 @@ export const TopLocation = ({ location }: TopLocationProps) => {
           <Menu.Item disabled>
             <div className="mt-4 flex flex-col px-1">
               <h5 className="text-lg font-bold">
-                5 most popular driving distances
+                5 most popular distances
               </h5>
               {location.locations.map((el, idx) => (
                 <Link

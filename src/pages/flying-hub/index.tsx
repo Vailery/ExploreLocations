@@ -24,7 +24,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
   for (let i = 0; i < topRegions.length; i++) {
     const locations = await getFLyingLocationsData(
-      `ON r."OriginCityName" = '${topRegions[i]?.Country || ""}' LIMIT 5`
+      `ON r."OriginCountryName" = '${topRegions[i]?.Country || ""}' LIMIT 5`
     );
     topLocations.push({
       country: topRegions[i]?.Country || "",
