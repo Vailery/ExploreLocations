@@ -82,3 +82,13 @@ export interface CityType {
   Capital: string;
   Population: string;
 }
+
+export interface LocationsType {
+  country: string;
+  code: string;
+  points: string;
+  locations: {
+    from: string;
+    to: string;
+  }[];
+}

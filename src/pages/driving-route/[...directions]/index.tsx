@@ -66,9 +66,6 @@ export const getServerSideProps: GetServerSideProps<
   const destinationCity = await getCities(
     `WHERE "Name" = '${drivingDistanceData[0].RegionToCityName}'`
   );
-
-  console.log(originCity, destinationCity);
-
   return {
     props: {
       drivingDistanceData: drivingDistanceData[0],

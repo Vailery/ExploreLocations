@@ -4,16 +4,20 @@ const a = async () => {
   const airportNames = await prisma.$queryRawUnsafe<
     { OriginAirportName: string }[]
   >(
-    `SELECT
-    "RegionFromCityName", "RegionToCityName"
-    FROM "DrivingRoutes" WHERE "id" = '216309'
-  `
+    `
+  SELECT DISTINCT
+     r."RegionFromCityName",
+     r."RegionToCityName"
+     FROM "DrivingRoutes" r INNER JOIN "AdminRegions" a 
+     ON (
+      SELECT a."Country" 
+      FROM "DrivingRoutes" r INNER JOIN "AdminRegions" a
+      ON r."CountryFromName" = a."Country"
+      ORDER BY "Type", CAST("Points" AS INTEGER) DESC LIMIT 20
+     ) LIMIT 5`
   );
-  console.log(airportNames);
 
-  // const a = await prisma.$queryRawUnsafe<string[]>(`
-  // SELECT a."Name" FROM "Airports" a INNER JOIN "FlyingRoutes" b ON a."AltName" = b."OriginAirportName"`);
-  // console.log(a);
+  console.log(airportNames);
 };
 
 export default a;

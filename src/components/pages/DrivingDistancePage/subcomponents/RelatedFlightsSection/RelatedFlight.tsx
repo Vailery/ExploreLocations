@@ -21,7 +21,10 @@ export const RelatedFlight = ({
       </div>
       {relatedDistances.map((el, idx) => (
         <Link
-          href={`/driving-distances/${el.id}`}
+          href={`/driving-route/${el.RegionFromCityName.replaceAll(
+            " ",
+            "_"
+          )}/${el.RegionToCityName.replaceAll(" ", "_")}`}
           key={idx}
           className="flex justify-between border-b border-grayText py-[0.85rem] lg:py-4"
         >
@@ -32,7 +35,7 @@ export const RelatedFlight = ({
         </Link>
       ))}
       <button className="mt-3 w-full rounded-md bg-buttonBg py-3 text-lg text-white">
-        All {city } Driving Distances
+        All {city} Driving Distances
       </button>
     </div>
   );

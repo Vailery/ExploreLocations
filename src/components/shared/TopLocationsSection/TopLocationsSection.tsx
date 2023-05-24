@@ -1,14 +1,17 @@
 import { MedalIcon } from "~/src/assets";
-import { SectionDropdown } from "../SectionDropdown";
+import { SectionDropdown } from "../../pages/DrivingHubPage/subcomponents/SectionDropdown";
 import { useState } from "react";
 import { TopLocation } from "~/src/components/shared/TopLocation";
+import type { LocationsType } from "~/src/utils/types";
 
 interface TopLocationsSectionProps {
   defaultOpen?: boolean;
+  locations: LocationsType[];
 }
 
 export const TopLocationsSection = ({
   defaultOpen,
+  locations,
 }: TopLocationsSectionProps) => {
   const [isOpen, setIsOpen] = useState(defaultOpen || false);
   return (
@@ -35,8 +38,8 @@ export const TopLocationsSection = ({
       }
     >
       <div className="grid gap-x-6 gap-y-4 lg:grid-cols-3">
-        {new Array(13).fill(0).map((el, idx) => (
-          <TopLocation key={idx} />
+        {locations.map((el, idx) => (
+          <TopLocation key={idx} location={el} />
         ))}
       </div>
     </SectionDropdown>

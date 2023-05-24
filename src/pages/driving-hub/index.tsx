@@ -1,15 +1,43 @@
-import type { GetServerSideProps, NextPage } from "next";
+import type { GetStaticProps, NextPage } from "next";
 import { DrivingHubPage } from "~/src/components/pages/DrivingHubPage";
+import { getAdminRegions } from "~/src/utils/sqlQueries/adminRegions";
+import { getDrivingLocationsData } from "~/src/utils/sqlQueries/drivingLocations";
+import type { LocationsType } from "~/src/utils/types";
 
-const DrivingHub: NextPage = () => {
-  return <DrivingHubPage />;
+interface DrivingHubPageProps {
+  topLocations: LocationsType[];
+}
+
+const DrivingHub: NextPage<DrivingHubPageProps> = ({ topLocations }) => {
+  return <DrivingHubPage topLocations={topLocations} />;
 };
 
 export default DrivingHub;
 
-// eslint-disable-next-line @typescript-eslint/require-await
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getStaticProps: GetStaticProps<DrivingHubPageProps> = async () => {
+  const topRegions = await getAdminRegions(
+    `ORDER BY "Type", CAST("Points" AS INTEGER) DESC LIMIT 20`
+  );
+
+  const topLocations = [];
+
+  for (let i = 0; i < topRegions.length; i++) {
+    const locations = await getDrivingLocationsData(
+      `ON r."CountryFromName" = '${topRegions[i]?.Country || ""}' LIMIT 5`
+    );
+    topLocations.push({
+      country: topRegions[i]?.Country || "",
+      points: topRegions[i]?.Points || "",
+      code: topRegions[i]?.Code || "",
+      locations: locations.map((el) => ({
+        from: el.RegionFromCityName,
+        to: el.RegionToCityName,
+      })),
+    });
+  }
   return {
-    props: {},
+    props: {
+      topLocations: topLocations,
+    },
   };
 };

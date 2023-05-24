@@ -36,11 +36,11 @@ export const CountryLocationsSection = ({
       }
       isOpen={isOpen}
     >
-      <div className="grid-col-1 grid gap-x-6 gap-y-4 lg:grid-cols-3">
+      {/* <div className="grid-col-1 grid gap-x-6 gap-y-4 lg:grid-cols-3">
         {new Array(13).fill(0).map((el, idx) => (
           <TopLocation key={idx} />
         ))}
-      </div>
+      </div> */}
     </SectionDropdown>
   );
 };
