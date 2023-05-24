@@ -3,8 +3,13 @@ import clsx from "clsx";
 import { Fragment, useState } from "react";
 import { MedalIcon } from "~/src/assets";
 import { TopLocation } from "~/src/components/shared/TopLocation";
+import type { LocationsType } from "~/src/utils/types";
 
-export const MostPopularSection = () => {
+interface MostPopularSection {
+  topLocations: LocationsType[];
+}
+
+export const MostPopularSection = ({ topLocations }: MostPopularSection) => {
   const [selectedType, setSelectedType] = useState("Most Popular Airports");
   return (
     <section className="container mb-1 lg:mb-5">
@@ -110,8 +115,8 @@ export const MostPopularSection = () => {
       <div className="rounded-md bg-white px-4 pb-7 pt-5 lg:px-7">
         <h4 className="mb-4 lg:mb-6">See our Top 13 Locations</h4>
         <div className="mb-7 grid gap-x-5 gap-y-3 lg:grid-cols-3">
-          {new Array(26).fill(0).map((_, idx) => (
-            <TopLocation key={idx} />
+          {topLocations.map((el, idx) => (
+            <TopLocation key={idx} location={el} />
           ))}
         </div>
         <button className="mx-auto block w-full rounded-md bg-buttonBg px-10 py-3 text-lg text-white lg:w-auto">
