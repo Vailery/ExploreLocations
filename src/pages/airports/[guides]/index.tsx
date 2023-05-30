@@ -34,22 +34,22 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     typeof context.params?.guides === "string"
       ? context.params.guides
           .split("-")
-          .map((el) => (el = el.charAt(0).toUpperCase() + el.slice(1)))
+          .map((el) => el.toLowerCase())
           .join(" ")
       : "";
 
   const pageNumber = context.query?.page ? +context.query?.page : 1;
 
-  const regions = await getAdminRegions(`WHERE "Country" = '${regionName}'`);
+  const regions = await getAdminRegions(`WHERE LOWER("Country") = '${regionName}'`);
 
   const airports =
-    await getAirportsInRegion(`ON ST_Intersects(a."Center", r."Geometry") and r."Country" = '${regionName}'
+    await getAirportsInRegion(`ON ST_Intersects(a."Center", r."Geometry") and LOWER(r."Country") = '${regionName}'
     ORDER BY COALESCE(CAST(a."Passengers" AS INTEGER), 0) DESC LIMIT 20 OFFSET '${
       (pageNumber - 1) * 10
     }'`);
 
   const airportsCount = await getAirportsInRegionCount(
-    `ON ST_Intersects(a."Center", r."Geometry") and r."Country" = '${regionName}'`
+    `ON ST_Intersects(a."Center", r."Geometry") and LOWER(r."Country") = '${regionName}'`
   );
 
   return {

@@ -21,7 +21,11 @@ export const AllAirportsSection = ({
         {airportsInCountry.map((el, index) => (
           <Fragment key={index}>
             {el.Name && (
-              <Link href={`/airport/${el.Name.replaceAll(' ', '_')}`} className="flex flex-col text-lg text-buttonBg" key={index}>
+              <Link
+                href={`/airport/${el.Name.replaceAll(" ", "_").toLowerCase()}`}
+                className="flex flex-col text-lg text-buttonBg"
+                key={index}
+              >
                 <p className="border-b border-grayBg pb-5 pt-3 lg:pt-0">
                   Airport name: {el.Name}
                 </p>
@@ -47,7 +51,7 @@ export const AllAirportsSection = ({
       </div>
       <div className="flex">
         <Link
-          href={`/airports/${country.replaceAll(" ", "_")}`}
+          href={`/airports/${country.replaceAll(" ", "_").toLowerCase()}`}
           className="mx-auto mt-4 rounded-md bg-buttonBg px-16 py-3 text-lg text-white"
         >
           Airports in {country}

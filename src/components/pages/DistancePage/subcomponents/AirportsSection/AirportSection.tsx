@@ -79,35 +79,42 @@ export const AirportSection = ({
     // hardcoded
   };
   return (
-    <div className="w-full rounded-md bg-white px-3 pb-4 pt-1 lg:w-1/2 lg:px-8 lg:pb-7 lg:pt-11">
-      <h2 className="mb-4 text-lg font-bold tracking-wide lg:mb-5 lg:text-3xl">
+    <>
+      <h2 className="w-full rounded-[0.4rem_0.4rem_0_0] bg-white px-3 pb-4 pt-1 text-lg font-bold tracking-wide lg:px-8 lg:pb-5 lg:pt-11 lg:text-3xl">
         {name}
       </h2>
-      <div className="h-56 w-full lg:mb-6 lg:h-64">
-        <ClientMap position={[y, x]} mainMarkers={[[y, x]]} zoom={8} />
+      <div className="h-56 w-full bg-white px-3 lg:h-64 lg:px-8 lg:pb-6">
+        <ClientMap
+          position={[y, x]}
+          mainMarkers={[[y, x]]}
+          zoom={11}
+          shouldRemap
+        />
       </div>
-      {Object.values(airportData).map(
-        (el, idx) =>
-          el.value && (
-            <div
-              className={clsx(
-                "flex items-center gap-3 py-[0.84rem] lg:py-5",
-                Object.values(airportData).length !== idx + 1 &&
-                  "border-b border-grayText"
-              )}
-              key={idx}
-            >
+      {Object.values(airportData).map((el, idx) => (
+        <div
+          className={clsx(
+            "flex w-full items-center gap-3 bg-white px-3 lg:px-8",
+            el.value && "border-b border-grayText py-[0.84rem] lg:py-5"
+          )}
+          key={idx}
+        >
+          {el.value && (
+            <>
               {el.icon}
               <span>{el.value}</span>
-            </div>
-          )
-      )}
-      <Link
-        className="mt-3 block w-full rounded-md bg-buttonBg py-3 text-center text-lg text-white"
-        href={`/airport/${name.replaceAll(" ", "_") || ""}`}
-      >
-        Explore airport
-      </Link>
-    </div>
+            </>
+          )}{" "}
+        </div>
+      ))}
+      <div className="w-full rounded-[0_0_0.4rem_0.4rem] bg-white px-3 pb-4 pt-3 lg:px-8 lg:pb-7">
+        <Link
+          className="block w-full rounded-md bg-buttonBg py-3 text-center text-lg text-white"
+          href={`/airport/${name.replaceAll(" ", "_").toLowerCase() || ""}`}
+        >
+          Explore airport
+        </Link>
+      </div>
+    </>
   );
 };

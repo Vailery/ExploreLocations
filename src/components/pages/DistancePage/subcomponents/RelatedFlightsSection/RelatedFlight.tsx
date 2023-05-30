@@ -1,13 +1,14 @@
-import Link from 'next/link';
-import type { FlightDistanceType } from '~/src/utils/types';
+import Link from "next/link";
+import type { FlightDistanceType } from "~/src/utils/types";
 
 interface RelatedFlightProps {
   country: string;
-  relatedAirports: FlightDistanceType[]
+  relatedAirports: FlightDistanceType[];
 }
 
 export const RelatedFlight = ({
-  country, relatedAirports
+  country,
+  relatedAirports,
 }: RelatedFlightProps) => {
   return (
     <div className="w-full rounded-md bg-white px-3 pb-5 pt-2 lg:w-1/2 lg:px-8 lg:pb-7 lg:pt-9">
@@ -22,7 +23,13 @@ export const RelatedFlight = ({
         <Link
           key={idx}
           className="flex justify-between border-b border-grayText py-[0.85rem] lg:py-4"
-          href={`/distances/${el.id}`}
+          href={`/flying-route/${el.OriginCityName.replaceAll(
+            " ",
+            "_"
+          ).toLowerCase()}/${el.DestinationCityName.replaceAll(
+            " ",
+            "_"
+          ).toLowerCase()}`}
         >
           <div className="text-buttonBg">
             {el.OriginCityName} to {el.DestinationCityName}

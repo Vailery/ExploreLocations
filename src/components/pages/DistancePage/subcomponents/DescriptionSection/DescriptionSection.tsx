@@ -23,8 +23,8 @@ export const DescriptionSection = ({
         Flight Duration
       </h2>
       <h3 className="mx-auto mb-8 px-3 text-center text-sm leading-[1.8rem] tracking-wider text-white lg:w-4/6 lg:text-base lg:leading-8">
-        Given below is the distance between {OriginCityName}, {OriginCountryName} to{" "}
-        {DestinationCityName}, {DestinationCountryName}
+        Given below is the distance between {OriginCityName},{" "}
+        {OriginCountryName} to {DestinationCityName}, {DestinationCountryName}
       </h3>
       <div className="relative mx-auto w-[93%] rounded-md bg-white px-2 pb-7 pt-4 lg:w-[63%] lg:px-6 lg:pb-5 lg:pt-7">
         <div className="mb-2 flex items-center justify-between">
@@ -41,8 +41,9 @@ export const DescriptionSection = ({
             Average flight time is {FlightDuration}
           </h3>
           <h4 className="tracking-wider lg:mt-2">
-            The fastest flight time from {OriginCityName} to {DestinationCityName} is{" "}
-            <span className="font-bold">3 hours 25 minutes</span>
+            The fastest flight time from {OriginCityName} to{" "}
+            {DestinationCityName} is{" "}
+            <span className="font-bold">{FlightDuration}</span>
           </h4>
         </div>
         <MarkerIcon className="absolute left-1/2 top-14 w-[4.2rem] -translate-x-1/2 text-redBg" />

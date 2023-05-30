@@ -33,14 +33,19 @@ export const AirportItem = ({ data, countryCode }: AirportItemProps) => {
           <ClientMap
             position={[data.CenterY, data.CenterX]}
             airportsAround={[data]}
-            zoom={5.5}
+            zoom={7.5}
             disabled
-            isStatic
+            shouldRemap
           />
         </div>
         <div className="w-full">
           <div className="mb-3 flex flex-wrap justify-between">
-            <h3 className="flex text-2xl font-bold">
+            <Link
+              className="flex text-2xl font-bold"
+              href={`/airport/${
+                data?.Name.replaceAll(" ", "_").toLowerCase() || ""
+              }`}
+            >
               <MarkerIcon
                 className={clsx(
                   "h-10 w-10 ",
@@ -52,7 +57,7 @@ export const AirportItem = ({ data, countryCode }: AirportItemProps) => {
                 )}
               />
               {data.Name}
-            </h3>
+            </Link>
             <div className="flex gap-2">
               <div className="h-7 w-9 overflow-hidden rounded-md">
                 <ReactCountryFlag
@@ -112,7 +117,9 @@ export const AirportItem = ({ data, countryCode }: AirportItemProps) => {
       <div className="mt-4 flex flex-wrap items-center gap-6">
         <Link
           className="w-full rounded-md bg-buttonBg py-3 text-center text-lg text-white lg:w-auto lg:px-9 lg:py-4"
-          href={`/airport/${data?.Name.replaceAll(" ", "_") || ""}`}
+          href={`/airport/${
+            data?.Name.replaceAll(" ", "_").toLowerCase() || ""
+          }`}
         >
           Explore airport
         </Link>

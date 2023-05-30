@@ -41,9 +41,7 @@ export const getServerSideProps: GetServerSideProps<
 > = async (context) => {
   const directions = Array.isArray(context.query.directions)
     ? context.query.directions.map((el) =>
-        `${el[0] ? el[0].toUpperCase() : ""}${el.substring(1, el.length)}`
-          .split("_")
-          .join(" ")
+        el.toLowerCase().split("_").join(" ")
       )
     : ["", ""];
 
@@ -61,10 +59,10 @@ export const getServerSideProps: GetServerSideProps<
     drivingDistanceData[0].id
   );
   const originCity = await getCities(
-    `WHERE "Name" = '${drivingDistanceData[0].RegionFromCityName}'`
+    `WHERE LOWER("Name") = '${drivingDistanceData[0].RegionFromCityName}'`
   );
   const destinationCity = await getCities(
-    `WHERE "Name" = '${drivingDistanceData[0].RegionToCityName}'`
+    `WHERE LOWER("Name") = '${drivingDistanceData[0].RegionToCityName}'`
   );
   return {
     props: {

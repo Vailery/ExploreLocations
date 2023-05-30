@@ -86,7 +86,7 @@ export const AirportsAroundSection = ({
             <Link
               className="mt-4 block w-full rounded-md bg-buttonBg py-3 text-center text-lg text-white"
               href={`/airport/${
-                selectedAirport?.Name.replaceAll(" ", "_") || ""
+                selectedAirport?.Name.replaceAll(" ", "_").toLowerCase() || ""
               }`}
             >
               Explore airport
@@ -104,7 +104,7 @@ export const AirportsAroundSection = ({
                 index !== airportsAround.length - 1 &&
                 "border-b border-grayBg py-4"
             )}
-            href={`/airport/${el.Name.replaceAll(" ", "_")}`}
+            href={`/airport/${el.Name.replaceAll(" ", "_").toLowerCase()}`}
           >
             <span className="text-buttonBg">{el.Name}</span> ({el.Distance} km
             away)

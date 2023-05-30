@@ -10,11 +10,11 @@ export const getAirports = async (param?: string) =>
 
 export const getAirportsAround = async (x: number, y: number, id: number) => {
   const resultInFiveHundred = await getAirports(
-    `WHERE ST_DWithin("Center"::geometry, ST_MakePoint(${x}, ${y})::geography, 500000) AND "id" != ${id} LIMIT 20`
+    `WHERE "Type" = 'international' AND ST_DWithin("Center"::geometry, ST_MakePoint(${x}, ${y})::geography, 500000) AND "id" != ${id} LIMIT 20`
   );
   if (resultInFiveHundred.length < 0) {
     const resultInThousand = await getAirports(
-      `WHERE ST_DWithin("Center"::geometry, ST_MakePoint(${x}, ${y})::geography, 1000000) AND "id" != ${id} LIMIT 20`
+      `WHERE "Type" = 'international' AND ST_DWithin("Center"::geometry, ST_MakePoint(${x}, ${y})::geography, 1000000) AND "id" != ${id} LIMIT 20`
     );
     return resultInThousand;
   } else {
