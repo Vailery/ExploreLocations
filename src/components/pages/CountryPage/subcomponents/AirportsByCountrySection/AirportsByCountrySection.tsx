@@ -1,6 +1,7 @@
 import clsx from "clsx";
 import type { RegionType } from "~/src/utils/types";
 import { ReactCountryFlag } from "react-country-flag";
+import { iso1A2Code } from "@rapideditor/country-coder";
 
 interface AirportsByCountrySectionProps {
   regions: RegionType[];
@@ -29,7 +30,7 @@ export const AirportsByCountrySection = ({
           >
             <div className="h-6 w-6 overflow-hidden rounded-md lg:h-7 lg:w-7">
               <ReactCountryFlag
-                countryCode={countryCode.substring(0, 2)}
+                countryCode={iso1A2Code(countryCode) || ""}
                 svg
                 style={{
                   width: "100%",

@@ -12,6 +12,7 @@ import {
 } from "~/src/assets";
 import type { AirportItem as AirportItemType } from "~/src/utils/types";
 import { ReactCountryFlag } from "react-country-flag";
+import { iso1A2Code } from "@rapideditor/country-coder";
 
 interface AirportItemProps {
   data: AirportItemType;
@@ -61,8 +62,9 @@ export const AirportItem = ({ data, countryCode }: AirportItemProps) => {
             <div className="flex gap-2">
               <div className="h-7 w-9 overflow-hidden rounded-md">
                 <ReactCountryFlag
-                  countryCode={countryCode.substring(0, 2)}
+                  countryCode={iso1A2Code(countryCode) || ""}
                   svg
+                  alt={iso1A2Code(countryCode) || ""}
                   style={{
                     width: "100%",
                     height: "100%",
