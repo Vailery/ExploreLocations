@@ -13,7 +13,7 @@ export const AirportsSection = ({
   destinationAirport,
 }: AirportsSectionProps) => {
   return (
-    <section className="container mb-6 flex flex-col gap-5 lg:flex-row">
+    <section className="container mb-6 grid grid-flow-col grid-cols-2 grid-rows-[repeat(9,auto)] gap-x-5">
       <AirportSection
         name={originAirport?.Name || data.OriginAirportName}
         city={originAirport?.City || data.OriginCityName}

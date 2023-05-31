@@ -1,4 +1,5 @@
 import { Menu, Transition } from "@headlessui/react";
+import { iso1A2Code } from "@rapideditor/country-coder";
 import clsx from "clsx";
 import Link from "next/link";
 import { Fragment } from "react";
@@ -21,7 +22,7 @@ export const TopLocation = ({ location }: TopLocationProps) => {
           <div className="relative flex w-full gap-2 lg:gap-4">
             <div className="h-8 w-11 overflow-hidden rounded-md">
               <ReactCountryFlag
-                countryCode={location.code.substring(0, 2)}
+                countryCode={iso1A2Code(location.code) || ""}
                 svg
                 style={{
                   width: "100%",
@@ -54,15 +55,14 @@ export const TopLocation = ({ location }: TopLocationProps) => {
         <Menu.Items>
           <Menu.Item disabled>
             <div className="mt-4 flex flex-col px-1">
-              <h5 className="text-lg font-bold">
-                5 most popular distances
-              </h5>
+              <h5 className="text-lg font-bold">5 most popular distances</h5>
               {location.locations.map((el, idx) => (
                 <Link
-                  href={`/driving-route/${el.from.replaceAll(
-                    " ",
-                    "_"
-                  )}/${el.to.replaceAll(" ", "_")}`}
+                  href={`/driving-route/${el.from
+                    .replaceAll(" ", "_")
+                    .toLowerCase()}/${el.to
+                    .replaceAll(" ", "_")
+                    .toLowerCase()}`}
                   key={idx}
                   className={clsx(
                     "flex items-center gap-3 border-grayColor py-[0.9rem]",

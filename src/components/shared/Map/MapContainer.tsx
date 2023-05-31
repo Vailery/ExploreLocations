@@ -16,7 +16,7 @@ interface MapProps {
   polyline?: LatLngExpression[];
   disabled?: boolean;
   bounds?: LatLngBoundsExpression;
-  isStatic?: boolean;
+  shouldRemap?: boolean;
   isMuseum?: boolean;
 }
 
@@ -29,8 +29,8 @@ const MapContainerElement = ({
   mainMarkers,
   polyline,
   disabled,
-  bounds,
-  isStatic,
+  bounds: defaultBounds,
+  shouldRemap,
   isMuseum,
 }: MapProps) => {
   useEffect(() => {
@@ -45,10 +45,14 @@ const MapContainerElement = ({
   }, []);
 
   const [position, setPosition] = useState(defaultPosition);
+  const [bounds, setBounds] = useState(defaultBounds);
 
   useEffect(() => {
-    if (isStatic) setPosition(defaultPosition);
-  }, [defaultPosition, isStatic]);
+    if (shouldRemap) {
+      setPosition(defaultPosition);
+      setBounds(defaultBounds);
+    }
+  }, [defaultPosition, shouldRemap, defaultBounds]);
   return (
     <MapContainer
       center={defaultPosition}
@@ -66,6 +70,8 @@ const MapContainerElement = ({
         selectedAirport={selectedAirport}
         polyline={polyline}
         isMuseum={isMuseum}
+        bounds={bounds}
+        shouldRemap={shouldRemap}
       />
     </MapContainer>
   );

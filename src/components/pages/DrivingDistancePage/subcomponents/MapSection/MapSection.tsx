@@ -1,6 +1,5 @@
 import dynamic from "next/dynamic";
 import { useMemo } from "react";
-import { MuseumMarkerIcon } from "~/src/assets";
 
 interface MapSectionProps {
   originX: number;
@@ -60,7 +59,7 @@ export const MapSection = ({
         {from} to {to} Flight Duration & Distance
       </h3>
       <div className="relative">
-        <div className="absolute right-3 top-9 z-30 w-[15.5rem] rounded-md bg-white p-5 lg:right-11 lg:top-[4.4rem] lg:h-[15rem] lg:w-[21rem]">
+        {/* <div className="absolute right-3 top-9 z-30 w-[15.5rem] rounded-md bg-white p-5 lg:right-11 lg:top-[4.4rem] lg:h-[15rem] lg:w-[21rem]">
           <div className="mb-[1.3rem] flex items-center gap-3">
             <MuseumMarkerIcon className="w-10 text-redBg" />
             <div className="text-md font-bold leading-5 tracking-tight lg:text-lg">
@@ -79,7 +78,7 @@ export const MapSection = ({
             , and should have a drive time of{" "}
             <span className="font-bold">{time}</span> in normal traffic.
           </div>
-        </div>
+        </div> */}
         <div className="relative z-0 h-[29rem] w-full pb-6 lg:h-[31.5rem] lg:px-7">
           <ClientMap
             position={middleCoords}
@@ -92,6 +91,7 @@ export const MapSection = ({
               [destinationY, destinationX],
             ]}
             isMuseum
+            shouldRemap
           />
         </div>
       </div>

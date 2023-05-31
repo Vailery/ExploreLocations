@@ -22,9 +22,9 @@ export const getDrivingRouteData = async (param: string) =>
   );
 
 export const getDrivingRoute = async (from:string, to: string) =>
-  await getDrivingRouteData(`WHERE "RegionFromCityName" = '${from}' AND "RegionToCityName" = '${to}'`);
+  await getDrivingRouteData(`WHERE LOWER("RegionFromCityName") = '${from.toLowerCase()}' AND LOWER("RegionToCityName") = '${to.toLowerCase()}'`);
 
 export const getDrivingDistances = async (country: string, id: number) =>
   await getDrivingRouteData(
-    `WHERE "RegionFromCityName" = '${country}' AND "id" != '${id}' LIMIT 20`
+    `WHERE LOWER("RegionFromCityName") = '${country.toLowerCase()}' AND "id" != '${id}' LIMIT 20`
   );

@@ -16,6 +16,33 @@ interface InfoSectionProps {
   countryFrom: string;
 }
 
+const speedArray = [
+  {
+    value: 48,
+    speed: "30 mph (48 km/h)",
+  },
+  {
+    value: 64,
+    speed: "40 mph (64 km/h)",
+  },
+  {
+    value: 80,
+    speed: '50 mph (80 km/h)'
+  },
+  {
+    value: 97,
+    speed: '60 mph (97 km/h)'
+  },
+  {
+    value: 112,
+    speed: '70 mph (112 km/h)'
+  },
+  {
+    value: 128,
+    speed: '80 mph (128 km/h)'
+  }
+];
+
 export const InfoSection = ({
   originX,
   originY,
@@ -40,8 +67,9 @@ export const InfoSection = ({
           </h3>
         </div>
         <div className="mb-8 leading-8 tracking-wider">
-          The driving distance from {from} to {to} is {distanceMiles} miles
-          which is the equivalent of {distance} km.
+          The driving distance from {from} to {to} is{" "}
+          {distanceMiles.toLocaleString("en-US")} miles which is the equivalent
+          of {distance.toLocaleString("en-US")} km.
         </div>
         <div className="mb-8 leading-8 tracking-wider">
           If you were to drive without a stop, it would take you around {time}{" "}
@@ -52,8 +80,9 @@ export const InfoSection = ({
           probably best to make it a multi-day journey.
         </div>
         <div className="mb-8 leading-8 tracking-wider">
-          The straight line flight distance is {flightKm} km which is the
-          equivalent of {flightMiles} miles.
+          The straight line flight distance is{" "}
+          {flightKm.toLocaleString("en-US")} km which is the equivalent of{" "}
+          {flightMiles.toLocaleString("en-US")} miles.
         </div>
         <div className="mb-8 leading-8 tracking-wider">
           {from} is located on the following coordinates: {originX}, {originY},
@@ -72,13 +101,13 @@ export const InfoSection = ({
         <div className="grid grid-cols-2 gap-y-[1.6rem]">
           <span className="mb-6 hidden font-bold lg:block">Average Speed</span>
           <span className="hidden font-bold lg:block">Driving Time</span>
-          {new Array(7).fill(0).map((_, idx) => (
+          {speedArray.map((el, idx) => (
             <Fragment key={idx}>
+              <span className="border-b border-grayText pb-2">{el.speed}</span>
               <span className="border-b border-grayText pb-2">
-                30 mph (48 km/h)
-              </span>
-              <span className="border-b border-grayText pb-2">
-                09 hours 19 minutes
+                {`${Math.trunc(distance / el.value)} hours ${Math.round(
+                  ((Math.trunc((distance / el.value) * 100) % 100) / 100) * 60
+                )} minutes`}
               </span>
             </Fragment>
           ))}

@@ -1,6 +1,5 @@
 import dynamic from "next/dynamic";
 import { useMemo } from "react";
-import MarkerIcon from "~/src/assets/images/icons/marker.svg";
 
 interface MapSectionProps {
   OriginCenterX: number;
@@ -58,7 +57,7 @@ export const MapSection = ({
         {OriginCityName} to {DestinationCityName} Flight Duration & Distance
       </h3>
       <div className="relative">
-        <div className="absolute right-3 top-9 z-30 w-[15.5rem] rounded-md bg-white p-4 lg:right-11 lg:top-[4.4rem] lg:h-[16rem] lg:w-[21rem]">
+        {/* <div className="absolute right-3 top-9 z-30 w-[15.5rem] rounded-md bg-white p-4 lg:right-11 lg:top-[4.4rem] lg:h-[16rem] lg:w-[21rem]">
           <div className="mb-4 flex items-center gap-3">
             <MarkerIcon className="w-10 text-redBg" />
             <div className="text-md font-bold leading-5 tracking-tight lg:text-lg">
@@ -74,7 +73,7 @@ export const MapSection = ({
             Average flight time is{" "}
             <span className="font-bold">{FlightDuration}</span>
           </div>
-        </div>
+        </div> */}
         <div className="relative z-0 h-[29rem] w-full pb-6 lg:h-[30.5rem] lg:px-7">
           <ClientMap
             position={middleCoords}
@@ -90,6 +89,7 @@ export const MapSection = ({
               [OriginCenterY, OriginCenterX],
               [DestinationCenterY, DestinationCenterX],
             ]}
+            shouldRemap
           />
         </div>
       </div>

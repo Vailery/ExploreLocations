@@ -27,7 +27,7 @@ export const AirportsSection = ({
   dataTo,
 }: InfoSectionProps) => {
   return (
-    <section className="container mb-5 flex flex-col gap-5 lg:flex-row">
+    <section className="container mb-6 grid grid-flow-col grid-cols-2 grid-rows-[repeat(8,auto)] gap-x-5">
       <AirportSection
         x={originX}
         y={originY}

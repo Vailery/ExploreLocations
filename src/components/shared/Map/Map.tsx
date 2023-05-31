@@ -1,7 +1,7 @@
 import { TileLayer, Marker, useMap, LayerGroup, Polyline } from "react-leaflet";
-import type { LatLngExpression } from "leaflet";
+import type { LatLngBoundsExpression, LatLngExpression } from "leaflet";
 import L from "leaflet";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import "leaflet/dist/leaflet.css";
 import MarkerIcon from "~/src/assets/images/icons/marker.svg";
 import ReactDOMServer from "react-dom/server";
@@ -17,6 +17,8 @@ interface MapProps {
   selectedAirport?: AirportItem | null;
   polyline?: LatLngExpression[];
   isMuseum?: boolean;
+  shouldRemap?: boolean;
+  bounds?: LatLngBoundsExpression;
 }
 
 export const Map = ({
@@ -28,6 +30,8 @@ export const Map = ({
   selectedAirport,
   polyline,
   isMuseum,
+  bounds,
+  shouldRemap,
 }: MapProps) => {
   const icon = L.divIcon({
     className: "custom-icon",
@@ -74,8 +78,12 @@ export const Map = ({
   });
   const museumIcon = L.divIcon({
     className: "custom-icon",
-    html: ReactDOMServer.renderToString(<MuseumMarkerIcon />),
+    html: ReactDOMServer.renderToString(
+      <MuseumMarkerIcon className="-translate-x-1/2 -translate-y-full" />
+    ),
   });
+
+  const [hasMapped, setHasMapped] = useState(false);
 
   const map = useMap();
 
@@ -84,6 +92,20 @@ export const Map = ({
       map.panTo(position);
     }
   }, [position, map]);
+
+  useEffect(() => {
+    if (bounds && shouldRemap) {
+      map.fitBounds(bounds);
+    }
+  }, [bounds, map, shouldRemap]);
+
+  useEffect(() => {
+    if (bounds && !hasMapped) {
+      map.panBy([0, -15]);
+      setHasMapped(true)
+    }
+  }, [bounds, map, hasMapped]);
+
   return (
     <>
       <TileLayer
@@ -92,7 +114,7 @@ export const Map = ({
       />
       {mainMarkers &&
         mainMarkers.map((el, idx) => (
-          <Marker key={idx} position={el} icon={icon} />
+          <Marker key={idx} position={el} icon={isMuseum ? museumIcon : icon} />
         ))}
       {polyline && (
         <Polyline positions={polyline} pathOptions={{ color: "#EC3343" }} />
@@ -104,9 +126,7 @@ export const Map = ({
               key={idx}
               position={[airport.CenterY, airport.CenterX]}
               icon={
-                isMuseum
-                  ? museumIcon
-                  : airport === selectedAirport
+                airport === selectedAirport
                   ? airport.Type.toLowerCase() === "international"
                     ? internationalSelectedIcon
                     : airport.Type.toLowerCase() === "domestic"
