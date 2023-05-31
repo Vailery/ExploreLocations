@@ -59,10 +59,10 @@ export const getServerSideProps: GetServerSideProps<DistancesPageData> = async (
     flightDistanceData[0].id
   );
   const originAirport = await getAirports(
-    `WHERE LOWER("Name") = '${flightDistanceData[0].OriginAirportName}'`
+    `WHERE LOWER("IATA") = '${flightDistanceData[0].OriginIata.toLowerCase()}'`
   );
   const destinationAirport = await getAirports(
-    `WHERE LOWER("Name") = '${flightDistanceData[0].DestinationAirportName}'`
+    `WHERE LOWER("IATA") = '${flightDistanceData[0].DestinationIata.toLowerCase()}'`
   );
 
   return {

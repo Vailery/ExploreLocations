@@ -5,7 +5,7 @@ const a = async () => {
     { OriginAirportName: string }[]
   >(
     `
-  SELECT "" LIMIT 5`
+  SELECT distinct "DrivingTime" from "DrivingRoutes"`
   );
 
   console.log(airportNames);

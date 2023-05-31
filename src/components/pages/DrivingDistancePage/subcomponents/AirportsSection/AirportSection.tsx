@@ -1,3 +1,4 @@
+import { iso1A2Code } from "@rapideditor/country-coder";
 import clsx from "clsx";
 import dynamic from "next/dynamic";
 import Link from "next/link";
@@ -47,7 +48,7 @@ export const AirportSection = ({
       icon: (
         <div className="h-6 w-7">
           <ReactCountryFlag
-            countryCode={"US"}
+            countryCode={iso1A2Code(data?.Country || country) || "US"}
             svg
             style={{
               width: "100%",

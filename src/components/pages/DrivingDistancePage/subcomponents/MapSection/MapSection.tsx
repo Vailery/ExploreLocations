@@ -91,7 +91,7 @@ export const MapSection = ({
               [destinationY, destinationX],
             ]}
             isMuseum
-            isStatic
+            shouldRemap
           />
         </div>
       </div>

@@ -1,3 +1,4 @@
+import { iso1A2Code } from "@rapideditor/country-coder";
 import clsx from "clsx";
 import dynamic from "next/dynamic";
 import Link from "next/link";
@@ -20,7 +21,6 @@ interface AirportSectionProps {
   y: number;
   timezone?: string;
   type?: string;
-  // countryCode: string;
 }
 
 export const AirportSection = ({
@@ -54,7 +54,7 @@ export const AirportSection = ({
       icon: (
         <div className="h-6 w-7">
           <ReactCountryFlag
-            countryCode={"US"}
+            countryCode={iso1A2Code(country) || "US"}
             svg
             style={{
               width: "100%",
@@ -69,7 +69,12 @@ export const AirportSection = ({
       icon: <IATAIcon />,
     },
     type: {
-      value: type ? `${type} Airport` : null,
+      value: type
+        ? `${type.substring(0, 1).toUpperCase()}${type.substring(
+            1,
+            type.length
+          )}  Airport`
+        : null,
       icon: <MarkerIcon className="w-5 text-redBg" />,
     },
     timezone: {

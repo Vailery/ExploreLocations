@@ -8,6 +8,8 @@ interface DescriptionSectionProps {
   distanceMiles: number;
 }
 
+const drivingSpeed = 80
+
 export const DescriptionSection = ({
   from,
   to,
@@ -41,8 +43,13 @@ export const DescriptionSection = ({
             The driving distance between {from} and {to}
           </h3>
           <h4 className="text-lg tracking-wider lg:mt-1">
-            is {distanceMiles} miles ({distance} km), and could be completed in around{" "}
-            {time}.
+            is {distanceMiles} miles ({distance} km), and could be completed in
+            around{" "}
+            {time ||
+              `${Math.trunc(distance / drivingSpeed)} hours ${Math.round(
+                ((Math.trunc((distance / drivingSpeed) * 100) % 100) / 100) * 60
+              )} minutes`}
+            .
           </h4>
         </div>
         <CarMarkerIcon className="absolute left-1/2 top-10 w-[4.2rem] -translate-x-1/2 text-redBg lg:top-14" />

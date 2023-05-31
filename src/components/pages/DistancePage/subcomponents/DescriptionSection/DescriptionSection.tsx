@@ -37,10 +37,10 @@ export const DescriptionSection = ({
         </div>
         <div className="dashed-border h-[1.5px] w-full" />
         <div className="mt-14 text-center lg:mt-12">
-          <h3 className="font-bold lg:text-xl">
+          {/* <h3 className="font-bold lg:text-xl">
             Average flight time is {FlightDuration}
-          </h3>
-          <h4 className="tracking-wider lg:mt-2">
+          </h3> */}
+          <h4 className="tracking-wider font-bold lg:mt-2">
             The fastest flight time from {OriginCityName} to{" "}
             {DestinationCityName} is{" "}
             <span className="font-bold">{FlightDuration}</span>

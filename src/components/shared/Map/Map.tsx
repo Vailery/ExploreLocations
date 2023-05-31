@@ -1,7 +1,7 @@
 import { TileLayer, Marker, useMap, LayerGroup, Polyline } from "react-leaflet";
 import type { LatLngBoundsExpression, LatLngExpression } from "leaflet";
 import L from "leaflet";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import "leaflet/dist/leaflet.css";
 import MarkerIcon from "~/src/assets/images/icons/marker.svg";
 import ReactDOMServer from "react-dom/server";
@@ -83,6 +83,8 @@ export const Map = ({
     ),
   });
 
+  const [hasMapped, setHasMapped] = useState(false);
+
   const map = useMap();
 
   useEffect(() => {
@@ -96,6 +98,13 @@ export const Map = ({
       map.fitBounds(bounds);
     }
   }, [bounds, map, shouldRemap]);
+
+  useEffect(() => {
+    if (bounds && !hasMapped) {
+      map.panBy([0, -15]);
+      setHasMapped(true)
+    }
+  }, [bounds, map, hasMapped]);
 
   return (
     <>
