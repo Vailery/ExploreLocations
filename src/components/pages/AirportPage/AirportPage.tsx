@@ -1,4 +1,4 @@
-import type { AirportItem } from "~/src/utils/types";
+import type { AirportItem, RegionType } from "~/src/utils/types";
 import { Footer } from "../../Footer/Footer";
 import { Header } from "../../Header";
 import { AirportsAroundSection } from "./subcomponents/AirportsAroundSection/AirportsAroundSection";
@@ -6,19 +6,18 @@ import { AllAirportsSection } from "./subcomponents/AllAirportsSection";
 import { DescriptionSection } from "./subcomponents/DescriptionSection";
 import { InfoSection } from "./subcomponents/InfoSection";
 import { MapSection } from "./subcomponents/MapSection";
-import { PopularFlightsSection } from "./subcomponents/PopularFlightsSection";
 import { RouterSection } from "./subcomponents/RouterSection";
 
 interface IHomePage {
   airport: AirportItem;
   airportsAround: AirportItem[];
-  airportsInCountry: AirportItem[];
+  regions: RegionType[];
 }
 
 export const AirportPage = ({
   airport,
   airportsAround,
-  airportsInCountry,
+  regions,
 }: IHomePage) => {
   return (
     <>
@@ -44,10 +43,7 @@ export const AirportPage = ({
           description={airport.SeoDescriptionEn}
           airportsAround={airportsAround}
         />
-        <AllAirportsSection
-          country={airport.Country}
-          airportsInCountry={airportsInCountry}
-        />
+        <AllAirportsSection regions={regions} />
         {/* <PopularFlightsSection name={airport.Name} /> */}
       </main>
       <Footer />

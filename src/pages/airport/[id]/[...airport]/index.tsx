@@ -1,27 +1,28 @@
 import type { GetServerSideProps, NextPage } from "next";
 import { AirportPage } from "~/src/components/pages/AirportPage";
-import type { AirportItem } from "~/src/utils/types";
+import type { AirportItem, RegionType } from "~/src/utils/types";
 import {
   getAirports,
   getAirportsAround,
 } from "~/src/utils/sqlQueries/airports";
+import { getAdminRegions } from "~/src/utils/sqlQueries/adminRegions";
 
 interface AirportPageProps {
   airport: AirportItem;
   airportsAround: AirportItem[];
-  airportsInCountry: AirportItem[];
+  regions: RegionType[];
 }
 
 const Airport: NextPage<AirportPageProps> = ({
   airport,
   airportsAround,
-  airportsInCountry,
+  regions,
 }) => {
   return (
     <AirportPage
       airport={airport}
       airportsAround={airportsAround}
-      airportsInCountry={airportsInCountry}
+      regions={regions}
     />
   );
 };
@@ -32,7 +33,7 @@ export default Airport;
 export const getServerSideProps: GetServerSideProps<AirportPageProps> = async (
   context
 ) => {
-  const airportId = context.params && context.params.id as string;
+  const airportId = context.params && (context.params.id as string);
   const airportName =
     context.params && Array.isArray(context.params.airport)
       ? context.params.airport
@@ -43,7 +44,9 @@ export const getServerSideProps: GetServerSideProps<AirportPageProps> = async (
           .join(" ")
       : "";
 
-  const airport = await getAirports(`WHERE "id" = ${airportId || ""} AND LOWER("Name") = '${airportName}'`);
+  const airport = await getAirports(
+    `WHERE "id" = ${airportId || ""} AND LOWER("Name") = '${airportName}'`
+  );
 
   const airportsAround = await getAirportsAround(
     airport[0].CenterX,
@@ -61,15 +64,15 @@ export const getServerSideProps: GetServerSideProps<AirportPageProps> = async (
   });
   airportsAround.sort((a, b) => (a.Distance || 0) - (b.Distance || 0));
 
-  const airportsInCountry = await getAirports(
-    `WHERE "Country" = '${airport[0].Country}' LIMIT 9`
+  const regions = await getAdminRegions(
+    `WHERE LOWER("Country") = '${airport[0].Country.toLowerCase()}'`
   );
 
   return {
     props: {
       airport: airport[0],
       airportsAround: airportsAround,
-      airportsInCountry: airportsInCountry,
+      regions: regions,
     },
   };
 };
