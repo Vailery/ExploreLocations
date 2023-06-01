@@ -40,7 +40,7 @@ export const MapSection = ({ region, airports }: MapSectionProps) => {
   return (
     <section className="container mb-6 rounded-md bg-white pt-6 shadow-md lg:mb-9">
       <h3 className="mb-2 px-3 text-lg font-bold tracking-wide lg:mb-7 lg:px-7 lg:text-3xl lg:tracking-wider">
-        Airports in <span className="text-buttonBg">{region.Country}</span>
+        Airports in <span className="text-buttonBg">{region.Name}</span>
       </h3>
       <div className="relative">
         {currentAirport && (
@@ -69,7 +69,7 @@ export const MapSection = ({ region, airports }: MapSectionProps) => {
           </p> */}
             <Link
               className="mt-4 block w-full rounded-md bg-buttonBg py-3 text-center text-lg text-white"
-              href={`/airport/${
+              href={`/airport/${currentAirport?.id || ''}/${
                 currentAirport?.Name.replaceAll(" ", "_").toLowerCase() || ""
               }`}
             >
@@ -84,6 +84,7 @@ export const MapSection = ({ region, airports }: MapSectionProps) => {
             airportsAround={airports}
             bounds={airports.map((el) => [el.CenterY, el.CenterX])}
             selectedAirport={currentAirport}
+            shouldRemap
           />
         </div>
       </div>

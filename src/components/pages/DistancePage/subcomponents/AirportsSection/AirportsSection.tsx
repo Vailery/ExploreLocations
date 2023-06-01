@@ -23,6 +23,7 @@ export const AirportsSection = ({
         y={originAirport?.CenterY || data.OriginCenterY}
         type={originAirport?.Type}
         timezone={originAirport?.TimezoneD}
+        id={originAirport?.id || 0}
       />
       <AirportSection
         name={destinationAirport?.Name || data.DestinationAirportName}
@@ -33,6 +34,7 @@ export const AirportsSection = ({
         y={destinationAirport?.CenterY || data.DestinationCenterY}
         type={destinationAirport?.Type}
         timezone={destinationAirport?.TimezoneD}
+        id={destinationAirport?.id || 0}
       />
     </section>
   );

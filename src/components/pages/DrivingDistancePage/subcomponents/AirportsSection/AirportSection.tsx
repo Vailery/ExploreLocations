@@ -1,7 +1,6 @@
 import { iso1A2Code } from "@rapideditor/country-coder";
 import clsx from "clsx";
 import dynamic from "next/dynamic";
-import Link from "next/link";
 import { useMemo } from "react";
 import ReactCountryFlag from "react-country-flag";
 import {
@@ -102,12 +101,12 @@ export const AirportSection = ({
         </div>
       ))}
       <div className="w-full rounded-[0_0_0.4rem_0.4rem] bg-white px-3 pb-4 pt-3 lg:px-8 lg:pb-7">
-        <Link
+        <div
           className="block w-full rounded-md bg-buttonBg py-3 text-center text-lg text-white"
-          href={`/airport/${name.replaceAll(" ", "_").toLowerCase() || ""}`}
+          // href={`/airport/${name.replaceAll(" ", "_").toLowerCase() || ""}`}
         >
-          Explore airport
-        </Link>
+          Explore city
+        </div>
       </div>
     </>
   );

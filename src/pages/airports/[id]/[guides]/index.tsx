@@ -8,18 +8,21 @@ import {
 } from "~/src/utils/sqlQueries/adminRegions";
 
 interface RegionsPageProps {
+  currentRegion: RegionType;
   regions: RegionType[];
   airports: AirportItem[];
   airportsCount: number;
 }
 
 const RegionsPage: NextPage<RegionsPageProps> = ({
+  currentRegion,
   regions,
   airports,
   airportsCount,
 }) => {
   return (
     <CountryPage
+      currentRegion={currentRegion}
       regions={regions}
       airports={airports}
       airportsCount={airportsCount}
@@ -38,22 +41,31 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
           .join(" ")
       : "";
 
+  const regionId = context.params && (context.params.id as string);
+
   const pageNumber = context.query?.page ? +context.query?.page : 1;
 
-  const regions = await getAdminRegions(`WHERE LOWER("Country") = '${regionName}'`);
+  const currentRegion = await getAdminRegions(
+    `WHERE LOWER("Country") = '${regionName}'  AND "id" = '${regionId || ''}'`
+  );
+
+  const regions = await getAdminRegions(
+    `WHERE LOWER("Country") = '${regionName}'`
+  );
 
   const airports =
-    await getAirportsInRegion(`ON ST_Intersects(a."Center", r."Geometry") and LOWER(r."Country") = '${regionName}'
+    await getAirportsInRegion(`ON ST_Intersects(a."Center", r."Geometry") and LOWER(r."Country") = '${regionName}' AND r."id" = '${regionId || ''}'
     ORDER BY COALESCE(CAST(a."Passengers" AS INTEGER), 0) DESC LIMIT 20 OFFSET '${
       (pageNumber - 1) * 10
     }'`);
 
   const airportsCount = await getAirportsInRegionCount(
-    `ON ST_Intersects(a."Center", r."Geometry") and LOWER(r."Country") = '${regionName}'`
+    `ON ST_Intersects(a."Center", r."Geometry") and LOWER(r."Country") = '${regionName}' AND r."id" = '${regionId || ''}'`
   );
 
   return {
     props: {
+      currentRegion: currentRegion[0],
       regions,
       airports,
       airportsCount: Number(airportsCount[0].count),
