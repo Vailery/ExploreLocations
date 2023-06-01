@@ -24,9 +24,9 @@ export const getFlightRouteData = async (condition: string) =>
      FROM "FlyingRoutes" ${condition}`
   );
 
-export const getFlightRoute = async (from: string, to: string) =>
+export const getFlightRoute = async (from: string, to: string, id: string) =>
   await getFlightRouteData(
-    `WHERE LOWER("OriginCityName") = '${from.toLowerCase()}' AND LOWER("DestinationCityName") = '${to.toLowerCase()}'`
+    `WHERE LOWER("OriginCityName") = '${from.toLowerCase()}' AND LOWER("DestinationCityName") = '${to.toLowerCase()}' AND "id" = '${id}'`
   );
 
 export const getFlyingDistances = async (country: string, id: number) =>

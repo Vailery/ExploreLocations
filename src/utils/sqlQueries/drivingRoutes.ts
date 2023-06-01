@@ -21,8 +21,8 @@ export const getDrivingRouteData = async (param: string) =>
     FROM "DrivingRoutes" ${param}`
   );
 
-export const getDrivingRoute = async (from:string, to: string) =>
-  await getDrivingRouteData(`WHERE LOWER("RegionFromCityName") = '${from.toLowerCase()}' AND LOWER("RegionToCityName") = '${to.toLowerCase()}'`);
+export const getDrivingRoute = async (from:string, to: string, id: string) =>
+  await getDrivingRouteData(`WHERE LOWER("RegionFromCityName") = '${from.toLowerCase()}' AND LOWER("RegionToCityName") = '${to.toLowerCase()}' AND "id" = '${id}'`);
 
 export const getDrivingDistances = async (country: string, id: number) =>
   await getDrivingRouteData(

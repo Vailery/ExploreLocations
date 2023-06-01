@@ -5,7 +5,7 @@ import {
   getDrivingRoute,
 } from "~/src/utils/sqlQueries/drivingRoutes";
 import type { CityType, DrivingDistanceType } from "~/src/utils/types";
-import { DrivingDistancePage } from "../../../components/pages/DrivingDistancePage";
+import { DrivingDistancePage } from "../../../../components/pages/DrivingDistancePage";
 
 interface DrivingDistancesPageProps {
   drivingDistanceData: DrivingDistanceType;
@@ -45,9 +45,12 @@ export const getServerSideProps: GetServerSideProps<
       )
     : ["", ""];
 
+  const routeId = context.params && (context.params.id as string);
+
   const drivingDistanceData = await getDrivingRoute(
     directions[0] || "",
-    directions[1] || ""
+    directions[1] || "",
+    routeId || ""
   );
 
   const relatedOriginDistances = await getDrivingDistances(
