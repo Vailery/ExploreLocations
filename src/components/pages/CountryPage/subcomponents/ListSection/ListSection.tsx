@@ -109,15 +109,12 @@ export const ListSection = ({
 
   const [updatedRoute, setUpdatedRoute] = useState(router.asPath);
   useEffect(() => {
-    console.log(router.asPath);
     if (!router.asPath.includes("[")) {
       setUpdatedRoute(router.asPath.split("?")[0] || "");
     }
   }, [router]);
 
   useEffect(() => {
-    // console.log(updatedRoute);
-
     setSortOption("All");
     setCurrentRow(0);
     void router.push(

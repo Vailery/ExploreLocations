@@ -46,7 +46,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const pageNumber = context.query?.page ? +context.query?.page : 1;
 
   const currentRegion = await getAdminRegions(
-    `WHERE LOWER("Country") = '${regionName}'  AND "id" = '${regionId || ''}'`
+    `WHERE LOWER("Name") = '${regionName}'  AND "id" = '${regionId || ""}'`
   );
 
   const regions = await getAdminRegions(
@@ -54,14 +54,20 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   );
 
   const airports =
-    await getAirportsInRegion(`ON ST_Intersects(a."Center", r."Geometry") and LOWER(r."Country") = '${regionName}' AND r."id" = '${regionId || ''}'
+    await getAirportsInRegion(`ON ST_Intersects(a."Center", r."Geometry") and LOWER(r."Name") = '${regionName}' AND r."id" = '${
+      regionId || ""
+    }'
     ORDER BY COALESCE(CAST(a."Passengers" AS INTEGER), 0) DESC LIMIT 20 OFFSET '${
       (pageNumber - 1) * 10
     }'`);
 
   const airportsCount = await getAirportsInRegionCount(
-    `ON ST_Intersects(a."Center", r."Geometry") and LOWER(r."Country") = '${regionName}' AND r."id" = '${regionId || ''}'`
+    `ON ST_Intersects(a."Center", r."Geometry") and LOWER(r."Name") = '${regionName}' AND r."id" = '${
+      regionId || ""
+    }'`
   );
+
+    console.log(airportsCount);
 
   return {
     props: {
