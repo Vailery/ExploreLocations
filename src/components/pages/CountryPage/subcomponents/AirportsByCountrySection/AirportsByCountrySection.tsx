@@ -2,7 +2,6 @@ import clsx from "clsx";
 import type { RegionType } from "~/src/utils/types";
 import { ReactCountryFlag } from "react-country-flag";
 import { iso1A2Code } from "@rapideditor/country-coder";
-import { useRouter } from "next/router";
 import Link from "next/link";
 
 interface AirportsByCountrySectionProps {
@@ -14,8 +13,6 @@ export const AirportsByCountrySection = ({
   regions,
   countryCode,
 }: AirportsByCountrySectionProps) => {
-  const router = useRouter();
-
   return (
     <section className="container mt-5 rounded-md bg-white py-1 shadow-md lg:py-6">
       <h3 className="mb-3 px-5 font-bold leading-8 tracking-wider lg:mb-11 lg:px-8 lg:text-3xl">
