@@ -48,7 +48,7 @@ export const AirportPage = ({
           country={airport.Country}
           airportsInCountry={airportsInCountry}
         />
-        <PopularFlightsSection name={airport.Name} />
+        {/* <PopularFlightsSection name={airport.Name} /> */}
       </main>
       <Footer />
     </>

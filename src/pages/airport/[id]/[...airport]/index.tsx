@@ -32,6 +32,7 @@ export default Airport;
 export const getServerSideProps: GetServerSideProps<AirportPageProps> = async (
   context
 ) => {
+  const airportId = context.params && context.params.id as string;
   const airportName =
     context.params && Array.isArray(context.params.airport)
       ? context.params.airport
@@ -42,7 +43,7 @@ export const getServerSideProps: GetServerSideProps<AirportPageProps> = async (
           .join(" ")
       : "";
 
-  const airport = await getAirports(`WHERE LOWER("Name") = '${airportName}'`);
+  const airport = await getAirports(`WHERE "id" = ${airportId || ""} AND LOWER("Name") = '${airportName}'`);
 
   const airportsAround = await getAirportsAround(
     airport[0].CenterX,

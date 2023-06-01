@@ -21,7 +21,7 @@ export const RelatedFlight = ({
       </div>
       {relatedDistances.map((el, idx) => (
         <Link
-          href={`/driving-route/${el.RegionFromCityName.replaceAll(
+          href={`/driving-route/${el.id}/${el.RegionFromCityName.replaceAll(
             " ",
             "_"
           ).toLowerCase()}/${el.RegionToCityName.replaceAll(

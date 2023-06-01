@@ -11,7 +11,7 @@ export const getAdminRegions = async (param?: string) =>
 export const getAirportsInRegion = async (param: string) =>
   await prisma.$queryRawUnsafe<
     AirportItem[]
-  >(`SELECT ST_X(a."Center"::geometry) as "CenterX", ST_Y(a."Center"::geometry) as "CenterY", a."Passengers", a."Name", a."Type", a."IATA", a."ICAO", a."City", a."Country", "IntroEn", "SeoTitleEn", "SeoDescriptionEn"
+  >(`SELECT ST_X(a."Center"::geometry) as "CenterX", ST_Y(a."Center"::geometry) as "CenterY", a."Passengers", a."id", a."Name", a."Type", a."IATA", a."ICAO", a."City", a."Country", "IntroEn", "SeoTitleEn", "SeoDescriptionEn"
     FROM "Airports" a
     INNER JOIN "AdminRegions" r
     ${param}`);

@@ -82,6 +82,7 @@ export const ListSection = ({
       country: region.Country,
       offset: currentRow * paginationLimit,
       limit: paginationLimit,
+      regionId: (router.query.id as string) || "",
     },
     { enabled: false }
   );
@@ -102,6 +103,37 @@ export const ListSection = ({
 
   const [isFirstRender, setIsFirstRender] = useState<boolean>(true);
 
+  useLayoutEffect(() => {
+    setIsFirstRender(false);
+  }, []);
+
+  const [updatedRoute, setUpdatedRoute] = useState(router.asPath);
+  useEffect(() => {
+    console.log(router.asPath);
+    if (!router.asPath.includes("[")) {
+      setUpdatedRoute(router.asPath.split("?")[0] || "");
+    }
+  }, [router]);
+
+  useEffect(() => {
+    // console.log(updatedRoute);
+
+    setSortOption("All");
+    setCurrentRow(0);
+    void router.push(
+      {
+        pathname: router.pathname,
+        query: {
+          guides: router.query.guides,
+          id: router.query.id,
+        },
+      },
+      router.pathname,
+      { shallow: true }
+    );
+    void refetch();
+  }, [updatedRoute]);
+
   useEffect(() => {
     if (!isFirstRender && listTop.current) {
       void window.scrollTo({
@@ -115,7 +147,12 @@ export const ListSection = ({
       void router.push(
         {
           pathname: router.pathname,
-          query: { ...router.query, page: `${currentRow + 1}` },
+          query: {
+            ...router.query,
+            page: `${currentRow + 1}`,
+            id: router.query.id,
+            guides: router.query.guides,
+          },
         },
         undefined,
         { shallow: true }
@@ -124,7 +161,10 @@ export const ListSection = ({
       void router.push(
         {
           pathname: router.pathname,
-          query: { guides: router.query.guides },
+          query: {
+            guides: router.query.guides,
+            id: router.query.id,
+          },
         },
         router.pathname,
         { shallow: true }
@@ -133,17 +173,16 @@ export const ListSection = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentRow]);
 
-  useLayoutEffect(() => {
-    setIsFirstRender(false);
-  }, []);
-
   useEffect(() => {
     if (!isFirstRender) {
       void refetch();
       void router.replace(
         {
           pathname: router.pathname,
-          query: { guides: router.query.guides },
+          query: {
+            guides: router.query.guides,
+            id: router.query.id,
+          },
         },
         undefined,
         { shallow: true }
@@ -159,7 +198,7 @@ export const ListSection = ({
         ref={listTop}
       >
         {airportsCount} Airports in{" "}
-        <span className="text-buttonBg">{region.Country}</span>
+        <span className="text-buttonBg">{region.Name}</span>
       </h3>
       <div className="flex flex-col justify-center gap-2 px-3 lg:flex-row lg:justify-between lg:px-0">
         <div className="flex gap-2">

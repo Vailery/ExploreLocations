@@ -23,7 +23,7 @@ export const RelatedFlight = ({
         <Link
           key={idx}
           className="flex justify-between border-b border-grayText py-[0.85rem] lg:py-4"
-          href={`/flying-route/${el.OriginCityName.replaceAll(
+          href={`/flying-route/${el.id}/${el.OriginCityName.replaceAll(
             " ",
             "_"
           ).toLowerCase()}/${el.DestinationCityName.replaceAll(

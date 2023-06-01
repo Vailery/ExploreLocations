@@ -21,13 +21,14 @@ export const airportRouter = createTRPCRouter({
         country: z.string(),
         offset: z.number(),
         limit: z.number(),
+        regionId: z.string(),
       })
     )
     .query(async ({ input }) => {
       const filteredAirports = await getAirportsInRegion(
         `ON ST_Intersects(a."Center", r."Geometry") and r."Country" = '${
           input.country
-        }'${input.type !== "all" ? ` and a."Type" = '${input.type}'` : ""}
+        }' AND r."id" = '${input.regionId}' ${input.type !== "all" ? ` and a."Type" = '${input.type}'` : ""}
         ORDER BY COALESCE(CAST(a."Passengers" AS INTEGER), 0) DESC  LIMIT '${
           input.limit
         }' OFFSET '${input.offset}'`
@@ -36,7 +37,7 @@ export const airportRouter = createTRPCRouter({
       const airportsCount = await getAirportsInRegionCount(
         `ON ST_Intersects(a."Center", r."Geometry") and r."Country" = '${
           input.country
-        }'${input.type !== "all" ? ` and a."Type" = '${input.type}'` : ""}`
+        }' AND r."id" = '${input.regionId}' ${input.type !== "all" ? ` and a."Type" = '${input.type}'` : ""}`
       );
 
       return {

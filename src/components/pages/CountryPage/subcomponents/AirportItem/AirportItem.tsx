@@ -43,7 +43,7 @@ export const AirportItem = ({ data, countryCode }: AirportItemProps) => {
           <div className="mb-3 flex flex-wrap justify-between">
             <Link
               className="flex text-2xl font-bold"
-              href={`/airport/${
+              href={`/airport/${data?.id || ""}/${
                 data?.Name.replaceAll(" ", "_").toLowerCase() || ""
               }`}
             >
@@ -119,7 +119,7 @@ export const AirportItem = ({ data, countryCode }: AirportItemProps) => {
       <div className="mt-4 flex flex-wrap items-center gap-6">
         <Link
           className="w-full rounded-md bg-buttonBg py-3 text-center text-lg text-white lg:w-auto lg:px-9 lg:py-4"
-          href={`/airport/${
+          href={`/airport/${data?.id || ""}/${
             data?.Name.replaceAll(" ", "_").toLowerCase() || ""
           }`}
         >

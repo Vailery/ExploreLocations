@@ -45,9 +45,12 @@ export const getServerSideProps: GetServerSideProps<DistancesPageData> = async (
       )
     : ["", ""];
 
+  const routeId = context.params && (context.params.id as string);
+
   const flightDistanceData = await getFlightRoute(
     directions[0] || "",
-    directions[1] || ""
+    directions[1] || "",
+    routeId || ""
   );  
 
   const relatedOriginAirports = await getFlyingDistances(

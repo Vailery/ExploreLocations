@@ -11,12 +11,14 @@ import { RouterSection } from "./subcomponents/RouterSection";
 import { useState } from "react";
 
 interface CountryPageProps {
+  currentRegion: RegionType;
   regions: RegionType[];
   airports: AirportItem[];
   airportsCount: number;
 }
 
 export const CountryPage = ({
+  currentRegion,
   regions,
   airports: defaultAirports,
   airportsCount,
@@ -26,20 +28,23 @@ export const CountryPage = ({
     <>
       <Header />
       <main className="mb-5 min-h-screen lg:mb-10">
-        {regions[0] && (
+        {currentRegion && (
           <>
-            <RouterSection region={regions[0]} />
-            <DescriptionSection region={regions[0]} />
-            <MapSection region={regions[0]} airports={airports} />
+            <RouterSection region={currentRegion} />
+            <DescriptionSection region={currentRegion} />
+            <MapSection region={currentRegion} airports={airports} />
             <ListSection
               setAirports={setAirports}
-              region={regions[0]}
+              region={currentRegion}
               airports={airports}
               airportsCount={airportsCount}
             />
-            <FAQSection region={regions[0]} />
-            <AirportsByCountrySection regions={regions} countryCode={regions[0].Code} />
-            <MoreSection region={regions[0]} />
+            <FAQSection region={currentRegion} />
+            <AirportsByCountrySection
+              regions={regions}
+              countryCode={currentRegion.Code}
+            />
+            <MoreSection region={currentRegion} />
           </>
         )}
       </main>

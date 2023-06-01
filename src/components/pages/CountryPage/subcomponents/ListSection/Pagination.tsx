@@ -102,28 +102,33 @@ export const Pagination = ({
                 ? pagesOffset - 2
                 : currentRow + 2}
             </span>
-            <span
-              className={clsx(
-                "cursor-pointer select-none rounded-md bg-bodyBg py-4 text-center font-bold",
-                currentRow === pagesOffset - 2 && "bg-buttonBg text-white"
-              )}
-              onClick={() => {
-                currentRow >= pagesOffset - 4 && setCurrentRow(pagesOffset - 2);
-              }}
-            >
-              {currentRow >= pagesOffset - 4 ? pagesOffset - 1 : "..."}
-            </span>
-            <span
-              className={clsx(
-                "cursor-pointer select-none rounded-md bg-bodyBg py-4 text-center font-bold",
-                currentRow === pagesOffset - 1 && "bg-buttonBg text-white"
-              )}
-              onClick={() => {
-                setCurrentRow(pagesOffset - 1);
-              }}
-            >
-              {pagesOffset}
-            </span>
+            {pagesOffset > 5 && (
+              <>
+                <span
+                  className={clsx(
+                    "cursor-pointer select-none rounded-md bg-bodyBg py-4 text-center font-bold",
+                    currentRow === pagesOffset - 2 && "bg-buttonBg text-white"
+                  )}
+                  onClick={() => {
+                    currentRow >= pagesOffset - 4 &&
+                      setCurrentRow(pagesOffset - 2);
+                  }}
+                >
+                  {currentRow >= pagesOffset - 4 ? pagesOffset - 1 : "..."}
+                </span>
+                <span
+                  className={clsx(
+                    "cursor-pointer select-none rounded-md bg-bodyBg py-4 text-center font-bold",
+                    currentRow === pagesOffset - 1 && "bg-buttonBg text-white"
+                  )}
+                  onClick={() => {
+                    setCurrentRow(pagesOffset - 1);
+                  }}
+                >
+                  {pagesOffset}
+                </span>
+              </>
+            )}
           </>
         )}
       </div>
