@@ -5,6 +5,7 @@ import { DescriptionSection } from "./subcomponents/DescriptionSection";
 import { RouterSection } from "./subcomponents/RouterSection";
 import { TopLocationsSection } from "../../shared/TopLocationsSection";
 import { CountryLocationsSection } from "./subcomponents/CountryLocationsSection";
+import Head from "next/head";
 
 interface DrivingHubPageProps {
   topLocations?: LocationsType[];
@@ -19,6 +20,10 @@ export const DrivingHubPage = ({
 }: DrivingHubPageProps) => {
   return (
     <>
+      <Head>
+        <title>{"Driving Hub"}</title>
+        <meta name="description" content={"SEO description"} />
+      </Head>
       <Header />
       <main className="mb-6 min-h-screen">
         <RouterSection />

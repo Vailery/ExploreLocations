@@ -1,3 +1,4 @@
+import Head from "next/head";
 import type { LocationsType } from "~/src/utils/types";
 import { Footer } from "../../Footer";
 import { Header } from "../../Header";
@@ -19,6 +20,10 @@ export const FlyingHubPage = ({
 }: FlyingHubPageProps) => {
   return (
     <>
+      <Head>
+        <title>{"Flying Hub"}</title>
+        <meta name="description" content={"SEO description"} />
+      </Head>
       <Header />
       <main className="mb-6 min-h-screen">
         <RouterSection />

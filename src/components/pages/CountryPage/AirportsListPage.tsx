@@ -9,6 +9,7 @@ import { MapSection } from "./subcomponents/MapSection";
 import { MoreSection } from "./subcomponents/MoreSection";
 import { RouterSection } from "./subcomponents/RouterSection";
 import { useState } from "react";
+import Head from "next/head";
 
 interface CountryPageProps {
   currentRegion: RegionType;
@@ -26,6 +27,10 @@ export const CountryPage = ({
   const [airports, setAirports] = useState(defaultAirports);
   return (
     <>
+      <Head>
+        <title>{currentRegion.Name}</title>
+        <meta name="description" content={"SEO description"} />
+      </Head>
       <Header />
       <main className="mb-5 min-h-screen lg:mb-10">
         {currentRegion && (

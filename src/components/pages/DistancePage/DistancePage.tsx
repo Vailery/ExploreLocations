@@ -9,6 +9,7 @@ import { AirportsSection } from "./subcomponents/AirportsSection";
 import { RelatedFlightsSection } from "./subcomponents/RelatedFlightsSection/RelatedFlightsSection";
 import { MoreSection } from "./subcomponents/MoreSection";
 import type { AirportItem, FlightDistanceType } from "~/src/utils/types";
+import Head from "next/head";
 
 interface DistancePageProps {
   data: FlightDistanceType;
@@ -27,6 +28,10 @@ export const DistancePage = ({
 }: DistancePageProps) => {
   return (
     <>
+      <Head>
+        <title>{"SEO title"}</title>
+        <meta name="description" content={"SEO description"} />
+      </Head>
       <Header />
       <main className="mb-5 min-h-screen lg:mb-10">
         <RouterSection />

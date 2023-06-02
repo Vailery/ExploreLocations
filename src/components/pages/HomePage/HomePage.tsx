@@ -1,3 +1,4 @@
+import Head from "next/head";
 import type { LocationsType } from "~/src/utils/types";
 import { Footer } from "../../Footer";
 import { Header } from "../../Header";
@@ -12,6 +13,10 @@ interface HomePageProps {
 
 export const HomePage = ({ topLocations }: HomePageProps) => (
   <>
+    <Head>
+      <title>{"Explore Locations"}</title>
+      <meta name="description" content={"SEO description"} />
+    </Head>
     <Header />
     <main className="mb-6">
       <DescriptionSection />

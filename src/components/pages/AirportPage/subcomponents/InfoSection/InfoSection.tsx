@@ -113,7 +113,7 @@ export const InfoSection = ({ airportInfo }: InfoSectionProps) => {
       <div className="bg-gradientRight px-3 pb-5 pt-3 lg:rounded-md lg:px-8 lg:py-6">
         <div className="mb-5 flex items-center gap-2 lg:gap-5">
           <PlaneIcon className="h-7 w-14 lg:w-auto" />
-          <h3 className="text-lg font-bold leading-3 tracking-[0.08em] text-white lg:text-4xl">
+          <h3 className="text-lg font-bold lg:leading-3 tracking-[0.08em] text-white lg:text-4xl">
             {airportInfo.Name}
           </h3>
         </div>
