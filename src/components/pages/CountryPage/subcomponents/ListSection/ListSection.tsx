@@ -10,10 +10,10 @@ import {
 import clsx from "clsx";
 import { Listbox, Transition } from "@headlessui/react";
 import type { AirportItem as AirportType, RegionType } from "~/src/utils/types";
-import { AirportItem } from "../AirportItem";
 import { api } from "~/src/utils/api";
 import { useRouter } from "next/router";
 import { Pagination } from "./Pagination";
+import { AirportItem } from "../AirportItem";
 
 interface ListSectionProps {
   airports: AirportType[];
@@ -278,6 +278,7 @@ export const ListSection = ({
       </div>
       <div className="my-5 flex flex-col gap-3">
         {airports.map((el, idx) => (
+          // <RouteItem key={idx} />
           <AirportItem key={idx} data={el} countryCode={region.Code} />
         ))}
 

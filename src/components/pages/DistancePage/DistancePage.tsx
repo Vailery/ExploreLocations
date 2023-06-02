@@ -38,10 +38,14 @@ export const DistancePage = ({
           FlightDuration={data.FlightDuration}
         />
         <MapSection
-          OriginCenterX={data.OriginCenterX}
-          OriginCenterY={data.OriginCenterY}
-          DestinationCenterX={data.DestinationCenterX}
-          DestinationCenterY={data.DestinationCenterY}
+          OriginCenterX={originAirport?.CenterX || data.OriginCenterX}
+          OriginCenterY={originAirport?.CenterY || data.OriginCenterY}
+          DestinationCenterX={
+            destinationAirport?.CenterX || data.DestinationCenterX
+          }
+          DestinationCenterY={
+            destinationAirport?.CenterY || data.DestinationCenterY
+          }
           FlightDuration={data.FlightDuration}
           LengthKm={data.LengthKm}
           OriginCityName={data.OriginCityName}

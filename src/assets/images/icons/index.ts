@@ -30,5 +30,8 @@ export { default as MedalIcon } from "./medal.svg";
 export { default as NotificationIcon } from "./notification.svg";
 export { default as CarIcon } from "./carIcon.svg";
 export { default as PlanetIcon } from "./planetIcon.svg";
+export { default as HourglassIcon } from "./hourglass.svg";
+export { default as MapIcon } from "./map.svg";
+export { default as LuggageCar } from "./luggageCar.svg";
 
 export * from "./languages";
