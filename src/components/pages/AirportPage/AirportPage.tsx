@@ -1,3 +1,4 @@
+import Head from "next/head";
 import type { AirportItem, RegionType } from "~/src/utils/types";
 import { Footer } from "../../Footer/Footer";
 import { Header } from "../../Header";
@@ -21,6 +22,10 @@ export const AirportPage = ({
 }: IHomePage) => {
   return (
     <>
+      <Head>
+        <title>{airport.Name}</title>
+        <meta name="description" content={airport.SeoDescriptionEn} />
+      </Head>
       <Header />
       <main className="mb-5 min-h-screen lg:mb-10">
         <RouterSection

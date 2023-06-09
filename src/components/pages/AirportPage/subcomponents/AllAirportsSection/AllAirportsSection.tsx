@@ -24,7 +24,10 @@ export const AllAirportsSection = ({ regions }: AllAirportsSectionProps) => {
                 "border-b border-grayBg pb-3"
             )}
             key={el.id}
-            href={`/airports/${el.id}/${el.Country}`}
+            href={`/airports/${el.id}/${el.Name.replaceAll(
+              " ",
+              "_"
+            ).toLowerCase()}`}
           >
             <div className="h-6 w-6 overflow-hidden rounded-md lg:h-7 lg:w-7">
               <ReactCountryFlag

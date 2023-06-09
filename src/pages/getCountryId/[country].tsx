@@ -2,7 +2,7 @@ import type { GetServerSideProps } from "next";
 import { prisma } from "~/src/server/db";
 
 const GetCountryIDPage = ({ id }: { id: { id: number, Name: string }[] }) => {
-  return <div className="flex flex-col">{id.map((el, idx) => <div key={idx}>{el.id} {el.Name}</div>)}</div>;
+  return <div className="flex flex-col">{id.map((el, idx) => <div key={idx}>{el.id}/{el.Name}</div>)}</div>;
 };
 
 export default GetCountryIDPage;

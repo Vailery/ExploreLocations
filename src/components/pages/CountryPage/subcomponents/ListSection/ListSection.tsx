@@ -129,6 +129,7 @@ export const ListSection = ({
       { shallow: true }
     );
     void refetch();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [updatedRoute]);
 
   useEffect(() => {
