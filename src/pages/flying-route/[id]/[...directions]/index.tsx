@@ -1,6 +1,9 @@
 import type { GetServerSideProps, NextPage } from "next";
 import { DistancePage } from "~/src/components/pages/DistancePage";
-import { getAirports } from "~/src/utils/sqlQueries/airports";
+import {
+  getAirports,
+  getAirportsAround,
+} from "~/src/utils/sqlQueries/airports";
 import {
   getFlightRoute,
   getFlyingDistances,
@@ -13,6 +16,8 @@ interface DistancesPageData {
   relatedDestinationAirports: FlightDistanceType[];
   originAirport: AirportItem | null;
   destinationAirport: AirportItem | null;
+  airportsAroundOrigin: AirportItem[];
+  airportsAroundDestination: AirportItem[];
 }
 
 const Distance: NextPage<DistancesPageData> = ({
@@ -21,6 +26,8 @@ const Distance: NextPage<DistancesPageData> = ({
   relatedOriginAirports,
   originAirport,
   destinationAirport,
+  airportsAroundDestination,
+  airportsAroundOrigin,
 }) => {
   return (
     <DistancePage
@@ -29,6 +36,8 @@ const Distance: NextPage<DistancesPageData> = ({
       relatedOriginAirports={relatedOriginAirports}
       originAirport={originAirport}
       destinationAirport={destinationAirport}
+      airportsAroundOrigin={airportsAroundOrigin}
+      airportsAroundDestination={airportsAroundDestination}
     />
   );
 };
@@ -51,7 +60,7 @@ export const getServerSideProps: GetServerSideProps<DistancesPageData> = async (
     directions[0] || "",
     directions[1] || "",
     routeId || ""
-  );  
+  );
 
   const relatedOriginAirports = await getFlyingDistances(
     flightDistanceData[0].OriginCityName,
@@ -68,15 +77,29 @@ export const getServerSideProps: GetServerSideProps<DistancesPageData> = async (
     `WHERE LOWER("IATA") = '${flightDistanceData[0].DestinationIata.toLowerCase()}'`
   );
 
+  const airportsAroundOrigin = await getAirportsAround(
+    originAirport[0].CenterX,
+    originAirport[0].CenterY,
+    originAirport[0].id
+  );
+
+  const airportsAroundDestination = await getAirportsAround(
+    destinationAirport[0].CenterX,
+    destinationAirport[0].CenterY,
+    destinationAirport[0].id
+  );
+
   return {
     props: {
       flightDistanceData: flightDistanceData[0],
-      relatedOriginAirports: relatedOriginAirports,
+      relatedOriginAirports,
       relatedDestinationAirports: relatedDestinationAirports,
       originAirport: originAirport.length ? originAirport[0] : null,
       destinationAirport: destinationAirport.length
         ? destinationAirport[0]
         : null,
+      airportsAroundDestination,
+      airportsAroundOrigin,
     },
   };
 };

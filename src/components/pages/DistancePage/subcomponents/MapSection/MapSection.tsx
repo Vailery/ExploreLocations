@@ -54,7 +54,7 @@ export const MapSection = ({
   return (
     <section className="container mb-3 bg-white pt-3 lg:mb-5 lg:rounded-md lg:pt-4 lg:shadow-md">
       <h3 className="mb-2 px-3 text-lg font-bold tracking-wide lg:mb-7 lg:px-7 lg:text-3xl lg:tracking-wider">
-        {OriginCityName} to {DestinationCityName} Flight Duration & Distance
+        Flying route from {OriginCityName} to {DestinationCityName} on the map
       </h3>
       <div className="relative">
         {/* <div className="absolute right-3 top-9 z-30 w-[15.5rem] rounded-md bg-white p-4 lg:right-11 lg:top-[4.4rem] lg:h-[16rem] lg:w-[21rem]">

@@ -1,9 +1,18 @@
+import Link from "next/link";
+import { AirportItem } from "~/src/utils/types";
+
 interface InfoSectionProps {
   FlightDuration: string;
   OriginCityName: string;
   DestinationCityName: string;
   OriginCountryName: string;
   DestinationCountryName: string;
+  DistanceKm: number;
+  DistanceMiles: number;
+  airportsAroundOrigin: AirportItem[];
+  airportsAroundDestination: AirportItem[];
+  originCountryId: number;
+  destinationCountryId: number;
 }
 
 export const InfoSection = ({
@@ -12,79 +21,110 @@ export const InfoSection = ({
   DestinationCityName,
   OriginCountryName,
   DestinationCountryName,
+  DistanceMiles,
+  DistanceKm,
+  airportsAroundOrigin,
+  airportsAroundDestination,
+  originCountryId,
+  destinationCountryId,
 }: InfoSectionProps) => {
   return (
     <section className="container mb-4 grid grid-cols-1 grid-rows-[auto_auto] gap-5 lg:grid-cols-[2fr,1fr] lg:grid-rows-1">
       <div className="bg-white px-3 pb-5 pt-4 lg:rounded-md lg:px-8 lg:py-5">
-        <div className="mb-4 flex items-center gap-2 lg:mb-10 lg:gap-5">
+        <div className="mb-4 flex items-center gap-2 lg:gap-5">
           <h3 className="text-lg font-bold tracking-[0.08em] lg:text-3xl">
-            How long does it take to fly from {OriginCityName} to {DestinationCityName}?
+            What&apos;s the flight time from {OriginCityName} to{" "}
+            {DestinationCityName}?
           </h3>
         </div>
-        <ul>
-          <li className="mb-5 leading-8 tracking-wide lg:mb-7">
-            Non-stop flight time from {OriginCityName} to {DestinationCityName} is around{" "}
-            <span className="font-bold">{FlightDuration}.</span>
-          </li>
-          <li className="mb-5 leading-8  tracking-wide lg:mb-7">
-            <span className="font-bold">
-              Fastest one-stop flight between Bucharest and London takes close
-              to 5 hours.
-            </span>{" "}
-            However, some airlines could take as long as 28 hours based on the
-            stopover destination and waiting duration.
-          </li>
-          <li className="mb-5 leading-8  tracking-wide lg:mb-7">
-            This is the average non-stop flight time from any of the two
-            airports in {OriginCityName} to airports in {DestinationCityName}.
-          </li>
-          <li className="mb-5 leading-8  tracking-wide lg:mb-7">
-            Apparently, connecting flights and direct flights with stopover take
-            longer time than non-stop flights. In such cases, {OriginCityName} - {DestinationCityName}
-            flight time depend on the layover destination specified by your
-            airline or the one you choose while booking your ticket.
-          </li>
-          <li className="mb-9 leading-8 tracking-wide">
-            Waiting time at intermediate airports could be anywhere between 40
-            mins to 24 hrs .
+        <ul className="flex flex-col gap-3">
+          <li className="leading-8 tracking-wide">
+            The flight duration from {OriginCityName} to {DestinationCityName}{" "}
+            is {FlightDuration}.
           </li>
           <li>
-            <h3 className="mb-9 hidden text-lg font-bold tracking-widest lg:block">
-              Flight time from {OriginCityName}, {OriginCountryName} to airports near {DestinationCityName},
-              {DestinationCountryName}
+            The flight time depends on the aircraft cruising speed, weather
+            conditions and wind. To calculate it, we have used the average
+            flight speed of commercial airplanes which is 500 mph, or around 804
+            km/h.
+          </li>
+          <li className="leading-8  tracking-wide">
+            <h3 className="text-lg font-bold tracking-[0.08em] lg:text-3xl">
+              What&apos;s the flight distance between {OriginCityName} and{" "}
+              {DestinationCityName}?
             </h3>
-            <div className="mb-9 tracking-wide">
-              Non-stop flight time from {OriginCityName} to {DestinationCityName} is around{" "}
-              <span className="font-bold">{FlightDuration}</span>
-            </div>
-            <div className="grid lg:grid-cols-[1fr_3fr_1fr]">
-              <div className="pb-2 text-lg font-bold">Journey</div>
-              <div className="hidden pb-2 text-lg font-bold lg:block">
-                Destination Airports
+          </li>
+          <li className="leading-8  tracking-wide">
+            The flight distance between {OriginCityName} and{" "}
+            {DestinationCityName} is {DistanceMiles} miles, which is the
+            equivalent of
+            {DistanceKm} kilometers.
+          </li>
+          <li className="leading-8  tracking-wide">
+            In the calculation, we have assumed a straight line ( as the crow
+            flies ), but the distance might differ, especially if you have a
+            stopover.
+          </li>
+          <li className="leading-8 tracking-wide">
+            <h4 className="font-bold tracking-[0.08em] lg:text-3xl">
+              International Airports near {OriginCityName}, {OriginCountryName}
+            </h4>
+            Around {OriginCityName} there are {airportsAroundOrigin.length}{" "}
+            international airports.{" "}
+            {airportsAroundOrigin.length && "These are:"}
+            {airportsAroundOrigin.length && (
+              <div className="flex flex-col">
+                {airportsAroundOrigin.map((el, idx) => (
+                  <Link
+                    key={idx}
+                    className="text-buttonBg"
+                    href={`/airport/${el.id}/${el.Name.replaceAll(
+                      " ",
+                      "_"
+                    ).toLowerCase()}`}
+                  >
+                    - {el.Name}
+                  </Link>
+                ))}
               </div>
-              <div className="hidden pb-2 text-right text-lg font-bold lg:block">
-                Duration
+            )}
+            <Link
+              href={`/airports/${originCountryId}/${OriginCountryName}`}
+              className="text-buttonBg"
+            >
+              Explore more airports from {OriginCountryName}
+            </Link>
+          </li>
+          <li className="leading-8 tracking-wide">
+            <h4 className="font-bold tracking-[0.08em] lg:text-3xl">
+              International Airports near {DestinationCityName},{" "}
+              {DestinationCountryName}
+            </h4>
+            Around {DestinationCityName} there are{" "}
+            {airportsAroundDestination.length} international airports.{" "}
+            {airportsAroundDestination.length && "These are:"}
+            {airportsAroundDestination.length && (
+              <div className="flex flex-col">
+                {airportsAroundDestination.map((el, idx) => (
+                  <Link
+                    key={idx}
+                    className="text-buttonBg"
+                    href={`/airport/${el.id}/${el.Name.replaceAll(
+                      " ",
+                      "_"
+                    ).toLowerCase()}`}
+                  >
+                    - {el.Name}
+                  </Link>
+                ))}
               </div>
-              <div className="text-buttonBg lg:border-b lg:py-4">OTP-LCY</div>
-              <div className="py-2 lg:border-b lg:py-4">
-                London, London City Airport
-              </div>
-              <div className="border-b pb-3 lg:py-4 lg:text-right">
-                4 hrs 50 mins
-              </div>
-              <div className="pt-3 text-buttonBg lg:border-b lg:py-4">
-                OTP-BHX
-              </div>
-              <div className="py-2 lg:border-b lg:py-4">
-                London, London City Airport
-              </div>
-              <div className="border-b pb-3 lg:py-4 lg:text-right">
-                4 hrs 50 mins
-              </div>
-              <div className="pt-3 text-buttonBg lg:py-4">OTP-MAN</div>
-              <div className="py-2 lg:py-4">London, London City Airport</div>
-              <div className="lg:py-4 lg:text-right">4 hrs 50 mins</div>
-            </div>
+            )}
+            <Link
+              className="text-buttonBg"
+              href={`/airports/${destinationCountryId}/${DestinationCountryName}`}
+            >
+              Explore more airports from {DestinationCountryName}
+            </Link>
           </li>
         </ul>
       </div>
