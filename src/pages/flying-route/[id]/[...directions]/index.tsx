@@ -66,6 +66,7 @@ export const getServerSideProps: GetServerSideProps<DistancesPageData> = async (
     flightDistanceData[0].OriginCityName,
     flightDistanceData[0].id
   );
+
   const relatedDestinationAirports = await getFlyingDistances(
     flightDistanceData[0].DestinationCityName,
     flightDistanceData[0].id
@@ -84,11 +85,37 @@ export const getServerSideProps: GetServerSideProps<DistancesPageData> = async (
     4
   );
 
+  airportsAroundOrigin.forEach((el) => {
+    el.Distance = Math.round(
+      Math.sqrt(
+        Math.pow(originAirport[0].CenterX - el.CenterX, 2) +
+          Math.pow(originAirport[0].CenterY - el.CenterY, 2)
+      ) * 100
+    );
+  });
+
   const airportsAroundDestination = await getAirportsAround(
     destinationAirport[0].CenterX,
     destinationAirport[0].CenterY,
     destinationAirport[0].id,
     4
+  );
+
+  airportsAroundDestination.forEach((el) => {
+    el.Distance = Math.round(
+      Math.sqrt(
+        Math.pow(destinationAirport[0].CenterX - el.CenterX, 2) +
+          Math.pow(destinationAirport[0].CenterY - el.CenterY, 2)
+      ) * 100
+    );
+  });
+
+  airportsAroundOrigin.sort((a, b) =>
+    (a.Distance || 0) > (b.Distance || 0) ? 1 : -1
+  );
+
+  airportsAroundDestination.sort((a, b) =>
+    (a.Distance || 0) > (b.Distance || 0) ? 1 : -1
   );
 
   return {

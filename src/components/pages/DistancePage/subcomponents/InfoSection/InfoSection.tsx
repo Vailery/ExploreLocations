@@ -1,5 +1,7 @@
+import { iso1A2Code } from "@rapideditor/country-coder";
 import Link from "next/link";
-import { AirportItem } from "~/src/utils/types";
+import ReactCountryFlag from "react-country-flag";
+import type { AirportItem } from "~/src/utils/types";
 
 interface InfoSectionProps {
   FlightDuration: string;
@@ -56,9 +58,9 @@ export const InfoSection = ({
           </li>
           <li className="leading-8  tracking-wide">
             The flight distance between {OriginCityName} and{" "}
-            {DestinationCityName} is {DistanceMiles} miles, which is the
-            equivalent of
-            {DistanceKm} kilometers.
+            {DestinationCityName} is {DistanceMiles.toLocaleString()} miles,
+            which is the equivalent of
+            {DistanceKm.toLocaleString()} kilometers.
           </li>
           <li className="leading-8  tracking-wide">
             In the calculation, we have assumed a straight line ( as the crow
@@ -69,24 +71,34 @@ export const InfoSection = ({
             <h4 className="font-bold tracking-[0.08em] lg:text-3xl">
               International Airports near {OriginCityName}, {OriginCountryName}
             </h4>
-            Around {OriginCityName} there are {airportsAroundOrigin.length}{" "}
-            international airports.{" "}
-            {airportsAroundOrigin.length && "These are:"}
+            Closest International Airports to {OriginCityName}:
             {airportsAroundOrigin.length && (
-              <div className="flex flex-col">
+              <ul className="flex list-inside list-disc flex-col">
                 {airportsAroundOrigin.map((el, idx) => (
-                  <Link
-                    key={idx}
-                    className="text-buttonBg"
-                    href={`/airport/${el.id}/${el.Name.replaceAll(
-                      " ",
-                      "_"
-                    ).toLowerCase()}`}
-                  >
-                    - {el.Name}
-                  </Link>
+                  <li key={idx}>
+                    <Link
+                      className="text-buttonBg"
+                      href={`/airport/${el.id}/${el.Name.replaceAll(
+                        " ",
+                        "_"
+                      ).toLowerCase()}`}
+                    >
+                      {el.Name}
+                    </Link>{" "}
+                    - {el.Distance} km / {Math.trunc((el.Distance || 0) * 0.62)}{" "}
+                    miles away
+                    <ReactCountryFlag
+                      countryCode={iso1A2Code(el.Country) || "US"}
+                      svg
+                      style={{
+                        marginLeft: "10px",
+                        width: "30px",
+                        height: "20px",
+                      }}
+                    />
+                  </li>
                 ))}
-              </div>
+              </ul>
             )}
             <Link
               href={`/airports/${originCountryId}/${OriginCountryName}`}
@@ -100,28 +112,38 @@ export const InfoSection = ({
               International Airports near {DestinationCityName},{" "}
               {DestinationCountryName}
             </h4>
-            Around {DestinationCityName} there are{" "}
-            {airportsAroundDestination.length} international airports.{" "}
-            {airportsAroundDestination.length && "These are:"}
+            Closest International Airports to {DestinationCityName}:
             {airportsAroundDestination.length && (
-              <div className="flex flex-col">
+              <ul className="flex list-inside list-disc flex-col">
                 {airportsAroundDestination.map((el, idx) => (
-                  <Link
-                    key={idx}
-                    className="text-buttonBg"
-                    href={`/airport/${el.id}/${el.Name.replaceAll(
-                      " ",
-                      "_"
-                    ).toLowerCase()}`}
-                  >
-                    - {el.Name}
-                  </Link>
+                  <li key={idx}>
+                    <Link
+                      className="text-buttonBg"
+                      href={`/airport/${el.id}/${el.Name.replaceAll(
+                        " ",
+                        "_"
+                      ).toLowerCase()}`}
+                    >
+                      {el.Name}
+                    </Link>{" "}
+                    - {el.Distance} km / {Math.trunc((el.Distance || 0) * 0.62)}{" "}
+                    miles away
+                    <ReactCountryFlag
+                      countryCode={iso1A2Code(el.Country) || "US"}
+                      svg
+                      style={{
+                        marginLeft: "10px",
+                        width: "30px",
+                        height: "20px",
+                      }}
+                    />
+                  </li>
                 ))}
-              </div>
+              </ul>
             )}
             <Link
-              className="text-buttonBg"
               href={`/airports/${destinationCountryId}/${DestinationCountryName}`}
+              className="text-buttonBg"
             >
               Explore more airports from {DestinationCountryName}
             </Link>
