@@ -1,3 +1,5 @@
+import { iso1A2Code } from "@rapideditor/country-coder";
+import ReactCountryFlag from "react-country-flag";
 import { MarkerIcon } from "~/src/assets";
 
 interface DescriptionSectionProps {
@@ -37,8 +39,30 @@ export const DescriptionSection = ({
           <div>To</div>
         </div>
         <div className="mb-6 flex items-center justify-between lg:mb-4">
-          <div className="font-bold lg:text-xl">{OriginCityName}</div>
-          <div className="font-bold lg:text-xl">{DestinationCityName}</div>
+          <div className="flex items-center font-bold lg:text-xl">
+            <ReactCountryFlag
+              countryCode={iso1A2Code(OriginCountryName) || "US"}
+              svg
+              style={{
+                marginRight: "10px",
+                width: "30px",
+                height: "20px",
+              }}
+            />
+            {OriginCityName}
+          </div>
+          <div className="flex items-center font-bold lg:text-xl">
+            <ReactCountryFlag
+              countryCode={iso1A2Code(DestinationCountryName) || "US"}
+              svg
+              style={{
+                marginRight: "10px",
+                width: "30px",
+                height: "20px",
+              }}
+            />
+            {DestinationCityName}
+          </div>
         </div>
         <div className="dashed-border h-[1.5px] w-full" />
         <div className="mt-14 text-center lg:mt-12">
@@ -47,8 +71,9 @@ export const DescriptionSection = ({
           </h3> */}
           <h4 className="font-bold tracking-wider lg:mt-2">
             The flight time from {OriginCityName} to {DestinationCityName} is{" "}
-            {FlightDuration}, and the distance is {DistanceKm} kilometers /{" "}
-            {DistanceMiles} miles
+            {FlightDuration}, and the distance is{" "}
+            {(+DistanceKm).toLocaleString("en-US")} kilometers /{" "}
+            {(+DistanceMiles).toLocaleString("en-US")} miles
           </h4>
         </div>
         <MarkerIcon className="absolute left-1/2 top-14 w-[4.2rem] -translate-x-1/2 text-redBg" />
