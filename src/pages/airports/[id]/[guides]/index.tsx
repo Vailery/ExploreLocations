@@ -46,7 +46,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const pageNumber = context.query?.page ? +context.query?.page : 1;
 
   const currentRegion = await getAdminRegions(
-    `WHERE LOWER("Name") = '${regionName}'  AND "id" = '${regionId || ""}'`
+    `WHERE "id" = '${regionId || ""}'`
   );
 
   const regions = await getAdminRegions(

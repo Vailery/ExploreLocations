@@ -39,19 +39,15 @@ export default DrivingDistance;
 export const getServerSideProps: GetServerSideProps<
   DrivingDistancesPageProps
 > = async (context) => {
-  const directions = Array.isArray(context.query.directions)
-    ? context.query.directions.map((el) =>
-        el.toLowerCase().split("_").join(" ")
-      )
-    : ["", ""];
+  // const directions = Array.isArray(context.query.directions)
+  //   ? context.query.directions.map((el) =>
+  //       el.toLowerCase().split("_").join(" ")
+  //     )
+  //   : ["", ""];
 
   const routeId = context.params && (context.params.id as string);
 
-  const drivingDistanceData = await getDrivingRoute(
-    directions[0] || "",
-    directions[1] || "",
-    routeId || ""
-  );
+  const drivingDistanceData = await getDrivingRoute(routeId || "");
 
   const relatedOriginDistances = await getDrivingDistances(
     drivingDistanceData[0].RegionToCityName,

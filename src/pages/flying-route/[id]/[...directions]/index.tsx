@@ -48,19 +48,15 @@ export default Distance;
 export const getServerSideProps: GetServerSideProps<DistancesPageData> = async (
   context
 ) => {
-  const directions = Array.isArray(context.query.directions)
-    ? context.query.directions.map((el) =>
-        el.toLowerCase().split("_").join(" ")
-      )
-    : ["", ""];
+  // const directions = Array.isArray(context.query.directions)
+  //   ? context.query.directions.map((el) =>
+  //       el.toLowerCase().split("_").join(" ")
+  //     )
+  //   : ["", ""];
 
   const routeId = context.params && (context.params.id as string);
 
-  const flightDistanceData = await getFlightRoute(
-    directions[0] || "",
-    directions[1] || "",
-    routeId || ""
-  );
+  const flightDistanceData = await getFlightRoute(routeId || "");
 
   const relatedOriginAirports = await getFlyingDistances(
     flightDistanceData[0].OriginCityName,

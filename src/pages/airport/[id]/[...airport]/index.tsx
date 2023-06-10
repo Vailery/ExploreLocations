@@ -44,9 +44,7 @@ export const getServerSideProps: GetServerSideProps<AirportPageProps> = async (
           .join(" ")
       : "";
 
-  const airport = await getAirports(
-    `WHERE "id" = ${airportId || ""} AND LOWER("Name") = '${airportName}'`
-  );
+  const airport = await getAirports(`WHERE "id" = ${airportId || ""}`);
 
   const airportsAround = await getAirportsAround(
     airport[0].CenterX,
