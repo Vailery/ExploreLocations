@@ -80,13 +80,15 @@ export const getServerSideProps: GetServerSideProps<DistancesPageData> = async (
   const airportsAroundOrigin = await getAirportsAround(
     originAirport[0].CenterX,
     originAirport[0].CenterY,
-    originAirport[0].id
+    originAirport[0].id,
+    4
   );
 
   const airportsAroundDestination = await getAirportsAround(
     destinationAirport[0].CenterX,
     destinationAirport[0].CenterY,
-    destinationAirport[0].id
+    destinationAirport[0].id,
+    4
   );
 
   return {

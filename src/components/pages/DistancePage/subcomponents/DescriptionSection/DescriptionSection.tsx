@@ -46,8 +46,9 @@ export const DescriptionSection = ({
             Average flight time is {FlightDuration}
           </h3> */}
           <h4 className="font-bold tracking-wider lg:mt-2">
-            The flight time from {OriginCityName} to {DestinationCityName} is
-            {FlightDuration}, and the distance is {DistanceKm} kilometers / {DistanceMiles} miles
+            The flight time from {OriginCityName} to {DestinationCityName} is{" "}
+            {FlightDuration}, and the distance is {DistanceKm} kilometers /{" "}
+            {DistanceMiles} miles
           </h4>
         </div>
         <MarkerIcon className="absolute left-1/2 top-14 w-[4.2rem] -translate-x-1/2 text-redBg" />
