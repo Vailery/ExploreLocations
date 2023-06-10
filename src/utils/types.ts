@@ -34,6 +34,7 @@ export type AirportType = "All" | "International" | "Domestic" | "Local";
 export interface FlightDistanceType {
   id: number;
   LengthKm: number;
+  LengthMiles: number;
   FlightDuration: string;
   OriginAirportName: string;
   DestinationAirportName: string;
@@ -44,7 +45,9 @@ export interface FlightDistanceType {
   OriginCityName: string;
   DestinationCityName: string;
   OriginCountryName: string;
+  OriginCountryId: number;
   DestinationCountryName: string;
+  DestinationCountryId: number;
   OriginIata: string;
   DestinationIata: string;
   OriginAirportId: number;

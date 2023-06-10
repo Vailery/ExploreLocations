@@ -6,6 +6,7 @@ export const getFlightRouteData = async (condition: string) =>
     `SELECT 
     "id",
     "LengthKm", 
+    "LengthMiles",
     "OriginAirportName", 
     "DestinationAirportName", 
     "DestinationAirportId",
@@ -18,7 +19,9 @@ export const getFlightRouteData = async (condition: string) =>
     "OriginCityName",
     "DestinationCityName", 
     "OriginCountryName",
+    "OriginCountryId",
     "DestinationCountryName",
+    "DestinationCountryId",
     "OriginIata",
     "DestinationIata"
      FROM "FlyingRoutes" ${condition}`
