@@ -5,11 +5,12 @@ import { getFLyingLocationsData } from "~/src/utils/sqlQueries/flyingLocations";
 import type { LocationsType } from "~/src/utils/types";
 
 interface FlyingHubPageProps {
-  topLocations: LocationsType[];
+  topLocations: LocationsType[] | null;
 }
 
 const FlyingHub: NextPage<FlyingHubPageProps> = ({ topLocations }) => {
-  return <FlyingHubPage topLocations={topLocations} />;
+  return <></> 
+  // <FlyingHubPage topLocations={topLocations} />;
 };
 
 export default FlyingHub;
@@ -20,25 +21,25 @@ export const getStaticProps: GetStaticProps = async () => {
     `ORDER BY "Type", CAST("Points" AS INTEGER) DESC LIMIT 20`
   );
 
-  const topLocations = [];
+  // const topLocations = [];
 
   for (let i = 0; i < topRegions.length; i++) {
-    const locations = await getFLyingLocationsData(
-      `ON r."OriginCountryName" = '${topRegions[i]?.Country || ""}' LIMIT 5`
-    );
-    topLocations.push({
-      country: topRegions[i]?.Country || "",
-      points: topRegions[i]?.Points || "",
-      code: topRegions[i]?.Code || "",
-      locations: locations.map((el) => ({
-        from: el.OriginCityName,
-        to: el.DestinationCityName,
-      })),
-    });
+    // const locations = await getFLyingLocationsData(
+    //   `ON r."OriginCountryName" = '${topRegions[i]?.Country || ""}' LIMIT 5`
+    // );
+    // topLocations.push({
+    //   country: topRegions[i]?.Country || "",
+    //   points: topRegions[i]?.Points || "",
+    //   code: topRegions[i]?.Code || "",
+    //   locations: locations.map((el) => ({
+    //     from: el.OriginCityName,
+    //     to: el.DestinationCityName,
+    //   })),
+    // });
   }
   return {
     props: {
-      topLocations: topLocations,
+      topLocations: null,
     },
   };
 };
