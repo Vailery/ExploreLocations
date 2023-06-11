@@ -33,13 +33,13 @@ const RegionsPage: NextPage<RegionsPageProps> = ({
 export default RegionsPage;
 // eslint-disable-next-line @typescript-eslint/require-await
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const regionName =
-    typeof context.params?.guides === "string"
-      ? context.params.guides
-          .split("-")
-          .map((el) => el.toLowerCase())
-          .join(" ")
-      : "";
+  // const regionName =
+  //   typeof context.params?.guides === "string"
+  //     ? context.params.guides
+  //         .split("-")
+  //         .map((el) => el.toLowerCase())
+  //         .join(" ")
+  //     : "";
 
   const regionId = context.params && (context.params.id as string);
 
@@ -50,11 +50,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   );
 
   const regions = await getAdminRegions(
-    `WHERE LOWER("Country") = '${regionName}'`
+    `WHERE LOWER("Country") = '${currentRegion[0]?.Country.toLowerCase() || ""}'`
   );
 
   const airports =
-    await getAirportsInRegion(`ON ST_Intersects(a."Center", r."Geometry") and LOWER(r."Name") = '${regionName}' AND r."id" = '${
+    await getAirportsInRegion(`ON ST_Intersects(a."Center", r."Geometry") AND r."id" = '${
       regionId || ""
     }'
     ORDER BY COALESCE(CAST(a."Passengers" AS INTEGER), 0) DESC LIMIT 20 OFFSET '${
@@ -62,13 +62,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     }'`);
 
   const airportsCount = await getAirportsInRegionCount(
-    `ON ST_Intersects(a."Center", r."Geometry") and LOWER(r."Name") = '${regionName}' AND r."id" = '${
+    `ON ST_Intersects(a."Center", r."Geometry") AND r."id" = '${
       regionId || ""
     }'`
   );
-
-    console.log(airportsCount);
-
+  
   return {
     props: {
       currentRegion: currentRegion[0],
