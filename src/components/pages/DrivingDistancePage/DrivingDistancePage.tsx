@@ -44,8 +44,15 @@ export const DrivingDistancePage = ({
   return (
     <>
       <Head>
-        <title>{"SEO title"}</title>
-        <meta name="description" content={"SEO description"} />
+        <title>{`Distance from ${RegionFromCityName} to ${RegionToCityName} - ExploreLocations.com`}</title>
+        <meta
+          name="description"
+          content={`The driving distance from ${RegionFromCityName} to ${RegionToCityName} is ${DistanceKm.toLocaleString(
+            "en-US"
+          )} kilometers / ${DistanceMiles.toLocaleString(
+            "en-US"
+          )} miles. Check the route on the map and explore everything about it.`}
+        />
       </Head>
       <Header />
       <main className="mb-5 min-h-screen lg:mb-10">
@@ -56,11 +63,10 @@ export const DrivingDistancePage = ({
           time={DrivingTime}
           distance={DistanceKm}
           distanceMiles={DistanceMiles}
+          fromCountry={CountryFromName}
+          toCountry={CountryToName}
         />
         <MapSection
-          time={DrivingTime}
-          distance={DistanceKm}
-          distanceMiles={DistanceMiles}
           from={RegionFromCityName}
           to={RegionToCityName}
           originX={OriginCenterX}
