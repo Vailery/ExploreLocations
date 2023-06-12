@@ -13,11 +13,11 @@ export const RelatedFlight = ({
   return (
     <div className="w-full rounded-md bg-white px-3 pb-5 pt-2 lg:w-1/2 lg:px-8 lg:pb-7 lg:pt-9">
       <h3 className="text-xl font-bold lg:mb-7 lg:text-3xl">
-        Driving Distances {city}
+        Driving Distances From {city}
       </h3>
       <div className="mb-4 hidden justify-between lg:flex">
-        <div className="text-xl font-bold">Cities</div>
-        <div className="text-xl font-bold">Distance</div>
+        <div className="text-xl font-bold">Driving Routes</div>
+        <div className="text-xl font-bold">Length</div>
       </div>
       {relatedDistances.map((el, idx) => (
         <Link
@@ -38,7 +38,7 @@ export const RelatedFlight = ({
         </Link>
       ))}
       <button className="mt-3 w-full rounded-md bg-buttonBg py-3 text-lg text-white">
-        All {city} Driving Distances
+        All Driving Distances From {city}
       </button>
     </div>
   );

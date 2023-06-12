@@ -27,20 +27,20 @@ const speedArray = [
   },
   {
     value: 80,
-    speed: '50 mph (80 km/h)'
+    speed: "50 mph (80 km/h)",
   },
   {
     value: 97,
-    speed: '60 mph (97 km/h)'
+    speed: "60 mph (97 km/h)",
   },
   {
     value: 112,
-    speed: '70 mph (112 km/h)'
+    speed: "70 mph (112 km/h)",
   },
   {
     value: 128,
-    speed: '80 mph (128 km/h)'
-  }
+    speed: "80 mph (128 km/h)",
+  },
 ];
 
 export const InfoSection = ({
@@ -67,37 +67,36 @@ export const InfoSection = ({
           </h3>
         </div>
         <div className="mb-8 leading-8 tracking-wider">
-          The driving distance from {from} to {to} is{" "}
-          {distanceMiles.toLocaleString("en-US")} miles which is the equivalent
-          of {distance.toLocaleString("en-US")} km.
+          The driving distance between {from} and {to} is{" "}
+          {distance.toLocaleString("en-US")} kilometers, which is the equivalent
+          of {distance.toLocaleString("en-US")} miles.
         </div>
         <div className="mb-8 leading-8 tracking-wider">
-          If you were to drive without a stop, it would take you around {time}{" "}
-          to complete the journey.
-        </div>
-        <div className="mb-1 leading-8 tracking-wider">
-          The driving route between {to} and {from} is long, so it&apos;s
-          probably best to make it a multi-day journey.
-        </div>
-        <div className="mb-8 leading-8 tracking-wider">
-          The straight line flight distance is{" "}
-          {flightKm.toLocaleString("en-US")} km which is the equivalent of{" "}
+          The air distance from {from} to {to} is{" "}
+          {flightKm.toLocaleString("en-US")} kilometers /{" "}
           {flightMiles.toLocaleString("en-US")} miles.
         </div>
         <div className="mb-8 leading-8 tracking-wider">
-          {from} is located on the following coordinates: {originX}, {originY},
-          in {countryFrom}. {to} is located on the following coordinates:{" "}
-          {destinationX}, {destinationY} , in {countryTo}.
+          {from} is located in {countryFrom}, on the following coordinates:{" "}
+          {originX}, {originY}.{to} is located in {countryTo}, on the following
+          coordinates: {destinationX}, {destinationY}.
         </div>
-        {countryFrom !== countryTo && (
-          <div className="mb-8 leading-8 tracking-wider">
-            {from} and {to} are located in different countries, so consider the
-            time spent at the border crossing.
-          </div>
-        )}
-        <h3 className="mb-10 font-bold lg:text-xl">
-          Estimated Driving Time Between {from} and {to}
-        </h3>
+        <div className="mb-8 leading-8 tracking-wider">
+          <h3 className="text-lg font-bold tracking-[0.08em] lg:text-3xl">
+            How long does it take to drive from {from} from {to}?
+          </h3>
+        </div>
+        <div className="mb-8 leading-8 tracking-wider">
+          On average, it would take you {time} to drive from {from} to {to}.
+          However, the driving time depends on several factors such as: road
+          conditions, traffic, weather and stops.
+        </div>
+        <div className="mb-8 leading-8 tracking-wider">
+          To help you get a better understanding of the distance and time
+          required to drive from {from} to {to}, below we have calculated the
+          driving time, based on different average speeds.
+        </div>
+        <h3 className="mb-10 font-bold lg:text-xl">Estimated Driving Time</h3>
         <div className="grid grid-cols-2 gap-y-[1.6rem]">
           <span className="mb-6 hidden font-bold lg:block">Average Speed</span>
           <span className="hidden font-bold lg:block">Driving Time</span>

@@ -8,9 +8,6 @@ interface MapSectionProps {
   destinationY: number;
   from: string;
   to: string;
-  distance: number;
-  distanceMiles: number;
-  time: string;
 }
 
 export const MapSection = ({
@@ -20,9 +17,6 @@ export const MapSection = ({
   originY,
   from,
   to,
-  distance,
-  distanceMiles,
-  time,
 }: MapSectionProps) => {
   const ClientMap = useMemo(
     () =>
@@ -56,7 +50,7 @@ export const MapSection = ({
   return (
     <section className="container mb-3 bg-white pt-3 lg:mb-4 lg:rounded-md lg:pt-4 lg:shadow-md">
       <h3 className="mb-2 px-3 text-lg font-bold tracking-wide lg:mb-7 lg:px-6 lg:text-3xl lg:tracking-wider">
-        {from} to {to} Flight Duration & Distance
+        Map of the driving route between {from} to {to}
       </h3>
       <div className="relative">
         {/* <div className="absolute right-3 top-9 z-30 w-[15.5rem] rounded-md bg-white p-5 lg:right-11 lg:top-[4.4rem] lg:h-[15rem] lg:w-[21rem]">
