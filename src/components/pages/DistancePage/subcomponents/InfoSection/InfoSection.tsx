@@ -86,7 +86,7 @@ export const InfoSection = ({
                       {el.Name}
                     </Link>{" "}
                     - {el.Distance} km / {Math.trunc((el.Distance || 0) * 0.62)}{" "}
-                    miles away ({el.Country})
+                    miles away
                     <ReactCountryFlag
                       countryCode={iso1A2Code(el.Country || "US") || "US"}
                       svg
