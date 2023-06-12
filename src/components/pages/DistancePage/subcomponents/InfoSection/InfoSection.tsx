@@ -86,9 +86,9 @@ export const InfoSection = ({
                       {el.Name}
                     </Link>{" "}
                     - {el.Distance} km / {Math.trunc((el.Distance || 0) * 0.62)}{" "}
-                    miles away
+                    miles away ({el.Country})
                     <ReactCountryFlag
-                      countryCode={iso1A2Code(el.Country) || "US"}
+                      countryCode={iso1A2Code(el.Country || "US") || "US"}
                       svg
                       style={{
                         marginLeft: "10px",
@@ -129,7 +129,7 @@ export const InfoSection = ({
                     - {el.Distance} km / {Math.trunc((el.Distance || 0) * 0.62)}{" "}
                     miles away
                     <ReactCountryFlag
-                      countryCode={iso1A2Code(el.Country) || "US"}
+                      countryCode={iso1A2Code(el.Country || "US") || "US"}
                       svg
                       style={{
                         marginLeft: "10px",

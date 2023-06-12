@@ -9,16 +9,16 @@ export const getFlightRouteData = async (condition: string) =>
     "LengthMiles",
     "DestinationAirportId",
     "OriginAirportId",
-    "FlightDuration", 
+    "FlightDuration",
+    "OriginCityName",
+    "DestinationCityName"
      FROM "FlyingRoutes" ${condition}`
   );
 
 export const getFlightRoute = async (id: string) =>
-  await getFlightRouteData(
-    `WHERE "id" = '${id}'`
-  );
+  await getFlightRouteData(`WHERE "id" = '${id}'`);
 
-// export const getFlyingDistances = async (country: string, id: number) =>
-//   await getFlightRouteData(
-//     `WHERE LOWER("OriginCityName") = '${country.toLowerCase()}' AND "id" != '${id}' LIMIT 20`
-//   );
+export const getFlyingDistances = async (country: string, id: number) =>
+  await getFlightRouteData(
+    `WHERE LOWER("OriginCityName") = '${country.toLowerCase()}' AND "id" != '${id}' LIMIT 20`
+  );

@@ -40,10 +40,14 @@ export const DistancePage = ({
       <main className="mb-5 min-h-screen lg:mb-10">
         <RouterSection />
         <DescriptionSection
-          OriginCityName={data.OriginCityName}
-          DestinationCityName={data.DestinationCityName}
-          OriginCountryName={data.OriginCountryName}
-          DestinationCountryName={data.DestinationCountryName}
+          OriginCityName={originAirport?.City || data.OriginCityName}
+          DestinationCityName={
+            destinationAirport?.City || data.DestinationCityName
+          }
+          OriginCountryName={originAirport?.Country || data.OriginCountryName}
+          DestinationCountryName={
+            destinationAirport?.Country || data.DestinationCountryName
+          }
           FlightDuration={data.FlightDuration}
           DistanceKm={data.LengthKm}
           DistanceMiles={data.LengthMiles}
@@ -59,8 +63,10 @@ export const DistancePage = ({
           }
           FlightDuration={data.FlightDuration}
           LengthKm={data.LengthKm}
-          OriginCityName={data.OriginCityName}
-          DestinationCityName={data.DestinationCityName}
+          OriginCityName={originAirport?.City || data.OriginCityName}
+          DestinationCityName={
+            destinationAirport?.City || data.DestinationCityName
+          }
         />
         <InfoSection
           FlightDuration={data.FlightDuration}
