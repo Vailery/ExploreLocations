@@ -5,44 +5,36 @@ import type { AirportItem } from "~/src/utils/types";
 
 interface InfoSectionProps {
   FlightDuration: string;
-  OriginCityName: string;
-  DestinationCityName: string;
-  OriginCountryName: string;
-  DestinationCountryName: string;
   DistanceKm: number;
   DistanceMiles: number;
   airportsAroundOrigin: AirportItem[];
   airportsAroundDestination: AirportItem[];
-  originCountryId: number;
-  destinationCountryId: number;
+  originAirport: AirportItem;
+  destinationAirport: AirportItem;
 }
 
 export const InfoSection = ({
   FlightDuration,
-  OriginCityName,
-  DestinationCityName,
-  OriginCountryName,
-  DestinationCountryName,
   DistanceMiles,
   DistanceKm,
   airportsAroundOrigin,
   airportsAroundDestination,
-  originCountryId,
-  destinationCountryId,
+  originAirport,
+  destinationAirport,
 }: InfoSectionProps) => {
   return (
     <section className="container mb-4 grid grid-cols-1 grid-rows-[auto_auto] gap-5 lg:grid-cols-[2fr,1fr] lg:grid-rows-1">
       <div className="bg-white px-3 pb-5 pt-4 lg:rounded-md lg:px-8 lg:py-5">
         <div className="mb-4 flex items-center gap-2 lg:gap-5">
           <h3 className="text-lg font-bold tracking-[0.08em] lg:text-3xl">
-            What&apos;s the flight time from {OriginCityName} to{" "}
-            {DestinationCityName}?
+            What&apos;s the flight time from {originAirport.City} to{" "}
+            {destinationAirport.City}?
           </h3>
         </div>
         <ul className="flex flex-col gap-3">
           <li className="leading-8 tracking-wide">
-            The flight duration from {OriginCityName} to {DestinationCityName}{" "}
-            is {FlightDuration}.
+            The flight duration from {originAirport.City} to{" "}
+            {destinationAirport.City} is {FlightDuration}.
           </li>
           <li>
             The flight time depends on the aircraft cruising speed, weather
@@ -52,13 +44,13 @@ export const InfoSection = ({
           </li>
           <li className="leading-8  tracking-wide">
             <h3 className="text-lg font-bold tracking-[0.08em] lg:text-3xl">
-              What&apos;s the flight distance between {OriginCityName} and{" "}
-              {DestinationCityName}?
+              What&apos;s the flight distance between {originAirport.City} and{" "}
+              {destinationAirport.City}?
             </h3>
           </li>
           <li className="leading-8  tracking-wide">
-            The flight distance between {OriginCityName} and{" "}
-            {DestinationCityName} is {DistanceMiles.toLocaleString()} miles,
+            The flight distance between {originAirport.City} and{" "}
+            {destinationAirport.City} is {DistanceMiles.toLocaleString()} miles,
             which is the equivalent of
             {DistanceKm.toLocaleString()} kilometers.
           </li>
@@ -69,9 +61,10 @@ export const InfoSection = ({
           </li>
           <li className="leading-8 tracking-wide">
             <h4 className="font-bold tracking-[0.08em] lg:text-3xl">
-              International Airports near {OriginCityName}, {OriginCountryName}
+              International Airports near {originAirport.City},{" "}
+              {originAirport.Country}
             </h4>
-            Closest International Airports to {OriginCityName}:
+            Closest International Airports to {originAirport.City}:
             {airportsAroundOrigin.length && (
               <ul className="flex list-inside list-disc flex-col">
                 {airportsAroundOrigin.map((el, idx) => (
@@ -101,18 +94,18 @@ export const InfoSection = ({
               </ul>
             )}
             <Link
-              href={`/airports/${originCountryId}/${OriginCountryName}`}
+              href={`/airport/${originAirport.id}/${originAirport.Name}#airports-nearby`}
               className="text-buttonBg"
             >
-              Explore more airports from {OriginCountryName}
+              Explore more airports near {originAirport.Name}
             </Link>
           </li>
           <li className="leading-8 tracking-wide">
             <h4 className="font-bold tracking-[0.08em] lg:text-3xl">
-              International Airports near {DestinationCityName},{" "}
-              {DestinationCountryName}
+              International Airports near {destinationAirport.City},{" "}
+              {destinationAirport.City}
             </h4>
-            Closest International Airports to {DestinationCityName}:
+            Closest International Airports to {destinationAirport.City}:
             {airportsAroundDestination.length && (
               <ul className="flex list-inside list-disc flex-col">
                 {airportsAroundDestination.map((el, idx) => (
@@ -142,10 +135,10 @@ export const InfoSection = ({
               </ul>
             )}
             <Link
-              href={`/airports/${destinationCountryId}/${DestinationCountryName}`}
+              href={`/airport/${destinationAirport.id}/${destinationAirport.Name}#airports-nearby`}
               className="text-buttonBg"
             >
-              Explore more airports from {DestinationCountryName}
+              Explore more airports near {destinationAirport.Name}
             </Link>
           </li>
         </ul>

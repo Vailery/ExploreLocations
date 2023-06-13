@@ -15,8 +15,8 @@ interface DistancePageProps {
   data: FlightDistanceType;
   relatedOriginAirports: FlightDistanceType[];
   relatedDestinationAirports: FlightDistanceType[];
-  originAirport: AirportItem | null;
-  destinationAirport: AirportItem | null;
+  originAirport: AirportItem;
+  destinationAirport: AirportItem;
   airportsAroundOrigin: AirportItem[];
   airportsAroundDestination: AirportItem[];
 }
@@ -70,16 +70,12 @@ export const DistancePage = ({
         />
         <InfoSection
           FlightDuration={data.FlightDuration}
-          OriginCityName={data.OriginCityName}
-          DestinationCityName={data.DestinationCityName}
-          OriginCountryName={data.OriginCountryName}
-          DestinationCountryName={data.DestinationCountryName}
           DistanceKm={data.LengthKm}
           DistanceMiles={data.LengthMiles}
           airportsAroundOrigin={airportsAroundOrigin}
           airportsAroundDestination={airportsAroundDestination}
-          originCountryId={data.OriginCountryId}
-          destinationCountryId={data.DestinationCountryId}
+          originAirport={originAirport}
+          destinationAirport={destinationAirport}
         />
         <AirportsSection
           data={data}

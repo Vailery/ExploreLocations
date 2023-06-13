@@ -44,7 +44,10 @@ export const AirportsAroundSection = ({
   }, [airportsAround]);
 
   return (
-    <section className="container mb-5 bg-white pb-6 pt-3 lg:rounded-md lg:px-7 lg:pb-0 lg:pt-6">
+    <section
+      className="container mb-5 bg-white pb-6 pt-3 lg:rounded-md lg:px-7 lg:pb-0 lg:pt-6"
+      id="airports-nearby"
+    >
       <h3 className="px-3 text-lg font-bold tracking-wide lg:text-3xl lg:tracking-wider">
         Airports near <span className="text-buttonBg">{name}</span>
       </h3>
@@ -104,7 +107,10 @@ export const AirportsAroundSection = ({
                 index !== airportsAround.length - 1 &&
                 "border-b border-grayBg py-4"
             )}
-            href={`/airport/${el.id}/${el.Name.replaceAll(" ", "_").toLowerCase()}`}
+            href={`/airport/${el.id}/${el.Name.replaceAll(
+              " ",
+              "_"
+            ).toLowerCase()}`}
           >
             <span className="text-buttonBg">{el.Name}</span> ({el.Distance} km
             away)
