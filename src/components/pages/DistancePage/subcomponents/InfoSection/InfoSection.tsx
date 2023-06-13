@@ -59,13 +59,13 @@ export const InfoSection = ({
             flies ), but the distance might differ, especially if you have a
             stopover.
           </li>
-          <li className="leading-8 tracking-wide">
-            <h4 className="font-bold tracking-[0.08em] lg:text-3xl">
-              International Airports near {originAirport.City},{" "}
-              {originAirport.Country}
-            </h4>
-            Closest International Airports to {originAirport.City}:
-            {airportsAroundOrigin.length && (
+          {airportsAroundOrigin.length ? (
+            <li className="leading-8 tracking-wide">
+              <h4 className="font-bold tracking-[0.08em] lg:text-3xl">
+                International Airports near {originAirport.City},{" "}
+                {originAirport.Country}
+              </h4>
+              Closest International Airports to {originAirport.City}:
               <ul className="flex list-inside list-disc flex-col">
                 {airportsAroundOrigin.map((el, idx) => (
                   <li key={idx}>
@@ -92,21 +92,23 @@ export const InfoSection = ({
                   </li>
                 ))}
               </ul>
-            )}
-            <Link
-              href={`/airport/${originAirport.id}/${originAirport.Name}#airports-nearby`}
-              className="text-buttonBg"
-            >
-              Explore more airports near {originAirport.Name}
-            </Link>
-          </li>
-          <li className="leading-8 tracking-wide">
-            <h4 className="font-bold tracking-[0.08em] lg:text-3xl">
-              International Airports near {destinationAirport.City},{" "}
-              {destinationAirport.City}
-            </h4>
-            Closest International Airports to {destinationAirport.City}:
-            {airportsAroundDestination.length && (
+              <Link
+                href={`/airport/${originAirport.id}/${originAirport.Name}#airports-nearby`}
+                className="text-buttonBg"
+              >
+                Explore more airports near {originAirport.Name}
+              </Link>
+            </li>
+          ) : (
+            ""
+          )}
+          {airportsAroundDestination.length ? (
+            <li className="leading-8 tracking-wide">
+              <h4 className="font-bold tracking-[0.08em] lg:text-3xl">
+                International Airports near {destinationAirport.City},{" "}
+                {destinationAirport.City}
+              </h4>
+              Closest International Airports to {destinationAirport.City}:
               <ul className="flex list-inside list-disc flex-col">
                 {airportsAroundDestination.map((el, idx) => (
                   <li key={idx}>
@@ -133,14 +135,16 @@ export const InfoSection = ({
                   </li>
                 ))}
               </ul>
-            )}
-            <Link
-              href={`/airport/${destinationAirport.id}/${destinationAirport.Name}#airports-nearby`}
-              className="text-buttonBg"
-            >
-              Explore more airports near {destinationAirport.Name}
-            </Link>
-          </li>
+              <Link
+                href={`/airport/${destinationAirport.id}/${destinationAirport.Name}#airports-nearby`}
+                className="text-buttonBg"
+              >
+                Explore more airports near {destinationAirport.Name}
+              </Link>
+            </li>
+          ) : (
+            ""
+          )}
         </ul>
       </div>
       <div className="mx-3 h-fit rounded-md bg-white lg:mx-0">
