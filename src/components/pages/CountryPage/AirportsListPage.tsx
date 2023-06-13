@@ -1,4 +1,8 @@
-import type { AirportItem, RegionType } from "~/src/utils/types";
+import type {
+  AirportItem,
+  AirportsCountType,
+  RegionType,
+} from "~/src/utils/types";
 import { Footer } from "../../Footer";
 import { Header } from "../../Header";
 import { AirportsByCountrySection } from "./subcomponents/AirportsByCountrySection";
@@ -15,7 +19,7 @@ interface CountryPageProps {
   currentRegion: RegionType;
   regions: RegionType[];
   airports: AirportItem[];
-  airportsCount: number;
+  airportsCount: AirportsCountType;
 }
 
 export const CountryPage = ({
@@ -28,15 +32,24 @@ export const CountryPage = ({
   return (
     <>
       <Head>
-        <title>{currentRegion.Name}</title>
-        <meta name="description" content={"SEO description"} />
+        <title>
+          List of Airports in {currentRegion.Name} - ExploreLocations.com
+        </title>
+        <meta
+          name="description"
+          content={`
+          "List of all major and international airports from ${currentRegion.Name}, as well as domestic and small local airports. Explore them on the map.`}
+        />
       </Head>
       <Header />
       <main className="mb-5 min-h-screen lg:mb-10">
         {currentRegion && (
           <>
             <RouterSection region={currentRegion} />
-            <DescriptionSection region={currentRegion} />
+            <DescriptionSection
+              region={currentRegion}
+              airportsCount={airportsCount}
+            />
             <MapSection region={currentRegion} airports={airports} />
             <ListSection
               setAirports={setAirports}

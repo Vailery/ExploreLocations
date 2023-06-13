@@ -1,5 +1,5 @@
 import { prisma } from "~/src/server/db";
-import type { AirportItem, RegionType } from "../types";
+import type { AirportItem, AirportsCountType, RegionType } from "../types";
 
 export const getAdminRegions = async (param?: string) =>
   await prisma.$queryRawUnsafe<RegionType[]>(
@@ -16,9 +16,29 @@ export const getAirportsInRegion = async (param: string) =>
     INNER JOIN "AdminRegions" r
     ${param}`);
 
-export const getAirportsInRegionCount = async (param: string) =>
+export const getAirportsInRegionCount = async (id: string, type: string) =>
   await prisma.$queryRawUnsafe<[{ count: bigint }]>(
     `SELECT COUNT(*) FROM "Airports" a
-    INNER JOIN "AdminRegions" r
-    ${param}`
+    INNER JOIN "AdminRegions" r ON ST_Intersects(a."Center", r."Geometry") AND a."Type" = '${type}' AND r."id" = '${
+      id || ""
+    }'`
   );
+
+export const getAirportsCountData = async (id: string): Promise<AirportsCountType> => {
+  const internationalAirports = Number(
+    (await getAirportsInRegionCount(id, "international"))[0].count
+  );
+  const domesticAirports = Number(
+    (await getAirportsInRegionCount(id, "domestic"))[0].count
+  );
+  const localAirports = Number(
+    (await getAirportsInRegionCount(id, "local"))[0].count
+  );
+
+  return {
+    international: internationalAirports,
+    domestic: domesticAirports,
+    local: localAirports,
+    all: internationalAirports + domesticAirports + localAirports,
+  };
+};
