@@ -1,9 +1,6 @@
 import { z } from "zod";
 import { createTRPCRouter, publicProcedure } from "~/src/server/api/trpc";
-import {
-  getAirportsInRegion,
-  getAirportsInRegionCount,
-} from "~/src/utils/sqlQueries/adminRegions";
+import { getAirportsInRegion } from "~/src/utils/sqlQueries/adminRegions";
 import { getAirports } from "~/src/utils/sqlQueries/airports";
 
 export const airportRouter = createTRPCRouter({
@@ -28,21 +25,15 @@ export const airportRouter = createTRPCRouter({
       const filteredAirports = await getAirportsInRegion(
         `ON ST_Intersects(a."Center", r."Geometry") and r."Country" = '${
           input.country
-        }' AND r."id" = '${input.regionId}' ${input.type !== "all" ? ` and a."Type" = '${input.type}'` : ""}
+        }' AND r."id" = '${input.regionId}' ${
+          input.type !== "all" ? ` and a."Type" = '${input.type}'` : ""
+        }
         ORDER BY COALESCE(CAST(a."Passengers" AS INTEGER), 0) DESC  LIMIT '${
           input.limit
         }' OFFSET '${input.offset}'`
       );
-
-      const airportsCount = await getAirportsInRegionCount(
-        `ON ST_Intersects(a."Center", r."Geometry") and r."Country" = '${
-          input.country
-        }' AND r."id" = '${input.regionId}' ${input.type !== "all" ? ` and a."Type" = '${input.type}'` : ""}`
-      );
-
       return {
         airports: filteredAirports,
-        count: Number(airportsCount[0].count),
       };
     }),
 });

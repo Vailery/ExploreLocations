@@ -1,17 +1,21 @@
 import type { GetServerSideProps, NextPage } from "next";
-import type { AirportItem, RegionType } from "~/src/utils/types";
+import type {
+  AirportItem,
+  AirportsCountType,
+  RegionType,
+} from "~/src/utils/types";
 import { CountryPage } from "~/src/components/pages/CountryPage";
 import {
   getAdminRegions,
+  getAirportsCountData,
   getAirportsInRegion,
-  getAirportsInRegionCount,
 } from "~/src/utils/sqlQueries/adminRegions";
 
 interface RegionsPageProps {
   currentRegion: RegionType;
   regions: RegionType[];
   airports: AirportItem[];
-  airportsCount: number;
+  airportsCount: AirportsCountType;
 }
 
 const RegionsPage: NextPage<RegionsPageProps> = ({
@@ -50,7 +54,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   );
 
   const regions = await getAdminRegions(
-    `WHERE LOWER("Country") = '${currentRegion[0]?.Country.toLowerCase() || ""}'`
+    `WHERE LOWER("Country") = '${
+      currentRegion[0]?.Country.toLowerCase() || ""
+    }'`
   );
 
   const airports =
@@ -61,18 +67,14 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       (pageNumber - 1) * 10
     }'`);
 
-  const airportsCount = await getAirportsInRegionCount(
-    `ON ST_Intersects(a."Center", r."Geometry") AND r."id" = '${
-      regionId || ""
-    }'`
-  );
-  
+  const airportsCount = await getAirportsCountData(regionId || "");
+
   return {
     props: {
       currentRegion: currentRegion[0],
       regions,
       airports,
-      airportsCount: Number(airportsCount[0].count),
+      airportsCount: airportsCount,
     },
   };
 };

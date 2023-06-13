@@ -9,7 +9,11 @@ import {
 } from "react";
 import clsx from "clsx";
 import { Listbox, Transition } from "@headlessui/react";
-import type { AirportItem as AirportType, RegionType } from "~/src/utils/types";
+import type {
+  AirportItem as AirportType,
+  AirportsCountType,
+  RegionType,
+} from "~/src/utils/types";
 import { api } from "~/src/utils/api";
 import { useRouter } from "next/router";
 import { Pagination } from "./Pagination";
@@ -18,7 +22,7 @@ import { AirportItem } from "../AirportItem";
 interface ListSectionProps {
   airports: AirportType[];
   region: RegionType;
-  airportsCount: number;
+  airportsCount: AirportsCountType;
   setAirports: (airports: AirportType[]) => void;
 }
 
@@ -68,8 +72,6 @@ export const ListSection = ({
     (typeof sortOptions)[number]["value"]
   >(sortOptions[0].value);
 
-  const [airportsCount, setAirportsCount] = useState(defaultAirportsCount);
-
   const router = useRouter();
 
   const [currentRow, setCurrentRow] = useState(
@@ -87,6 +89,20 @@ export const ListSection = ({
     { enabled: false }
   );
 
+  const [airportsCount, setAirportsCount] = useState(defaultAirportsCount.all);
+
+  useEffect(() => {
+    setAirportsCount(
+      sortOption === "International"
+        ? defaultAirportsCount.international
+        : sortOption === "Domestic"
+        ? defaultAirportsCount.domestic
+        : sortOption === "Local"
+        ? defaultAirportsCount.local
+        : defaultAirportsCount.all
+    );
+  }, [sortOption, defaultAirportsCount]);
+
   const pagesOffset = useMemo(
     () => Math.floor(airportsCount / paginationLimit + 1),
     [airportsCount]
@@ -95,7 +111,6 @@ export const ListSection = ({
   useEffect(() => {
     if (data) {
       setAirports(data?.airports);
-      setAirportsCount(Number(data?.count));
     }
   }, [data, setAirports]);
 
@@ -195,7 +210,7 @@ export const ListSection = ({
         className="mx-3 mb-5 text-lg font-bold tracking-wide lg:text-3xl"
         ref={listTop}
       >
-        {airportsCount} Airports in{" "}
+        List of Airports in{" "}
         <span className="text-buttonBg">{region.Name}</span>
       </h3>
       <div className="flex flex-col justify-center gap-2 px-3 lg:flex-row lg:justify-between lg:px-0">

@@ -95,3 +95,10 @@ export interface LocationsType {
     to: string;
   }[];
 }
+
+export interface AirportsCountType {
+  international: number;
+  domestic: number;
+  local: number;
+  all: number;
+}
