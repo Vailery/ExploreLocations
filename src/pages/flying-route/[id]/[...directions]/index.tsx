@@ -14,8 +14,8 @@ interface DistancesPageData {
   flightDistanceData: FlightDistanceType;
   relatedOriginAirports: FlightDistanceType[];
   relatedDestinationAirports: FlightDistanceType[];
-  originAirport: AirportItem | null;
-  destinationAirport: AirportItem | null;
+  originAirport: AirportItem;
+  destinationAirport: AirportItem;
   airportsAroundOrigin: AirportItem[];
   airportsAroundDestination: AirportItem[];
 }
@@ -120,10 +120,8 @@ export const getServerSideProps: GetServerSideProps<DistancesPageData> = async (
       flightDistanceData: flightDistanceData[0],
       relatedOriginAirports,
       relatedDestinationAirports,
-      originAirport: originAirport.length ? originAirport[0] : null,
-      destinationAirport: destinationAirport.length
-        ? destinationAirport[0]
-        : null,
+      originAirport: originAirport[0],
+      destinationAirport: destinationAirport[0],
       airportsAroundDestination,
       airportsAroundOrigin,
     },
