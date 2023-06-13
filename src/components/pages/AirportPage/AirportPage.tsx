@@ -43,11 +43,15 @@ export const AirportPage = ({
           position={{ lng: airport.CenterX, lat: airport.CenterY }}
         />
         <InfoSection airportInfo={airport} />
-        <AirportsAroundSection
-          name={airport.Name}
-          description={airport.SeoDescriptionEn}
-          airportsAround={airportsAround}
-        />
+        {airportsAround.length ? (
+          <AirportsAroundSection
+            name={airport.Name}
+            description={airport.SeoDescriptionEn}
+            airportsAround={airportsAround}
+          />
+        ) : (
+          ""
+        )}
         <AllAirportsSection regions={regions} />
         {/* <PopularFlightsSection name={airport.Name} /> */}
       </main>

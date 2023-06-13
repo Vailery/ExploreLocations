@@ -34,15 +34,15 @@ export const getServerSideProps: GetServerSideProps<AirportPageProps> = async (
   context
 ) => {
   const airportId = context.params && (context.params.id as string);
-  const airportName =
-    context.params && Array.isArray(context.params.airport)
-      ? context.params.airport
-          .flat()
-          .map((el) => el.toLowerCase())
-          .join("/")
-          .split("_")
-          .join(" ")
-      : "";
+  // const airportName =
+  //   context.params && Array.isArray(context.params.airport)
+  //     ? context.params.airport
+  //         .flat()
+  //         .map((el) => el.toLowerCase())
+  //         .join("/")
+  //         .split("_")
+  //         .join(" ")
+  //     : "";
 
   const airport = await getAirports(`WHERE "id" = ${airportId || ""}`);
 
