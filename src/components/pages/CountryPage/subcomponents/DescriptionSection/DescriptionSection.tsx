@@ -12,15 +12,43 @@ export const DescriptionSection = ({
   <section className="relative w-full bg-gradientLeft lg:mb-7">
     <div className="container pb-9 pt-6 lg:pb-[5.6rem] lg:pt-[4.5rem]">
       <h2 className="relative z-10 mb-6 text-center text-[2.5rem] font-bold leading-tight tracking-wider text-white lg:mb-10 lg:text-[5rem] lg:tracking-wide">
-        Airports in {region.Country}
+        Airports in {region.Name}
       </h2>
       <h3 className="mx-auto px-3 text-center text-sm leading-[1.8rem] tracking-wider text-white lg:w-4/6 lg:text-base lg:leading-8">
         Explore all airports from {region.Country}, including the international,
         domestic and local ones. From airports with millions of passengers a
         year to small aerodromes, we have listed all of the on the map and on a
-        list, in this guide. {region.Country} has {airportsCount.international}{" "}
-        international airports, {airportsCount.domestic} domestic airports, and{" "}
-        {airportsCount.local} small airports of local interest.
+        list, in this guide.
+      </h3>
+      <h3 className="mx-auto px-3 text-center text-sm leading-[1.8rem] tracking-wider text-white lg:w-4/6 lg:text-base lg:leading-8">
+        {region.Country} has
+        {airportsCount.international ? (
+          <>
+            {" "}
+            {airportsCount.international} international airports
+            {airportsCount.international &&
+            (airportsCount.domestic || airportsCount.local)
+              ? ","
+              : ""}
+          </>
+        ) : (
+          ""
+        )}
+        {airportsCount.domestic ? (
+          <>
+            {" "}
+            {airportsCount.domestic} domestic airports
+            {airportsCount.domestic && airportsCount.local ? ", and" : ""}
+          </>
+        ) : (
+          ""
+        )}
+        {airportsCount.local ? (
+          <> {airportsCount.local} small airports of local interest</>
+        ) : (
+          ""
+        )}
+        .
       </h3>
     </div>
   </section>
