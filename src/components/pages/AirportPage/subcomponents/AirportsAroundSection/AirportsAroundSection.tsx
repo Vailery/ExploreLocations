@@ -49,7 +49,7 @@ export const AirportsAroundSection = ({
       id="airports-nearby"
     >
       <h3 className="px-3 text-lg font-bold tracking-wide lg:text-3xl lg:tracking-wider">
-        Airports near <span className="text-buttonBg">{name}</span>
+        International Airports Near <span className="text-buttonBg">{name}</span>
       </h3>
       <div className="relative mt-3 h-[29.6rem] w-full lg:mb-6 lg:mt-6">
         <div className="relative z-0 h-full">

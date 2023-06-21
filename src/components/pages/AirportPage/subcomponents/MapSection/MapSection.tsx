@@ -21,7 +21,7 @@ export const MapSection = ({ name, position, description }: IMapSection) => {
   return (
     <section className="container mb-6 rounded-md bg-white pt-6 lg:mb-3">
       <h3 className="mb-2 px-3 text-lg font-bold tracking-wide lg:mb-7 lg:px-6 lg:text-3xl lg:tracking-wider">
-        Discover more around {name}
+        {name} On The Map
       </h3>
       <div className="relative">
         <div className="absolute right-3 top-11 z-30 w-[15.5rem] rounded-md bg-white p-4 lg:right-5 lg:top-16 lg:w-[21rem]">
