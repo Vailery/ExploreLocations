@@ -89,8 +89,8 @@ export const DistancePage = ({
           relatedOriginAirports={relatedOriginAirports}
           relatedDestinationAirports={relatedDestinationAirports}
         />
-        <MoreSection />
-        <MoreSection />
+        <MoreSection country={originAirport.Country} />
+        <MoreSection country={destinationAirport.Country} />
       </main>
       <Footer />
     </>
