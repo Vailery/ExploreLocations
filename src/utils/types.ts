@@ -26,7 +26,7 @@ export interface RegionType {
   // TypeEn: string;
   Type: string;
   IdParent: string;
-  // Points: string;
+  Points: string;
   // Points2: string;
 }
 

@@ -23,12 +23,12 @@ export const getStaticProps: GetStaticProps<DrivingHubPageProps> = async () => {
 
   for (let i = 0; i < topRegions.length; i++) {
     const locations = await getDrivingLocationsData(
-      `ON r."CountryFromName" = '${topRegions[i]?.Country || ""}' LIMIT 5`
+      `ON r."CountryFromName" = '${topRegions[i]?.Name || ""}' LIMIT 5`
     );
     topLocations.push({
-      country: topRegions[i]?.Country || "",
+      country: topRegions[i]?.Name || "",
       points: topRegions[i]?.Points || "",
-      code: topRegions[i]?.Code || "",
+      code: topRegions[i]?.Name || "",
       locations: locations.map((el) => ({
         from: el.RegionFromCityName,
         to: el.RegionToCityName,

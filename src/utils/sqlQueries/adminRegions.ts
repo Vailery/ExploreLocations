@@ -3,7 +3,7 @@ import type { AirportItem, AirportsCountType, RegionType } from "../types";
 
 export const getAdminRegions = async (param?: string) =>
   await prisma.$queryRawUnsafe<[RegionType]>(
-    `SELECT "id", "Name", "Type", "IdParent" FROM "Regions" ${param || ""}`
+    `SELECT "id", "Name", "Type", "IdParent", "Points" FROM "Regions" ${param || ""}`
     // `SELECT "id", "Code", "Country", "CountryI2", "Name", "TypeLocal", "TypeEn", "Type", "Points", "Points2" FROM "AdminRegions" ${
     //   param || ""
     // }`

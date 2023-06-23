@@ -34,18 +34,18 @@ export const getServerSideProps: GetServerSideProps<
           .join(" ")
       : "";
 
-  const countryData = await getAdminRegions(`WHERE "Country" = '${country}'`);
+  const countryData = await getAdminRegions(`WHERE "Name" = '${country}'`);
 
   const countryLocations = [];
 
   for (let i = 0; i < countryData.length; i++) {
     const locations = await getDrivingLocationsData(
-      `ON r."CountryFromName" = '${countryData[i]?.Country || ""}' LIMIT 5`
+      `ON r."CountryFromName" = '${countryData[i]?.Name || ""}' LIMIT 5`
     );
     countryLocations.push({
       country: countryData[i]?.Name || "",
       points: countryData[i]?.Points || "",
-      code: countryData[i]?.Code || "",
+      code: countryData[i]?.Name || "",
       locations: locations.map((el) => ({
         from: el.RegionFromCityName,
         to: el.RegionToCityName,
