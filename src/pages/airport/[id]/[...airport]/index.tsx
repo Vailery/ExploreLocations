@@ -49,6 +49,8 @@ export const getServerSideProps: GetServerSideProps<AirportPageProps> = async (
 
   const airport = await getAirports(`WHERE "id" = ${airportId || ""}`);
 
+  console.log(airport)
+
   const airportsAround = await getAirportsAround(
     airport[0].CenterX,
     airport[0].CenterY,
@@ -68,6 +70,8 @@ export const getServerSideProps: GetServerSideProps<AirportPageProps> = async (
   const airportRegion = await getAdminRegions(`
     WHERE LOWER("Name") = '${airport[0].Country.toLowerCase()}' 
   `);
+
+  console.log(airportRegion);
 
   const regions = await getChildRegions(`${airportRegion[0].id}`);
 

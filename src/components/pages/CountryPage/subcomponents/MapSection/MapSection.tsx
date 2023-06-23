@@ -8,9 +8,10 @@ import type { AirportItem, RegionType } from "~/src/utils/types";
 interface MapSectionProps {
   airports: AirportItem[];
   region: RegionType;
+  country: string;
 }
 
-export const MapSection = ({ region, airports }: MapSectionProps) => {
+export const MapSection = ({ region, airports, country }: MapSectionProps) => {
   const ClientMap = useMemo(
     () =>
       dynamic(() => import("~/src/components/shared/Map/MapContainer"), {
@@ -40,7 +41,11 @@ export const MapSection = ({ region, airports }: MapSectionProps) => {
   return (
     <section className="container mb-6 rounded-md bg-white pt-6 shadow-md lg:mb-9">
       <h3 className="mb-2 px-3 text-lg font-bold tracking-wide lg:mb-7 lg:px-7 lg:text-3xl lg:tracking-wider">
-        Map Of Airports In <span className="text-buttonBg">{region.Name}</span>
+        Map Of Airports In {region.Type !== "country" && "And Around"}{" "}
+        <span className="text-buttonBg">
+          {region.Name}
+          {region.Type !== "country" && `, ${country}`}
+        </span>
       </h3>
       <div className="relative">
         {currentAirport && (

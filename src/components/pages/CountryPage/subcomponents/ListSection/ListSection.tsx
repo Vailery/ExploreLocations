@@ -211,7 +211,7 @@ export const ListSection = ({
         className="mx-3 mb-5 text-lg font-bold tracking-wide lg:text-3xl"
         ref={listTop}
       >
-        List of Airports in <span className="text-buttonBg">{region.Name}</span>
+        List of Airports in {region.Type !== "country" && 'and around'} <span className="text-buttonBg">{region.Name}</span>
       </h3>
       <div className="flex flex-col justify-center gap-2 px-3 lg:flex-row lg:justify-between lg:px-0">
         <div className="flex gap-2">
