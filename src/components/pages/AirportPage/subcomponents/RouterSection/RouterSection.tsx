@@ -1,28 +1,35 @@
-import { Fragment } from "react";
+import Link from "next/link";
 import { PinIcon } from "~/src/assets";
+import type { RegionType } from "~/src/utils/types";
 
 interface RouterSectionProps {
-  city: string;
-  country: string;
+  regionTree: RegionType[];
   name: string;
 }
 
-export const RouterSection = ({ city, country, name }: RouterSectionProps) => {
-  const route = ["Europe", country, city, name];
+export const RouterSection = ({ regionTree, name }: RouterSectionProps) => {
   return (
     <section className="container mb-5 mt-6 hidden lg:flex">
       <PinIcon className="mr-1 h-6 w-6" />
       <div className="flex gap-4 text-sm text-grayColor">
-        {route.map((item, index) => (
-          <Fragment key={index}>
+        {regionTree.map((item, index) => (
+          <Link
+            key={index}
+            href={`/airports/${item.id}/${item.Name}`}
+            className="flex gap-4 hover:text-buttonBg"
+          >
             {item && (
               <>
                 <div> / </div>
-                {item}
+                {item.Name}
               </>
             )}
-          </Fragment>
+          </Link>
         ))}
+        <>
+          <div> / </div>
+          {name}
+        </>
       </div>
     </section>
   );

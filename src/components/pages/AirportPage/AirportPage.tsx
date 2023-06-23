@@ -13,12 +13,14 @@ interface IHomePage {
   airport: AirportItem;
   airportsAround: AirportItem[];
   regions: RegionType[];
+  regionTree: RegionType[];
 }
 
 export const AirportPage = ({
   airport,
   airportsAround,
   regions,
+  regionTree,
 }: IHomePage) => {
   return (
     <>
@@ -28,11 +30,7 @@ export const AirportPage = ({
       </Head>
       <Header />
       <main className="mb-5 min-h-screen lg:mb-10">
-        <RouterSection
-          city={airport.City}
-          country={airport.Country}
-          name={airport.Name}
-        />
+        <RouterSection regionTree={regionTree} name={airport.Name} />
         <DescriptionSection
           name={airport.Name}
           description={airport.SeoDescriptionEn}

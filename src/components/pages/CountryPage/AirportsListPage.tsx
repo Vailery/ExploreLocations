@@ -35,12 +35,12 @@ export const CountryPage = ({
     <>
       <Head>
         <title>
-          List of Airports in {currentRegion.Name} - ExploreLocations.com
+          List of Airports in {currentRegion.Type !== "country" && 'and around'} {currentRegion.Name} - ExploreLocations.com
         </title>
         <meta
           name="description"
           content={`
-          "List of all major and international airports from ${currentRegion.Name}, as well as domestic and small local airports. Explore them on the map.`}
+          "List of all major and international airports ${currentRegion.Type === 'country' ? "from" : "in and around"} ${currentRegion.Name}, as well as domestic and small local airports. Explore them on the map.`}
         />
       </Head>
       <Header />
@@ -53,7 +53,11 @@ export const CountryPage = ({
               airportsCount={airportsCount}
               country={regionTree[0]?.Name || ""}
             />
-            <MapSection region={currentRegion} airports={airports} />
+            <MapSection
+              region={currentRegion}
+              airports={airports}
+              country={regionTree[0]?.Name || ""}
+            />
             <ListSection
               setAirports={setAirports}
               region={currentRegion}

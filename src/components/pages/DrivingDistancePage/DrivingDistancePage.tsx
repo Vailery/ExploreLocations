@@ -108,8 +108,8 @@ export const DrivingDistancePage = ({
           relatedDestinationDistances={relatedOriginDistances}
           relatedOriginDistances={relatedDestinationDistances}
         />
-        <MoreSection />
-        <MoreSection />
+        <MoreSection country={CountryFromName} />
+        <MoreSection country={CountryToName} />
       </main>
       <Footer />
     </>

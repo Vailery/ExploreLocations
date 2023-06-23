@@ -137,11 +137,11 @@ export const InfoSection = ({ airportInfo }: InfoSectionProps) => {
         <div className="px-8 pb-5 pt-7 text-lg lg:pb-7">
           <p className="">Search by airport name, city or IATA airport code.</p>
           <input
-            className="mt-3 w-full rounded-md bg-grayBg px-3 py-4 italic text-white"
+            className="mt-3 w-full rounded-md bg-grayBg px-3 py-4 italic"
             placeholder="Name, city or IATA"
           />
           <input
-            className="mt-3 w-full rounded-md bg-grayBg px-3 py-4 italic text-white"
+            className="mt-3 w-full rounded-md bg-grayBg px-3 py-4 italic"
             placeholder="Name, city or IATA"
           />
           <button className="mt-1 w-full rounded-md bg-buttonBg py-3 text-lg text-white lg:mt-7">
