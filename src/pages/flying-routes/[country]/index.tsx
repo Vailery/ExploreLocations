@@ -45,7 +45,7 @@ export const getServerSideProps: GetServerSideProps<
     );
     countryLocations.push({
       country: countryData[i]?.Name || "",
-      points: countryData[i]?.Points || "",
+      points: countryData[i]?.Geometry || "",
       code: countryData[i]?.Name || "",
       locations: locations.map((el) => ({
         from: el.OriginCityName,

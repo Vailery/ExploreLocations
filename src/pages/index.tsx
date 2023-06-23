@@ -26,7 +26,7 @@ export default Home;
 
 export const getStaticProps: GetStaticProps<HomePageProps> = async () => {
   const topRegions = await getAdminRegions(
-    `ORDER BY "Type", CAST("Points" AS INTEGER) DESC LIMIT 20`
+    `ORDER BY "Type" DESC LIMIT 20`
   );
 
   const topLocations = [];
@@ -37,7 +37,7 @@ export const getStaticProps: GetStaticProps<HomePageProps> = async () => {
     );
     topLocations.push({
       country: topRegions[i]?.Name || "",
-      points: topRegions[i]?.Points || "",
+      points: topRegions[i]?.Geometry || "",
       code: topRegions[i]?.Name || "",
       locations: locations.map((el) => ({
         from: el.RegionFromCityName,
