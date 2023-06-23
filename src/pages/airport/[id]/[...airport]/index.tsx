@@ -8,21 +8,25 @@ import {
 import {
   getAdminRegions,
   getChildRegions,
+  getRegionTree,
 } from "~/src/utils/sqlQueries/adminRegions";
 
 interface AirportPageProps {
   airport: AirportItem;
   airportsAround: AirportItem[];
   regions: RegionType[];
+  regionTree: RegionType[];
 }
 
 const Airport: NextPage<AirportPageProps> = ({
   airport,
   airportsAround,
   regions,
+  regionTree,
 }) => {
   return (
     <AirportPage
+      regionTree={regionTree}
       airport={airport}
       airportsAround={airportsAround}
       regions={regions}
@@ -49,7 +53,7 @@ export const getServerSideProps: GetServerSideProps<AirportPageProps> = async (
 
   const airport = await getAirports(`WHERE "id" = ${airportId || ""}`);
 
-  console.log(airport)
+  console.log(airport);
 
   const airportsAround = await getAirportsAround(
     airport[0].CenterX,
@@ -71,15 +75,16 @@ export const getServerSideProps: GetServerSideProps<AirportPageProps> = async (
     WHERE LOWER("Name") = '${airport[0].Country.toLowerCase()}' 
   `);
 
-  console.log(airportRegion);
-
   const regions = await getChildRegions(`${airportRegion[0].id}`);
+
+  const regionTree = await getRegionTree(`${airportRegion[0].id}`);
 
   return {
     props: {
       airport: airport[0],
       airportsAround: airportsAround,
-      regions: regions,
+      regions,
+      regionTree,
     },
   };
 };

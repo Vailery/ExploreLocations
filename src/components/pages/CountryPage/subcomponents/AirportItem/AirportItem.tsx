@@ -42,7 +42,7 @@ export const AirportItem = ({ data, countryCode }: AirportItemProps) => {
         <div className="w-full">
           <div className="mb-3 flex flex-wrap justify-between">
             <Link
-              className="flex text-2xl font-bold"
+              className="flex max-w-[95%] text-2xl font-bold"
               href={`/airport/${data?.id || ""}/${
                 data?.Name.replaceAll(" ", "_").toLowerCase() || ""
               }`}
