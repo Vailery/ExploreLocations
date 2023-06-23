@@ -37,7 +37,6 @@ export const getStaticProps: GetStaticProps<HomePageProps> = async () => {
     );
     topLocations.push({
       country: topRegions[i]?.Name || "",
-      points: topRegions[i]?.Geometry || "",
       code: topRegions[i]?.Name || "",
       locations: locations.map((el) => ({
         from: el.RegionFromCityName,

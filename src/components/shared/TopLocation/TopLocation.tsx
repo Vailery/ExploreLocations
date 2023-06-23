@@ -31,7 +31,7 @@ export const TopLocation = ({ location }: TopLocationProps) => {
             </div>
             <div className="flex flex-col items-start">
               <h4 className="text-buttonBg">{location.country}</h4>
-              <h5>{(+location.points).toLocaleString("en-US")} POIs</h5>
+              <h5>{(100000).toLocaleString("en-US")} POIs</h5>
             </div>
             <div
               className={clsx(
