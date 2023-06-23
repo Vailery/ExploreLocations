@@ -3,11 +3,13 @@ import type { AirportsCountType, RegionType } from "~/src/utils/types";
 interface DescriptionSectionProps {
   region: RegionType;
   airportsCount: AirportsCountType;
+  country: string;
 }
 
 export const DescriptionSection = ({
   region,
   airportsCount,
+  country,
 }: DescriptionSectionProps) => (
   <section className="relative w-full bg-gradientLeft lg:mb-7">
     <div className="container pb-9 pt-6 lg:pb-[5.6rem] lg:pt-[4.5rem]">
@@ -15,13 +17,13 @@ export const DescriptionSection = ({
         Airports in {region.Name}
       </h2>
       <h3 className="mx-auto px-3 text-center text-sm leading-[1.8rem] tracking-wider text-white lg:w-4/6 lg:text-base lg:leading-8">
-        Explore all airports from {region.Country}, including the international,
+        Explore all airports from {country}, including the international,
         domestic and local ones. From airports with millions of passengers a
         year to small aerodromes, we have listed all of the on the map and on a
         list, in this guide.
       </h3>
-      <h3 className="mx-auto px-3 text-center text-sm leading-[1.8rem] tracking-wider text-white lg:w-4/6 lg:text-base lg:leading-8">
-        {region.Country} has
+      <h3 className="mx-auto mt-4 px-3 text-center text-sm leading-[1.8rem] tracking-wider text-white lg:w-4/6 lg:text-base lg:leading-8">
+        {country} has
         {airportsCount.international ? (
           <>
             {" "}

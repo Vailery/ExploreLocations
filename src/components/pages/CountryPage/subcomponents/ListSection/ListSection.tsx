@@ -22,6 +22,7 @@ import { AirportItem } from "../AirportItem";
 interface ListSectionProps {
   airports: AirportType[];
   region: RegionType;
+  country: string;
   airportsCount: AirportsCountType;
   setAirports: (airports: AirportType[]) => void;
 }
@@ -65,6 +66,7 @@ const paginationLimit = 20;
 export const ListSection = ({
   region,
   airports,
+  country,
   airportsCount: defaultAirportsCount,
   setAirports,
 }: ListSectionProps) => {
@@ -81,7 +83,6 @@ export const ListSection = ({
   const { data, refetch } = api.airport.getAirportsSort.useQuery(
     {
       type: sortOption.toLowerCase(),
-      country: region.Country,
       offset: currentRow * paginationLimit,
       limit: paginationLimit,
       regionId: (router.query.id as string) || "",
@@ -210,8 +211,7 @@ export const ListSection = ({
         className="mx-3 mb-5 text-lg font-bold tracking-wide lg:text-3xl"
         ref={listTop}
       >
-        List of Airports in{" "}
-        <span className="text-buttonBg">{region.Name}</span>
+        List of Airports in <span className="text-buttonBg">{region.Name}</span>
       </h3>
       <div className="flex flex-col justify-center gap-2 px-3 lg:flex-row lg:justify-between lg:px-0">
         <div className="flex gap-2">
@@ -295,7 +295,7 @@ export const ListSection = ({
       <div className="my-5 flex flex-col gap-3">
         {airports.map((el, idx) => (
           // <RouteItem key={idx} />
-          <AirportItem key={idx} data={el} countryCode={region.Code} />
+          <AirportItem key={idx} data={el} countryCode={country} />
         ))}
 
         {pagesOffset > 1 && (

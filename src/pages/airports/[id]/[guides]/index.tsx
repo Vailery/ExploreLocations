@@ -9,10 +9,13 @@ import {
   getAdminRegions,
   getAirportsCountData,
   getAirportsInRegion,
+  getChildRegions,
+  getRegionTree,
 } from "~/src/utils/sqlQueries/adminRegions";
 
 interface RegionsPageProps {
   currentRegion: RegionType;
+  regionTree: RegionType[];
   regions: RegionType[];
   airports: AirportItem[];
   airportsCount: AirportsCountType;
@@ -20,6 +23,7 @@ interface RegionsPageProps {
 
 const RegionsPage: NextPage<RegionsPageProps> = ({
   currentRegion,
+  regionTree,
   regions,
   airports,
   airportsCount,
@@ -27,6 +31,7 @@ const RegionsPage: NextPage<RegionsPageProps> = ({
   return (
     <CountryPage
       currentRegion={currentRegion}
+      regionTree={regionTree}
       regions={regions}
       airports={airports}
       airportsCount={airportsCount}
@@ -53,11 +58,13 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     `WHERE "id" = '${regionId || ""}'`
   );
 
-  const regions = await getAdminRegions(
-    `WHERE LOWER("Country") = '${
-      currentRegion[0]?.Country.toLowerCase() || ""
-    }'`
-  );
+  console.log(currentRegion);
+
+  const regionTree = await getRegionTree(regionId || "");
+
+  regionTree.reverse();
+
+  const regions = await getChildRegions(regionId || "");
 
   const airports =
     await getAirportsInRegion(`ON ST_Intersects(a."Center", r."Geometry") AND r."id" = '${
@@ -72,6 +79,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   return {
     props: {
       currentRegion: currentRegion[0],
+      regionTree,
       regions,
       airports,
       airportsCount: airportsCount,

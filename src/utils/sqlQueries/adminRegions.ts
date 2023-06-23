@@ -2,10 +2,45 @@ import { prisma } from "~/src/server/db";
 import type { AirportItem, AirportsCountType, RegionType } from "../types";
 
 export const getAdminRegions = async (param?: string) =>
-  await prisma.$queryRawUnsafe<RegionType[]>(
-    `SELECT "id", "Code", "Country", "CountryI2", "Name", "TypeLocal", "TypeEn", "Type", "Points", "Points2" FROM "AdminRegions" ${
-      param || ""
-    }`
+  await prisma.$queryRawUnsafe<[RegionType]>(
+    `SELECT "id", "Name", "Type", "IdParent" FROM "Regions" ${param || ""}`
+    // `SELECT "id", "Code", "Country", "CountryI2", "Name", "TypeLocal", "TypeEn", "Type", "Points", "Points2" FROM "AdminRegions" ${
+    //   param || ""
+    // }`
+  );
+
+export const getChildRegions = async (id: string) =>
+  await prisma.$queryRawUnsafe<[RegionType]>(
+    `WITH RECURSIVE child_region AS (
+      SELECT id, "IdParent", "Name", "Type"
+      FROM "Regions"
+      WHERE id = ${id}
+
+    UNION ALL
+      SELECT r.id, r."IdParent", r."Name", r."Type"
+      FROM "Regions" r
+      INNER JOIN child_region as cr ON r."IdParent" = cr."id"
+    )
+
+    SELECT id, "IdParent", "Name", "Type"
+    FROM child_region LIMIT 20`
+  );
+
+export const getRegionTree = async (id: string) =>
+  await prisma.$queryRawUnsafe<[RegionType]>(
+    `WITH RECURSIVE child_region AS (
+      SELECT id, "IdParent", "Name", "Type"
+      FROM "Regions"
+      WHERE id = ${id}
+
+    UNION ALL
+      SELECT r.id, r."IdParent", r."Name", r."Type"
+      FROM "Regions" r
+      INNER JOIN child_region as cr ON r."id" = cr."IdParent"
+    )
+
+    SELECT id, "IdParent", "Name", "Type"
+    FROM child_region;`
   );
 
 export const getAirportsInRegion = async (param: string) =>
@@ -13,18 +48,20 @@ export const getAirportsInRegion = async (param: string) =>
     AirportItem[]
   >(`SELECT ST_X(a."Center"::geometry) as "CenterX", ST_Y(a."Center"::geometry) as "CenterY", a."Passengers", a."id", a."Name", a."Type", a."IATA", a."ICAO", a."City", a."Country", "IntroEn", "SeoTitleEn", "SeoDescriptionEn"
     FROM "Airports" a
-    INNER JOIN "AdminRegions" r
+    INNER JOIN "Regions" r
     ${param}`);
 
 export const getAirportsInRegionCount = async (id: string, type: string) =>
   await prisma.$queryRawUnsafe<[{ count: bigint }]>(
     `SELECT COUNT(*) FROM "Airports" a
-    INNER JOIN "AdminRegions" r ON ST_Intersects(a."Center", r."Geometry") AND a."Type" = '${type}' AND r."id" = '${
+    INNER JOIN "Regions" r ON ST_Intersects(a."Center", r."Geometry") AND a."Type" = '${type}' AND r."id" = '${
       id || ""
     }'`
   );
 
-export const getAirportsCountData = async (id: string): Promise<AirportsCountType> => {
+export const getAirportsCountData = async (
+  id: string
+): Promise<AirportsCountType> => {
   const internationalAirports = Number(
     (await getAirportsInRegionCount(id, "international"))[0].count
   );
