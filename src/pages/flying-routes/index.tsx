@@ -17,19 +17,18 @@ export default FlyingHub;
 // eslint-disable-next-line @typescript-eslint/require-await
 export const getStaticProps: GetStaticProps = async () => {
   const topRegions = await getAdminRegions(
-    `ORDER BY "Type", CAST("Points" AS INTEGER) DESC LIMIT 20`
+    `ORDER BY "Type" DESC LIMIT 20`
   );
 
   const topLocations = [];
 
   for (let i = 0; i < topRegions.length; i++) {
     const locations = await getFLyingLocationsData(
-      `ON r."OriginCountryName" = '${topRegions[i]?.Country || ""}' LIMIT 5`
+      `ON r."OriginCountryName" = '${topRegions[i]?.Name || ""}' LIMIT 5`
     );
     topLocations.push({
-      country: topRegions[i]?.Country || "",
-      points: topRegions[i]?.Points || "",
-      code: topRegions[i]?.Code || "",
+      country: topRegions[i]?.Name || "",
+      code: topRegions[i]?.Name || "",
       locations: locations.map((el) => ({
         from: el.OriginCityName,
         to: el.DestinationCityName,

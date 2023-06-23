@@ -10,13 +10,14 @@ import { DescriptionSection } from "./subcomponents/DescriptionSection";
 import { FAQSection } from "../../shared/FAQSection";
 import { ListSection } from "./subcomponents/ListSection";
 import { MapSection } from "./subcomponents/MapSection";
-import { MoreSection } from "./subcomponents/MoreSection";
 import { RouterSection } from "./subcomponents/RouterSection";
 import { useState } from "react";
 import Head from "next/head";
+import { MoreSection } from "./subcomponents/MoreSection";
 
 interface CountryPageProps {
   currentRegion: RegionType;
+  regionTree: RegionType[];
   regions: RegionType[];
   airports: AirportItem[];
   airportsCount: AirportsCountType;
@@ -24,6 +25,7 @@ interface CountryPageProps {
 
 export const CountryPage = ({
   currentRegion,
+  regionTree,
   regions,
   airports: defaultAirports,
   airportsCount,
@@ -45,10 +47,11 @@ export const CountryPage = ({
       <main className="mb-5 min-h-screen lg:mb-10">
         {currentRegion && (
           <>
-            <RouterSection region={currentRegion} />
+            <RouterSection regionTree={regionTree} />
             <DescriptionSection
               region={currentRegion}
               airportsCount={airportsCount}
+              country={regionTree[0]?.Name || ""}
             />
             <MapSection region={currentRegion} airports={airports} />
             <ListSection
@@ -56,13 +59,14 @@ export const CountryPage = ({
               region={currentRegion}
               airports={airports}
               airportsCount={airportsCount}
+              country={regionTree[0]?.Name || ""}
             />
             <FAQSection region={currentRegion} />
             <AirportsByCountrySection
               regions={regions}
-              countryCode={currentRegion.Code}
+              countryCode={regionTree[0]?.Name || ""}
             />
-            <MoreSection region={currentRegion} />
+            <MoreSection country={regionTree[0]?.Name || ""} />
           </>
         )}
       </main>

@@ -5,7 +5,10 @@ import {
   getAirports,
   getAirportsAround,
 } from "~/src/utils/sqlQueries/airports";
-import { getAdminRegions } from "~/src/utils/sqlQueries/adminRegions";
+import {
+  getAdminRegions,
+  getChildRegions,
+} from "~/src/utils/sqlQueries/adminRegions";
 
 interface AirportPageProps {
   airport: AirportItem;
@@ -62,9 +65,11 @@ export const getServerSideProps: GetServerSideProps<AirportPageProps> = async (
   });
   airportsAround.sort((a, b) => (a.Distance || 0) - (b.Distance || 0));
 
-  const regions = await getAdminRegions(
-    `WHERE LOWER("Country") = '${airport[0].Country.toLowerCase()}'`
-  );
+  const airportRegion = await getAdminRegions(`
+    WHERE LOWER("Name") = '${airport[0].Country.toLowerCase()}' 
+  `);
+
+  const regions = await getChildRegions(`${airportRegion[0].id}`);
 
   return {
     props: {

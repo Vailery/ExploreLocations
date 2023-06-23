@@ -35,18 +35,17 @@ export const getServerSideProps: GetServerSideProps<
           .join(" ")
       : "";
 
-  const countryData = await getAdminRegions(`WHERE "Country" = '${country}'`);
+  const countryData = await getAdminRegions(`WHERE "Name" = '${country}'`);
 
   const countryLocations = [];
 
   for (let i = 0; i < countryData.length; i++) {
     const locations = await getFLyingLocationsData(
-      `ON r."OriginCountryName" = '${countryData[i]?.Country || ""}' LIMIT 5`
+      `ON r."OriginCountryName" = '${countryData[i]?.Name || ""}' LIMIT 5`
     );
     countryLocations.push({
       country: countryData[i]?.Name || "",
-      points: countryData[i]?.Points || "",
-      code: countryData[i]?.Code || "",
+      code: countryData[i]?.Name || "",
       locations: locations.map((el) => ({
         from: el.OriginCityName,
         to: el.DestinationCityName,
