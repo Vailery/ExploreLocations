@@ -3,7 +3,9 @@ import type { AirportItem, AirportsCountType, RegionType } from "../types";
 
 export const getAdminRegions = async (param?: string) =>
   await prisma.$queryRawUnsafe<[RegionType]>(
-    `SELECT "id", "Name", "Type", "IdParent", ST_AsGeoJSON("Geometry")::json as "Geometry"  FROM "Regions" ${param || ""}`
+    `SELECT "id", "Name", "Type", "IdParent", ST_AsGeoJSON("Geometry")::json as "Geometry"  FROM "Regions" ${
+      param || ""
+    }`
     // `SELECT "id", "Code", "Country", "CountryI2", "Name", "TypeLocal", "TypeEn", "Type", "Points", "Points2" FROM "AdminRegions" ${
     //   param || ""
     // }`
@@ -101,3 +103,13 @@ export const getAirportsAroundRegion = async (
     `);
   return internationalAirports.concat(domesticAirports);
 };
+
+export const getSameLevelRegions = async (
+  type: string,
+  parentId: string | null
+): Promise<RegionType[]> =>
+  await prisma.$queryRawUnsafe<[RegionType]>(
+    `SELECT "id", "Name", "Type", "IdParent" FROM "Regions" WHERE "Type" = '${type}'${
+      parentId ? ` AND "IdParent" = '${parentId}'` : ""
+    }`
+  );
