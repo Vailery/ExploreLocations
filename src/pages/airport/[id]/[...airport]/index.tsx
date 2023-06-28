@@ -51,26 +51,37 @@ export const getServerSideProps: GetServerSideProps<AirportPageProps> = async (
   //         .join(" ")
   //     : "";
 
-  const airport = await getAirports(`WHERE "id" = ${airportId || ""}`);
+  const airport = (await getAirports(`WHERE "id" = ${airportId || ""}`))[0];
+
+  if (airport.Geometry) {
+    const reversedPolygon = airport.Geometry.coordinates.map((el) =>
+      el.map((el) => el.map<[number, number]>((el) => [el[1], el[0]]))
+    );
+
+    airport.Geometry = {
+      type: airport.Geometry.type,
+      coordinates: reversedPolygon,
+    };
+  }
 
   const airportsAround = await getAirportsAround(
-    airport[0].CenterX,
-    airport[0].CenterY,
-    airport[0].id
+    airport.CenterX,
+    airport.CenterY,
+    airport.id
   );
 
   airportsAround.forEach((el) => {
     el.Distance = Math.round(
       Math.sqrt(
-        Math.pow(airport[0].CenterX - el.CenterX, 2) +
-          Math.pow(airport[0].CenterY - el.CenterY, 2)
+        Math.pow(airport.CenterX - el.CenterX, 2) +
+          Math.pow(airport.CenterY - el.CenterY, 2)
       ) * 100
     );
   });
   airportsAround.sort((a, b) => (a.Distance || 0) - (b.Distance || 0));
 
   const airportRegion = await getAdminRegions(`
-    WHERE LOWER("Name") = '${airport[0].Country.toLowerCase()}' 
+    WHERE LOWER("Name") = '${airport.Country.toLowerCase()}' 
   `);
 
   const regions = await getChildRegions(`${airportRegion[0].id}`);
@@ -79,7 +90,7 @@ export const getServerSideProps: GetServerSideProps<AirportPageProps> = async (
 
   return {
     props: {
-      airport: airport[0],
+      airport,
       airportsAround: airportsAround,
       regions,
       regionTree,

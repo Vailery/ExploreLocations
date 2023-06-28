@@ -3,7 +3,7 @@ import type { LatLngBoundsExpression, LatLngExpression } from "leaflet";
 import L from "leaflet";
 import { useEffect, useState } from "react";
 import "leaflet/dist/leaflet.css";
-import type { AirportItem, GeometryType } from "~/src/utils/types";
+import type { AirportItem, CoordinatesType } from "~/src/utils/types";
 import { Map } from "./Map";
 
 interface MapProps {
@@ -18,7 +18,7 @@ interface MapProps {
   bounds?: LatLngBoundsExpression;
   shouldRemap?: boolean;
   isMuseum?: boolean;
-  polygon?: GeometryType;
+  polygon?: CoordinatesType;
 }
 
 const MapContainerElement = ({
@@ -33,7 +33,7 @@ const MapContainerElement = ({
   bounds,
   shouldRemap,
   isMuseum,
-  polygon
+  polygon,
 }: MapProps) => {
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment

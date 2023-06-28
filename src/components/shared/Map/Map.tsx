@@ -12,7 +12,7 @@ import { useEffect } from "react";
 import "leaflet/dist/leaflet.css";
 import MarkerIcon from "~/src/assets/images/icons/marker.svg";
 import ReactDOMServer from "react-dom/server";
-import type { AirportItem, GeometryType } from "~/src/utils/types";
+import type { AirportItem, CoordinatesType } from "~/src/utils/types";
 import { MuseumMarkerIcon } from "~/src/assets";
 
 interface MapProps {
@@ -25,7 +25,7 @@ interface MapProps {
   polyline?: LatLngExpression[];
   isMuseum?: boolean;
   bounds?: LatLngBoundsExpression;
-  polygon?: GeometryType;
+  polygon?: CoordinatesType;
 }
 
 export const Map = ({
@@ -111,7 +111,7 @@ export const Map = ({
         attribution='&copy; <a href="https://api.stadiamaps.com/tz/lookup/v1/?api_key=f3730460-a3d1-4933-b30f-a3d60aa884aa">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
         url="https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png"
       />
-      {polygon && <Polygon positions={polygon.coordinates} color={"#4B9EFF"} />}
+      {polygon && <Polygon positions={polygon} color={"#4B9EFF"} />}
       {mainMarkers &&
         mainMarkers.map((el, idx) => (
           <Marker key={idx} position={el} icon={isMuseum ? museumIcon : icon} />

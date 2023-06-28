@@ -80,7 +80,7 @@ export const MapSection = ({ region, airports, country }: MapSectionProps) => {
             bounds={bounds}
             selectedAirport={currentAirport}
             shouldRemap
-            polygon={region.Geometry ? region.Geometry : undefined}
+            polygon={region.Geometry ? region.Geometry.coordinates : undefined}
           />
         </div>
       </div>
