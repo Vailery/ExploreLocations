@@ -24,19 +24,10 @@ export const MapSection = ({ region, airports, country }: MapSectionProps) => {
     null
   );
 
-  const markersCenter = useMemo(() => {
-    const coords = {
-      lat: 0,
-      lng: 0,
-    };
-    airports.forEach((el) => {
-      coords.lat += el.CenterY;
-      coords.lng += el.CenterX;
-    });
-    coords.lat = coords.lat / airports.length;
-    coords.lng = coords.lng / airports.length;
-    return coords;
-  }, [airports]);
+  const bounds = useMemo(
+    () => airports.map<[number, number]>((el) => [el.CenterY, el.CenterX]),
+    [airports]
+  );
 
   return (
     <section className="container mb-6 rounded-md bg-white pt-6 shadow-md lg:mb-9">
@@ -84,12 +75,12 @@ export const MapSection = ({ region, airports, country }: MapSectionProps) => {
         )}
         <div className="relative z-0 h-[29rem] w-full pb-6 lg:h-[30.5rem] lg:px-7">
           <ClientMap
-            position={markersCenter}
             setSelectedAirport={setCurrentAirport}
             airportsAround={airports}
-            bounds={airports.map((el) => [el.CenterY, el.CenterX])}
+            bounds={bounds}
             selectedAirport={currentAirport}
             shouldRemap
+            polygon={region.Geometry ? region.Geometry : undefined}
           />
         </div>
       </div>

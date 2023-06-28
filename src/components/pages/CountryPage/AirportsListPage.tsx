@@ -38,8 +38,11 @@ export const CountryPage = ({
     <>
       <Head>
         <title>
-          List of Airports in {currentRegion.Type !== "country" && "and around"}{" "}
-          {currentRegion.Name} - ExploreLocations.com
+          <>
+            List of Airports in{" "}
+            {currentRegion.Type !== "country" && "and around"}{" "}
+            {currentRegion.Name} - ExploreLocations.com
+          </>
         </title>
         <meta
           name="description"
@@ -67,7 +70,7 @@ export const CountryPage = ({
               country={regionTree[0]?.Name || ""}
             />
             {airports.length === 0 ? (
-              <div className="container px-3 rounded-md bg-white py-6 text-lg font-bold tracking-wide shadow-md mb-6">
+              <div className="container mb-6 rounded-md bg-white px-3 py-6 text-lg font-bold tracking-wide shadow-md">
                 There are no International or Domestic airports in{" "}
                 {currentRegion.Name}, but below you can find airports located on
                 a 200 km buffer around the region

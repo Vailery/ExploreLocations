@@ -58,9 +58,22 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const pageNumber = context.query?.page ? +context.query?.page : 1;
 
-  const currentRegion = await getAdminRegions(
-    `WHERE "id" = '${regionId || ""}'`
-  );
+  const currentRegion = (
+    await getAdminRegions(`WHERE "id" = '${regionId || ""}'`)
+  )[0];
+
+  if (currentRegion.Geometry) {
+    const reversedPolygon = currentRegion.Geometry.coordinates
+      .flat()
+      .flat()
+      .map<[number, number]>((el) => [el[1], el[0]]);
+
+    currentRegion.Geometry = {
+      type: currentRegion.Geometry.type,
+      coordinates: [[reversedPolygon]],
+    };
+    reversedPolygon && console.log(reversedPolygon[0]);
+  }
 
   const regionTree = await getRegionTree(regionId || "");
 
@@ -76,16 +89,16 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       (pageNumber - 1) * 10
     }'`);
 
-    const airportsCount = await getAirportsCountData(regionId || "");
-    
-    const airportsAroundRegion =
-    currentRegion[0].Type !== "country" && airportsCount.international < 5
-    ? await getAirportsAroundRegion(regionId || "")
-    : [];
+  const airportsCount = await getAirportsCountData(regionId || "");
+
+  const airportsAroundRegion =
+    currentRegion.Type !== "country" && airportsCount.international < 5
+      ? await getAirportsAroundRegion(regionId || "")
+      : [];
 
   return {
     props: {
-      currentRegion: currentRegion[0],
+      currentRegion,
       regionTree,
       regions,
       airportsInRegion,
