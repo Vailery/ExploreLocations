@@ -14,7 +14,10 @@ export const RouterSection = ({ regionTree }: RouterSectionProps) => {
         {regionTree.map((item, index) => (
           <Link
             key={index}
-            href={`/airports/${item.id}/${item.Name}`}
+            href={`/airports/${item.id}/${item.Name.replaceAll(
+              " ",
+              "_"
+            ).toLowerCase()}`}
             className="flex gap-4 hover:text-buttonBg"
           >
             <div> / </div>

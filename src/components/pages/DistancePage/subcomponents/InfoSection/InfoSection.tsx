@@ -93,7 +93,12 @@ export const InfoSection = ({
                 ))}
               </ul>
               <Link
-                href={`/airport/${originAirport.id}/${originAirport.Name}#airports-nearby`}
+                href={`/airport/${
+                  originAirport.id
+                }/${originAirport.Name.replaceAll(
+                  " ",
+                  "_"
+                ).toLowerCase()}#airports-nearby`}
                 className="text-buttonBg"
               >
                 Explore more airports near {originAirport.Name}
@@ -136,7 +141,12 @@ export const InfoSection = ({
                 ))}
               </ul>
               <Link
-                href={`/airport/${destinationAirport.id}/${destinationAirport.Name}#airports-nearby`}
+                href={`/airport/${
+                  destinationAirport.id
+                }/${destinationAirport.Name.replaceAll(
+                  " ",
+                  "_"
+                ).toLowerCase()}#airports-nearby`}
                 className="text-buttonBg"
               >
                 Explore more airports near {destinationAirport.Name}

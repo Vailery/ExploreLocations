@@ -3,9 +3,7 @@ import type { AirportItem, AirportsCountType, RegionType } from "../types";
 
 export const getAdminRegions = async (param?: string) =>
   await prisma.$queryRawUnsafe<[RegionType]>(
-    `SELECT "id", "Name", "Type", "IdParent" FROM "Regions" ${
-      param || ""
-    }`
+    `SELECT "id", "Name", "Type", "IdParent" FROM "Regions" ${param || ""}`
     // `SELECT "id", "Code", "Country", "CountryI2", "Name", "TypeLocal", "TypeEn", "Type", "Points", "Points2" FROM "AdminRegions" ${
     //   param || ""
     // }`
@@ -48,7 +46,7 @@ export const getRegionTree = async (id: string) =>
 export const getAirportsInRegion = async (param: string) =>
   await prisma.$queryRawUnsafe<
     AirportItem[]
-  >(`SELECT ST_X(a."Center"::geometry) as "CenterX", ST_Y(a."Center"::geometry) as "CenterY", a."Passengers", a."id", a."Name", a."Type", a."IATA", a."ICAO", a."City", a."Country", "IntroEn", "SeoTitleEn", "SeoDescriptionEn"
+  >(`SELECT ST_X(a."Center"::geometry) as "CenterX", ST_Y(a."Center"::geometry) as "CenterY", a."Passengers", a."id", a."Name", a."Type", a."IATA", a."ICAO", a."City", a."Country", a."IntroEn", a."SeoTitleEn", a."SeoDescriptionEn"
     FROM "Airports" a
     INNER JOIN "Regions" r
     ${param}`);
@@ -80,4 +78,26 @@ export const getAirportsCountData = async (
     local: localAirports,
     all: internationalAirports + domesticAirports + localAirports,
   };
+};
+
+export const getAirportsAroundRegion = async (
+  id: string
+): Promise<AirportItem[]> => {
+  const internationalAirports = await prisma.$queryRawUnsafe<AirportItem[]>(`
+      SELECT ST_X(a."Center"::geometry) as "CenterX", ST_Y(a."Center"::geometry) as "CenterY", a."Passengers", a."id", a."Name", a."Type", a."IATA", a."ICAO", a."City", a."Country", a."IntroEn", a."SeoTitleEn", a."SeoDescriptionEn"
+      FROM "Airports" a 
+      INNER JOIN "Regions" r 
+      ON r."id" = '${id}' AND a."Type" = 'international' AND 
+      ST_DWithin(a."Center"::geometry, COALESCE(r."Geometry", r."Center"), 200000)
+      ORDER BY COALESCE(CAST(a."Passengers" AS INTEGER), 0) DESC LIMIT 5
+    `);
+  const domesticAirports = await prisma.$queryRawUnsafe<AirportItem[]>(`
+      SELECT ST_X(a."Center"::geometry) as "CenterX", ST_Y(a."Center"::geometry) as "CenterY", a."Passengers", a."id", a."Name", a."Type", a."IATA", a."ICAO", a."City", a."Country", a."IntroEn", a."SeoTitleEn", a."SeoDescriptionEn"
+      FROM "Airports" a 
+      INNER JOIN "Regions" r 
+      ON r."id" = '${id}' AND a."Type" = 'domestic' AND 
+      ST_DWithin(a."Center"::geometry, COALESCE(r."Geometry", r."Center"), 200000)
+      ORDER BY COALESCE(CAST(a."Passengers" AS INTEGER), 0) DESC LIMIT 5
+    `);
+  return internationalAirports.concat(domesticAirports);
 };
