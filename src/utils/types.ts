@@ -18,6 +18,7 @@ export interface AirportItem {
 
 export interface RegionType {
   id: number;
+  Distance?: number;
   // Code: string;
   // Country: string;
   // CountryI2: number;
@@ -32,7 +33,7 @@ export interface RegionType {
 
 export interface GeometryType {
   type: string;
-  coordinates: [[[number, number][]]]
+  coordinates: [number, number][][][]
 }
 
 export type AirportType = "All" | "International" | "Domestic" | "Local";
