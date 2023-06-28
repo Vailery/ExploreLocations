@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+@layer utilities {
+  body {
+    @apply bg-bodyBg;
+  }
+
+  .container {
+    @apply mx-auto max-w-[71.5rem];
+  }
+}
+
+.leaflet-container {
+  @apply h-full w-full;
+}
+
+.leaflet-bottom {
+    display: none!important;
+  }
+
+.dashed-border {
+  background-image: linear-gradient(
+    to right,
+    #ec3343 0%,
+    #ec3343 40%,
+    transparent 40%,
+    transparent 100%
+  );
+  background-position: bottom;
+  background-size: 13px auto;
+  background-repeat: repeat-x;
+}
