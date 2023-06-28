@@ -37,7 +37,7 @@ export const AirportsByCountrySection = ({
           >
             <div className="h-6 w-6 overflow-hidden rounded-md lg:h-7 lg:w-7">
               <ReactCountryFlag
-                countryCode={iso1A2Code(countryCode) || ""}
+                countryCode={iso1A2Code(country ? el.Name : countryCode) || ""}
                 svg
                 style={{
                   width: "100%",
