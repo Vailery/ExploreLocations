@@ -20,14 +20,14 @@ export const MoreSection = ({ country }: MoreSectionProps) => {
           </div>
         </div>
         <Link
-          href={`/flying-routes/${country.replaceAll(" ", "_")}`}
+          href={`/flying-routes/${country.replaceAll(" ", "_").toLowerCase()}`}
           className="flex items-center gap-5 rounded-md bg-white p-7"
         >
           <Image className="w-28 rounded-md" src={PlaneImageSlider} alt="" />
           <div className="font-bold">Flying distances {country}</div>
         </Link>
         <Link
-          href={`/driving-routes/${country.replaceAll(" ", "_")}`}
+          href={`/driving-routes/${country.replaceAll(" ", "_").toLowerCase()}`}
           className="flex items-center gap-5 rounded-md bg-white p-7"
         >
           <Image className="w-28 rounded-md" src={PlaneImageSlider} alt="" />

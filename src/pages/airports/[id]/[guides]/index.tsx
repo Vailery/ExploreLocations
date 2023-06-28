@@ -7,6 +7,7 @@ import type {
 import { CountryPage } from "~/src/components/pages/CountryPage";
 import {
   getAdminRegions,
+  getAirportsAroundRegion,
   getAirportsCountData,
   getAirportsInRegion,
   getChildRegions,
@@ -17,7 +18,8 @@ interface RegionsPageProps {
   currentRegion: RegionType;
   regionTree: RegionType[];
   regions: RegionType[];
-  airports: AirportItem[];
+  airportsInRegion: AirportItem[];
+  airportsAroundRegion: AirportItem[];
   airportsCount: AirportsCountType;
 }
 
@@ -25,7 +27,8 @@ const RegionsPage: NextPage<RegionsPageProps> = ({
   currentRegion,
   regionTree,
   regions,
-  airports,
+  airportsInRegion,
+  airportsAroundRegion,
   airportsCount,
 }) => {
   return (
@@ -33,7 +36,8 @@ const RegionsPage: NextPage<RegionsPageProps> = ({
       currentRegion={currentRegion}
       regionTree={regionTree}
       regions={regions}
-      airports={airports}
+      airportsInRegion={airportsInRegion}
+      airportsAroundRegion={airportsAroundRegion}
       airportsCount={airportsCount}
     />
   );
@@ -58,15 +62,13 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     `WHERE "id" = '${regionId || ""}'`
   );
 
-  console.log(currentRegion);
-
   const regionTree = await getRegionTree(regionId || "");
 
   regionTree.reverse();
 
   const regions = await getChildRegions(regionId || "");
 
-  const airports =
+  const airportsInRegion =
     await getAirportsInRegion(`ON ST_Intersects(a."Center", r."Geometry") AND r."id" = '${
       regionId || ""
     }'
@@ -76,12 +78,20 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const airportsCount = await getAirportsCountData(regionId || "");
 
+  const airportsAroundRegion =
+    currentRegion[0].Type === "country" && airportsCount.international < 5
+      ? await getAirportsAroundRegion(regionId || "")
+      : [];
+
+  console.log(airportsAroundRegion, 'aaaa');
+
   return {
     props: {
       currentRegion: currentRegion[0],
       regionTree,
       regions,
-      airports,
+      airportsInRegion,
+      airportsAroundRegion,
       airportsCount: airportsCount,
     },
   };
