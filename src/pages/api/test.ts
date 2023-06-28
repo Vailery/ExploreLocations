@@ -5,7 +5,7 @@ const a = async () => {
     { OriginAirportName: string }[]
   >(
     `
-SELECT "id", "Name", "Type" from "Regions" WHERE "Name" = 'Turkey'
+SELECT COUNT(*) from "Regions" WHERE ST_X("Center"::geometry) isNull
 `
   );
 

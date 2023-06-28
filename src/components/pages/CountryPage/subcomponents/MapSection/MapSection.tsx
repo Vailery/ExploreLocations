@@ -1,3 +1,4 @@
+import type { LatLngExpression } from "leaflet";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useMemo, useState } from "react";
@@ -9,9 +10,15 @@ interface MapSectionProps {
   airports: AirportItem[];
   region: RegionType;
   country: string;
+  center: LatLngExpression;
 }
 
-export const MapSection = ({ region, airports, country }: MapSectionProps) => {
+export const MapSection = ({
+  region,
+  airports,
+  country,
+  center,
+}: MapSectionProps) => {
   const ClientMap = useMemo(
     () =>
       dynamic(() => import("~/src/components/shared/Map/MapContainer"), {
@@ -81,6 +88,10 @@ export const MapSection = ({ region, airports, country }: MapSectionProps) => {
             selectedAirport={currentAirport}
             shouldRemap
             polygon={region.Geometry ? region.Geometry.coordinates : undefined}
+            circle={{
+              center: center,
+              range: 200,
+            }}
           />
         </div>
       </div>

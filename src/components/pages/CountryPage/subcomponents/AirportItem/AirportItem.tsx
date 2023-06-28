@@ -17,9 +17,14 @@ import { iso1A2Code } from "@rapideditor/country-coder";
 interface AirportItemProps {
   data: AirportItemType;
   countryCode: string;
+  center?: { lat: number; lng: number };
 }
 
-export const AirportItem = ({ data, countryCode }: AirportItemProps) => {
+export const AirportItem = ({
+  data,
+  countryCode,
+  center,
+}: AirportItemProps) => {
   const ClientMap = useMemo(
     () =>
       dynamic(() => import("~/src/components/shared/Map/MapContainer"), {
@@ -27,6 +32,20 @@ export const AirportItem = ({ data, countryCode }: AirportItemProps) => {
       }),
     []
   );
+
+  const distance = useMemo(
+    () =>
+      center
+        ? Math.round(
+            Math.sqrt(
+              Math.pow(center.lng - data.CenterX, 2) +
+                Math.pow(center.lat - data.CenterY, 2)
+            ) * 100
+          )
+        : 0,
+    [data, center]
+  );
+
   return (
     <div className="rounded-md bg-white px-3 py-5 shadow-sm lg:p-7">
       <div className="flex flex-wrap gap-3 lg:flex-nowrap lg:gap-5">
@@ -42,7 +61,7 @@ export const AirportItem = ({ data, countryCode }: AirportItemProps) => {
         <div className="w-full">
           <div className="mb-3 flex flex-wrap justify-between">
             <Link
-              className="flex max-w-[95%] text-2xl font-bold"
+              className="flex max-w-[90%] text-2xl font-bold"
               href={`/airport/${data?.id || ""}/${
                 data?.Name.replaceAll(" ", "_").toLowerCase() || ""
               }`}
@@ -73,6 +92,13 @@ export const AirportItem = ({ data, countryCode }: AirportItemProps) => {
               </div>
             </div>
           </div>
+          {distance ? (
+            <div className="mb-2 leading-[1.9rem] lg:px-2 lg:text-[1.11rem]">
+              {distance}km from {data.City}
+            </div>
+          ) : (
+            <></>
+          )}
           <p className="mb-4 leading-[1.9rem] lg:mb-9 lg:px-2 lg:text-[1.11rem]">
             {data.SeoDescriptionEn.split(" ").length > 20
               ? data.SeoDescriptionEn.split(" ").slice(0, 20).join(" ") + "..."

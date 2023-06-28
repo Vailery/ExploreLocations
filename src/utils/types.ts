@@ -1,4 +1,4 @@
-export type CoordinatesType = [number, number][][][]; 
+export type CoordinatesType = [number, number][][][];
 export interface AirportItem {
   id: number;
   Name: string;
@@ -20,21 +20,23 @@ export interface AirportItem {
 
 export interface GeometryType {
   type: string;
-  coordinates: CoordinatesType
+  coordinates: CoordinatesType;
 }
 
 export interface RegionType {
   id: number;
   Distance?: number;
-  // Code: string;
-  // Country: string;
-  // CountryI2: number;
   Name: string;
-  // TypeLocal: string;
-  // TypeEn: string;
   Type: string;
   IdParent: string;
   Geometry: GeometryType | null;
+  CenterX?: number;
+  CenterY?: number;
+  // Code: string;
+  // Country: string;
+  // CountryI2: number;
+  // TypeLocal: string;
+  // TypeEn: string;
   // Points2: string;
 }
 

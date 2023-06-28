@@ -5,6 +5,7 @@ import {
   LayerGroup,
   Polyline,
   Polygon,
+  Circle,
 } from "react-leaflet";
 import type { LatLngBoundsExpression, LatLngExpression } from "leaflet";
 import L from "leaflet";
@@ -26,6 +27,7 @@ interface MapProps {
   isMuseum?: boolean;
   bounds?: LatLngBoundsExpression;
   polygon?: CoordinatesType;
+  circle?: { center: LatLngExpression; range: number };
 }
 
 export const Map = ({
@@ -39,6 +41,7 @@ export const Map = ({
   isMuseum,
   bounds,
   polygon,
+  circle,
 }: MapProps) => {
   const icon = L.divIcon({
     className: "custom-icon",
@@ -118,6 +121,13 @@ export const Map = ({
         ))}
       {polyline && (
         <Polyline positions={polyline} pathOptions={{ color: "#EC3343" }} />
+      )}
+      {circle && (
+        <Circle
+          center={circle.center}
+          radius={circle.range * 1000}
+          color={"#aaa"}
+        />
       )}
       <LayerGroup>
         {airportsAround &&

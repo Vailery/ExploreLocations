@@ -19,6 +19,7 @@ interface MapProps {
   shouldRemap?: boolean;
   isMuseum?: boolean;
   polygon?: CoordinatesType;
+  circle?: { center: LatLngExpression; range: number };
 }
 
 const MapContainerElement = ({
@@ -34,6 +35,7 @@ const MapContainerElement = ({
   shouldRemap,
   isMuseum,
   polygon,
+  circle,
 }: MapProps) => {
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -73,6 +75,7 @@ const MapContainerElement = ({
         isMuseum={isMuseum}
         bounds={bounds}
         polygon={polygon}
+        circle={circle}
       />
     </MapContainer>
   );
