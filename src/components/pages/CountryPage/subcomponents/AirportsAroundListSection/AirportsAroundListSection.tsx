@@ -6,12 +6,14 @@ interface ListSectionProps {
   region: RegionType;
   airports: AirportType[];
   country: string;
+  center: { lat: number; lng: number };
 }
 
 export const AirportsAroundListSection = ({
   region,
   airports,
   country,
+  center,
 }: ListSectionProps) => {
   return (
     <section className="container">
@@ -33,7 +35,12 @@ export const AirportsAroundListSection = ({
       <div className="my-5 flex flex-col gap-3">
         {airports.map((el, idx) => (
           // <RouteItem key={idx} />
-          <AirportItem key={idx} data={el} countryCode={country} />
+          <AirportItem
+            key={idx}
+            data={el}
+            countryCode={country}
+            center={center}
+          />
         ))}
       </div>
     </section>

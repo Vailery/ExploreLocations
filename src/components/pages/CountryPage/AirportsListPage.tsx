@@ -11,7 +11,7 @@ import { FAQSection } from "../../shared/FAQSection";
 import { ListSection } from "./subcomponents/ListSection";
 import { MapSection } from "./subcomponents/MapSection";
 import { RouterSection } from "./subcomponents/RouterSection";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import Head from "next/head";
 import { MoreSection } from "./subcomponents/MoreSection";
 import { AirportsAroundListSection } from "./subcomponents/AirportsAroundListSection";
@@ -36,6 +36,21 @@ export const CountryPage = ({
   sameLevelRegions,
 }: CountryPageProps) => {
   const [airports, setAirports] = useState(defaultAirports);
+
+  const markersCenter = useMemo(() => {
+    const coords = {
+      lat: 0,
+      lng: 0,
+    };
+    airports.forEach((el) => {
+      coords.lat += el.CenterY;
+      coords.lng += el.CenterX;
+    });
+    coords.lat = coords.lat / airports.length;
+    coords.lng = coords.lng / airports.length;
+    return coords;
+  }, [airports]);
+
   return (
     <>
       <Head>
@@ -70,6 +85,7 @@ export const CountryPage = ({
               region={currentRegion}
               airports={airports.concat(airportsAroundRegion)}
               country={regionTree[0]?.Name || ""}
+              center={markersCenter}
             />
             {airports.length === 0 ? (
               <div className="container mb-6 rounded-md bg-white px-3 py-6 text-lg font-bold tracking-wide shadow-md">
@@ -90,6 +106,7 @@ export const CountryPage = ({
               <></>
             ) : (
               <AirportsAroundListSection
+                center={markersCenter}
                 airports={airportsAroundRegion}
                 country={regionTree[0]?.Name || ""}
                 region={currentRegion}

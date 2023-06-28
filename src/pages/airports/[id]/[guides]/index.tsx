@@ -101,14 +101,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     currentRegion.Type !== "country" && airportsCount.international < 5
       ? await getAirportsAroundRegion(regionId || "")
       : [];
-
-  // airportsAroundRegion.forEach((el) => el.Distance = Math.round(
-  //     Math.sqrt(
-  //       Math.pow(airport[0].CenterX - el.CenterX, 2) +
-  //         Math.pow(airport[0].CenterY - el.CenterY, 2)
-  //     ) * 100
-  //   );)
-
+      
   return {
     props: {
       currentRegion,
