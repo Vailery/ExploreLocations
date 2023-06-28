@@ -111,7 +111,7 @@ export const Map = ({
         attribution='&copy; <a href="https://api.stadiamaps.com/tz/lookup/v1/?api_key=f3730460-a3d1-4933-b30f-a3d60aa884aa">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
         url="https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png"
       />
-      {polygon && <Polygon positions={polygon.coordinates} color={"green"} />}
+      {polygon && <Polygon positions={polygon.coordinates} color={"#4B9EFF"} />}
       {mainMarkers &&
         mainMarkers.map((el, idx) => (
           <Marker key={idx} position={el} icon={isMuseum ? museumIcon : icon} />

@@ -68,13 +68,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   if (currentRegion.Geometry) {
     const reversedPolygon = currentRegion.Geometry.coordinates
-      .flat()
-      .flat()
-      .map<[number, number]>((el) => [el[1], el[0]]);
+      .map(el => el.map(el => el.map<[number, number]>((el) => [el[1], el[0]])))
 
     currentRegion.Geometry = {
       type: currentRegion.Geometry.type,
-      coordinates: [[reversedPolygon]],
+      coordinates: reversedPolygon,
     };
     reversedPolygon && console.log(reversedPolygon[0]);
   }
@@ -104,6 +102,13 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     currentRegion.Type !== "country" && airportsCount.international < 5
       ? await getAirportsAroundRegion(regionId || "")
       : [];
+
+  // airportsAroundRegion.forEach((el) => el.Distance = Math.round(
+  //     Math.sqrt(
+  //       Math.pow(airport[0].CenterX - el.CenterX, 2) +
+  //         Math.pow(airport[0].CenterY - el.CenterY, 2)
+  //     ) * 100
+  //   );)
 
   return {
     props: {
