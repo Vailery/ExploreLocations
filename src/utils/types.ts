@@ -26,8 +26,13 @@ export interface RegionType {
   // TypeEn: string;
   Type: string;
   IdParent: string;
-  Geometry: string;
+  Geometry: GeometryType | null;
   // Points2: string;
+}
+
+export interface GeometryType {
+  type: string;
+  coordinates: [[[number, number][]]]
 }
 
 export type AirportType = "All" | "International" | "Domestic" | "Local";
