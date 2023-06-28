@@ -23,6 +23,7 @@ interface CountryPageProps {
   airportsInRegion: AirportItem[];
   airportsAroundRegion: AirportItem[];
   airportsCount: AirportsCountType;
+  sameLevelRegions: RegionType[];
 }
 
 export const CountryPage = ({
@@ -32,6 +33,7 @@ export const CountryPage = ({
   airportsInRegion: defaultAirports,
   airportsAroundRegion,
   airportsCount,
+  sameLevelRegions,
 }: CountryPageProps) => {
   const [airports, setAirports] = useState(defaultAirports);
   return (
@@ -94,6 +96,11 @@ export const CountryPage = ({
               />
             )}
             <FAQSection region={currentRegion} />
+            <AirportsByCountrySection
+              regions={sameLevelRegions}
+              countryCode={regionTree[0]?.Name || ""}
+              country={regionTree[0]?.Name || ""}
+            />
             <AirportsByCountrySection
               regions={regions}
               countryCode={regionTree[0]?.Name || ""}

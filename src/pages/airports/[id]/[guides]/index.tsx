@@ -12,6 +12,7 @@ import {
   getAirportsInRegion,
   getChildRegions,
   getRegionTree,
+  getSameLevelRegions,
 } from "~/src/utils/sqlQueries/adminRegions";
 
 interface RegionsPageProps {
@@ -21,6 +22,7 @@ interface RegionsPageProps {
   airportsInRegion: AirportItem[];
   airportsAroundRegion: AirportItem[];
   airportsCount: AirportsCountType;
+  sameLevelRegions: RegionType[];
 }
 
 const RegionsPage: NextPage<RegionsPageProps> = ({
@@ -30,6 +32,7 @@ const RegionsPage: NextPage<RegionsPageProps> = ({
   airportsInRegion,
   airportsAroundRegion,
   airportsCount,
+  sameLevelRegions,
 }) => {
   return (
     <CountryPage
@@ -39,6 +42,7 @@ const RegionsPage: NextPage<RegionsPageProps> = ({
       airportsInRegion={airportsInRegion}
       airportsAroundRegion={airportsAroundRegion}
       airportsCount={airportsCount}
+      sameLevelRegions={sameLevelRegions}
     />
   );
 };
@@ -79,6 +83,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   regionTree.reverse();
 
+  const sameLevelRegions = await getSameLevelRegions(
+    currentRegion.Type,
+    currentRegion.IdParent
+  );
+
   const regions = await getChildRegions(regionId || "");
 
   const airportsInRegion =
@@ -104,6 +113,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       airportsInRegion,
       airportsAroundRegion,
       airportsCount: airportsCount,
+      sameLevelRegions,
     },
   };
 };
