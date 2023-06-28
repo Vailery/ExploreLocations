@@ -76,14 +76,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       (pageNumber - 1) * 10
     }'`);
 
-  const airportsCount = await getAirportsCountData(regionId || "");
-
-  const airportsAroundRegion =
-    currentRegion[0].Type === "country" && airportsCount.international < 5
-      ? await getAirportsAroundRegion(regionId || "")
-      : [];
-
-  console.log(airportsAroundRegion, 'aaaa');
+    const airportsCount = await getAirportsCountData(regionId || "");
+    
+    const airportsAroundRegion =
+    currentRegion[0].Type !== "country" && airportsCount.international < 5
+    ? await getAirportsAroundRegion(regionId || "")
+    : [];
 
   return {
     props: {
