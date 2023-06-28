@@ -111,5 +111,5 @@ export const getSameLevelRegions = async (
   await prisma.$queryRawUnsafe<[RegionType]>(
     `SELECT "id", "Name", "Type", "IdParent" FROM "Regions" WHERE "Type" = '${type}'${
       parentId ? ` AND "IdParent" = '${parentId}'` : ""
-    }`
+    } LIMIT 20`
   );
