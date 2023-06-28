@@ -1,3 +1,4 @@
+export type CoordinatesType = [number, number][][][]; 
 export interface AirportItem {
   id: number;
   Name: string;
@@ -14,6 +15,12 @@ export interface AirportItem {
   SeoTitleEn: string;
   SeoDescriptionEn: string;
   TimezoneD: string;
+  Geometry: GeometryType;
+}
+
+export interface GeometryType {
+  type: string;
+  coordinates: CoordinatesType
 }
 
 export interface RegionType {
@@ -29,11 +36,6 @@ export interface RegionType {
   IdParent: string;
   Geometry: GeometryType | null;
   // Points2: string;
-}
-
-export interface GeometryType {
-  type: string;
-  coordinates: [number, number][][][]
 }
 
 export type AirportType = "All" | "International" | "Domestic" | "Local";

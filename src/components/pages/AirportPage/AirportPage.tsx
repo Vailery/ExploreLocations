@@ -22,6 +22,8 @@ export const AirportPage = ({
   regions,
   regionTree,
 }: IHomePage) => {
+  console.log(airport.Geometry);
+  
   return (
     <>
       <Head>
@@ -39,6 +41,7 @@ export const AirportPage = ({
           name={airport.Name}
           description={airport.SeoDescriptionEn}
           position={{ lng: airport.CenterX, lat: airport.CenterY }}
+          polygon={airport.Geometry.coordinates}
         />
         <InfoSection airportInfo={airport} />
         {airportsAround.length ? (

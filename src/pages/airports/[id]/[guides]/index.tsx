@@ -74,7 +74,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       type: currentRegion.Geometry.type,
       coordinates: reversedPolygon,
     };
-    reversedPolygon && console.log(reversedPolygon[0]);
   }
 
   const regionTree = await getRegionTree(regionId || "");

@@ -1,5 +1,6 @@
 import dynamic from "next/dynamic";
 import MarkerIcon from "~/src/assets/images/icons/marker.svg";
+import type { CoordinatesType } from "~/src/utils/types";
 
 interface IMapSection {
   name: string;
@@ -8,9 +9,10 @@ interface IMapSection {
     lng: number;
   };
   description: string;
+  polygon?: CoordinatesType;
 }
 
-export const MapSection = ({ name, position, description }: IMapSection) => {
+export const MapSection = ({ name, position, description, polygon }: IMapSection) => {
   const ClientMap = dynamic(
     () => import("~/src/components/shared/Map/MapContainer"),
     {
@@ -41,7 +43,12 @@ export const MapSection = ({ name, position, description }: IMapSection) => {
           </button>
         </div>
         <div className="relative z-0 h-[29rem] w-full lg:h-[39rem]">
-          <ClientMap position={position} mainMarkers={[position]} zoom={13} />
+          <ClientMap
+            position={position}
+            mainMarkers={[position]}
+            zoom={13}
+            polygon={polygon}
+          />
         </div>
       </div>
     </section>
