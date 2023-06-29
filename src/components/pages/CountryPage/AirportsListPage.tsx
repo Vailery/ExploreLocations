@@ -85,7 +85,7 @@ export const CountryPage = ({
               region={currentRegion}
               airports={airports.concat(airportsAroundRegion)}
               country={regionTree[0]?.Name || ""}
-              center={markersCenter}
+              center={airportsAroundRegion.length ? markersCenter : undefined}
             />
             {airports.length === 0 ? (
               <div className="container mb-6 rounded-md bg-white px-3 py-6 text-lg font-bold tracking-wide shadow-md">

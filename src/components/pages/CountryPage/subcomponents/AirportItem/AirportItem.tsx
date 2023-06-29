@@ -18,12 +18,14 @@ interface AirportItemProps {
   data: AirportItemType;
   countryCode: string;
   center?: { lat: number; lng: number };
+  regionName?: string;
 }
 
 export const AirportItem = ({
   data,
   countryCode,
   center,
+  regionName,
 }: AirportItemProps) => {
   const ClientMap = useMemo(
     () =>
@@ -94,7 +96,7 @@ export const AirportItem = ({
           </div>
           {distance ? (
             <div className="mb-2 leading-[1.9rem] lg:px-2 lg:text-[1.11rem]">
-              {distance}km from {data.City}
+              {distance}km from {regionName}
             </div>
           ) : (
             <></>

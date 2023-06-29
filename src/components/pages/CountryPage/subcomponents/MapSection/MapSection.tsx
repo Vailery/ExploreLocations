@@ -10,7 +10,7 @@ interface MapSectionProps {
   airports: AirportItem[];
   region: RegionType;
   country: string;
-  center: LatLngExpression;
+  center?: LatLngExpression;
 }
 
 export const MapSection = ({
@@ -88,10 +88,10 @@ export const MapSection = ({
             selectedAirport={currentAirport}
             shouldRemap
             polygon={region.Geometry ? region.Geometry.coordinates : undefined}
-            circle={{
+            circle={center ? {
               center: center,
               range: 200,
-            }}
+            } : undefined}
           />
         </div>
       </div>
