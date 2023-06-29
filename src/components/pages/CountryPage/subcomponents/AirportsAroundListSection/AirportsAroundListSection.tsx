@@ -40,6 +40,7 @@ export const AirportsAroundListSection = ({
             data={el}
             countryCode={country}
             center={center}
+            regionName={region.Name}
           />
         ))}
       </div>
