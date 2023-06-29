@@ -1,5 +1,5 @@
 import type { GetServerSideProps, NextPage } from "next";
-import { DistancePage } from "~/src/components/pages/DistancePage";
+import { FlyingDistancePage } from "~/src/components/pages/DistancePage";
 import {
   getAirports,
   getAirportsAround,
@@ -30,7 +30,7 @@ const Distance: NextPage<DistancesPageData> = ({
   airportsAroundOrigin,
 }) => {
   return (
-    <DistancePage
+    <FlyingDistancePage
       data={flightDistanceData}
       relatedDestinationAirports={relatedDestinationAirports}
       relatedOriginAirports={relatedOriginAirports}
