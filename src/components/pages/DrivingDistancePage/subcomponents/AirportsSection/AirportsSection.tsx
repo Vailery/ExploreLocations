@@ -10,8 +10,8 @@ interface InfoSectionProps {
   to: string;
   countryTo: string;
   countryFrom: string;
-  dataFrom: CityType | null;
-  dataTo: CityType | null;
+  dataFrom: CityType;
+  dataTo: CityType;
 }
 
 export const AirportsSection = ({
@@ -33,14 +33,14 @@ export const AirportsSection = ({
         y={originY}
         name={from}
         country={countryFrom}
-        data={dataFrom || null}
+        data={dataFrom}
       />
       <AirportSection
         x={destinationX}
         y={destinationY}
         name={to}
         country={countryTo}
-        data={dataTo || null}
+        data={dataTo}
       />
     </section>
   );

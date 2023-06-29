@@ -21,7 +21,7 @@ interface DistancePageProps {
   airportsAroundDestination: AirportItem[];
 }
 
-export const DistancePage = ({
+export const FlyingDistancePage = ({
   data,
   relatedDestinationAirports,
   relatedOriginAirports,
@@ -40,33 +40,23 @@ export const DistancePage = ({
       <main className="mb-5 min-h-screen lg:mb-10">
         <RouterSection />
         <DescriptionSection
-          OriginCityName={originAirport?.City || data.OriginCityName}
-          DestinationCityName={
-            destinationAirport?.City || data.DestinationCityName
-          }
-          OriginCountryName={originAirport?.Country || data.OriginCountryName}
-          DestinationCountryName={
-            destinationAirport?.Country || data.DestinationCountryName
-          }
+          OriginCityName={originAirport.City}
+          DestinationCityName={destinationAirport.City}
+          OriginCountryName={originAirport.Country}
+          DestinationCountryName={destinationAirport.Country}
           FlightDuration={data.FlightDuration}
           DistanceKm={data.LengthKm}
           DistanceMiles={data.LengthMiles}
         />
         <MapSection
-          OriginCenterX={originAirport?.CenterX || data.OriginCenterX}
-          OriginCenterY={originAirport?.CenterY || data.OriginCenterY}
-          DestinationCenterX={
-            destinationAirport?.CenterX || data.DestinationCenterX
-          }
-          DestinationCenterY={
-            destinationAirport?.CenterY || data.DestinationCenterY
-          }
+          OriginCenterX={originAirport.CenterX}
+          OriginCenterY={originAirport.CenterY}
+          DestinationCenterX={destinationAirport.CenterX}
+          DestinationCenterY={destinationAirport.CenterY}
           FlightDuration={data.FlightDuration}
           LengthKm={data.LengthKm}
-          OriginCityName={originAirport?.City || data.OriginCityName}
-          DestinationCityName={
-            destinationAirport?.City || data.DestinationCityName
-          }
+          OriginCityName={originAirport.City}
+          DestinationCityName={destinationAirport.City}
         />
         <InfoSection
           FlightDuration={data.FlightDuration}
@@ -78,7 +68,6 @@ export const DistancePage = ({
           destinationAirport={destinationAirport}
         />
         <AirportsSection
-          data={data}
           originAirport={originAirport}
           destinationAirport={destinationAirport}
         />

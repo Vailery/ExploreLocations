@@ -7,9 +7,9 @@ export const getFlightRouteData = async (condition: string) =>
     "id",
     "LengthKm", 
     "LengthMiles",
+    "FlightDuration",
     "DestinationAirportId",
     "OriginAirportId",
-    "FlightDuration",
     "OriginCityName",
     "DestinationCityName"
      FROM "FlyingRoutes" ${condition}`

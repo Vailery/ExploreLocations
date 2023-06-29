@@ -11,8 +11,8 @@ interface DrivingDistancesPageProps {
   drivingDistanceData: DrivingDistanceType;
   relatedOriginDistances: DrivingDistanceType[];
   relatedDestinationDistances: DrivingDistanceType[];
-  originCity: CityType | null;
-  destinationCity: CityType | null;
+  originCity: CityType;
+  destinationCity: CityType;
 }
 
 const DrivingDistance: NextPage<DrivingDistancesPageProps> = ({
@@ -47,29 +47,37 @@ export const getServerSideProps: GetServerSideProps<
 
   const routeId = context.params && (context.params.id as string);
 
-  const drivingDistanceData = await getDrivingRoute(routeId || "");
+  const drivingDistanceData = (await getDrivingRoute(routeId || ""))[0];
 
-  const relatedOriginDistances = await getDrivingDistances(
-    drivingDistanceData[0].RegionToCityName,
-    drivingDistanceData[0].id
+  const relatedOriginDistances = (
+    await getDrivingDistances(
+      drivingDistanceData.RegionToCityName,
+      drivingDistanceData.id
+    )
   );
-  const relatedDestinationDistances = await getDrivingDistances(
-    drivingDistanceData[0].RegionFromCityName,
-    drivingDistanceData[0].id
+  const relatedDestinationDistances = (
+    await getDrivingDistances(
+      drivingDistanceData.RegionFromCityName,
+      drivingDistanceData.id
+    )
   );
-  const originCity = await getCities(
-    `WHERE LOWER("Name") = '${drivingDistanceData[0].RegionFromCityName}'`
-  );
-  const destinationCity = await getCities(
-    `WHERE LOWER("Name") = '${drivingDistanceData[0].RegionToCityName}'`
-  );
+  const originCity = (
+    await getCities(
+      `WHERE LOWER("Name") = '${drivingDistanceData.RegionFromCityName}'`
+    )
+  )[0];
+  const destinationCity = (
+    await getCities(
+      `WHERE LOWER("Name") = '${drivingDistanceData.RegionToCityName}'`
+    )
+  )[0];
   return {
     props: {
-      drivingDistanceData: drivingDistanceData[0],
-      relatedDestinationDistances: relatedDestinationDistances,
-      relatedOriginDistances: relatedOriginDistances,
-      originCity: originCity[0] || null,
-      destinationCity: destinationCity[0] || null,
+      drivingDistanceData,
+      relatedDestinationDistances,
+      relatedOriginDistances,
+      originCity,
+      destinationCity,
     },
   };
 };

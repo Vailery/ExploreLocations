@@ -1,1 +1,1 @@
-export * from './DistancePage';
+export * from './FlyingDistancePage';
