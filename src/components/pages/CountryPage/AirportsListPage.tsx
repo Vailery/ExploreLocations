@@ -60,14 +60,14 @@ export const CountryPage = ({
     () =>
       getFaqCountryData({
         region: currentRegion,
-        airportsInRegionsCount: airports.filter(
+        airportsInRegion: airports.filter(
           (el) => el.Type === "International".toLowerCase()
-        ).length,
-        airportAroundRegionsCount: airportsAroundRegion.filter(
+        ),
+        airportAroundRegion: airportsAroundRegion.filter(
           (el) => el.Type === "International".toLowerCase()
-        ).length,
-        mostPopularAirportName: airports[0]?.Name || "",
-        closestAirport: airportsAroundRegion[0]?.Name || "",
+        ),
+        mostPopularAirport: airports[0],
+        closestAirport: airportsAroundRegion[0],
       }),
     [airports, airportsAroundRegion, currentRegion]
   );
