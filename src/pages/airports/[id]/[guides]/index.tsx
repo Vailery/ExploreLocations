@@ -105,6 +105,17 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         )
       : [];
 
+  airportsCount.all += airportsAroundRegion.length;
+  airportsCount.international += airportsAroundRegion.filter(
+    (el) => el.Type === "International".toLowerCase()
+  ).length;
+  airportsCount.domestic += airportsAroundRegion.filter(
+    (el) => el.Type === "Domestic".toLowerCase()
+  ).length;
+  airportsCount.local += airportsAroundRegion.filter(
+    (el) => el.Type === "Local".toLowerCase()
+  ).length;
+
   return {
     props: {
       currentRegion,
@@ -112,7 +123,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       regions,
       airportsInRegion,
       airportsAroundRegion,
-      airportsCount: airportsCount,
+      airportsCount,
       sameLevelRegions,
     },
   };

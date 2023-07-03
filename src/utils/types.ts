@@ -1,3 +1,5 @@
+import type { ReactNode } from "react";
+
 export type CoordinatesType = [number, number][][][];
 export interface AirportItem {
   id: number;
@@ -117,5 +119,5 @@ export interface AirportsCountType {
 
 export interface FaqType {
   question: string;
-  answer: string;
+  answer: ReactNode | ReactNode[];
 }

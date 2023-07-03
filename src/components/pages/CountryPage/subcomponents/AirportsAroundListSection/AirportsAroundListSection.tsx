@@ -18,8 +18,8 @@ export const AirportsAroundListSection = ({
   return (
     <section className="container">
       <h3 className="mx-3 mb-5 text-lg font-bold tracking-wide lg:text-3xl">
-        Other Airports near <span className="text-buttonBg">{region.Name}</span>
-        - (200 km / 124 miles radius)
+        Airports near <span className="text-buttonBg">{region.Name}</span>- (200
+        km / 124 miles radius)
       </h3>
       <div className="flex flex-col justify-center gap-2 px-3 lg:flex-row lg:justify-between lg:px-0">
         <div className="flex gap-2">
