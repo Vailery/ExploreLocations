@@ -35,7 +35,7 @@ export const AirportPage = ({
         <RouterSection regionTree={regionTree} name={airport.Name} />
         <DescriptionSection
           name={airport.Name}
-          description={airport.SeoDescriptionEn}
+          description={airport.IntroEn}
         />
         <MapSection
           name={airport.Name}

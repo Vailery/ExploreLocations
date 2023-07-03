@@ -62,8 +62,10 @@ export const DescriptionSection = ({
         <div className="dashed-border h-[1.5px] w-full" />
         <div className="mt-12 text-center lg:mt-[3.2rem]">
           <h3 className="font-bold lg:text-xl">
-            The driving distance from {from} to {to} is {distance} kilometers /{" "}
-            {distanceMiles} miles, and it takes on average{" "}
+            The driving distance from {from} to {to} is{" "}
+            {distance.toLocaleString("en-US")} kilometers /{" "}
+            {distanceMiles.toLocaleString("en-US")} miles, and it takes on
+            average{" "}
             {time ||
               `${Math.trunc(distance / drivingSpeed)} hours ${Math.round(
                 ((Math.trunc((distance / drivingSpeed) * 100) % 100) / 100) * 60
