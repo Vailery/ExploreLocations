@@ -15,8 +15,8 @@ interface DrivingDistancePageProps {
   drivingDistanceData: DrivingDistanceType;
   relatedOriginDistances: DrivingDistanceType[];
   relatedDestinationDistances: DrivingDistanceType[];
-  originCity: CityType;
-  destinationCity: CityType;
+  originCity: CityType | null;
+  destinationCity: CityType | null;
 }
 
 export const DrivingDistancePage = ({

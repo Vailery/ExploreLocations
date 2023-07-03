@@ -74,6 +74,8 @@ export interface DrivingDistanceType {
   DrivingTime: string;
   RegionFromCityName: string;
   RegionToCityName: string;
+  RegionFromCityId: string;
+  RegionToCityId: string;
   CountryFromName: string;
   CountryToName: string;
   OriginCenterX: number;
@@ -111,4 +113,9 @@ export interface AirportsCountType {
   domestic: number;
   local: number;
   all: number;
+}
+
+export interface FaqType {
+  question: string;
+  answer: string;
 }

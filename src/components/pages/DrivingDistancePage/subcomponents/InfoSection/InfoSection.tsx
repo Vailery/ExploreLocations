@@ -69,7 +69,7 @@ export const InfoSection = ({
         <div className="mb-8 leading-8 tracking-wider">
           The driving distance between {from} and {to} is{" "}
           {distance.toLocaleString("en-US")} kilometers, which is the equivalent
-          of {distance.toLocaleString("en-US")} miles.
+          of {distanceMiles.toLocaleString("en-US")} miles.
         </div>
         <div className="mb-8 leading-8 tracking-wider">
           The air distance from {from} to {to} is{" "}
@@ -78,8 +78,11 @@ export const InfoSection = ({
         </div>
         <div className="mb-8 leading-8 tracking-wider">
           {from} is located in {countryFrom}, on the following coordinates:{" "}
-          {originX}, {originY}.{to} is located in {countryTo}, on the following
-          coordinates: {destinationX}, {destinationY}.
+          {originX}, {originY}.
+        </div>
+        <div className="mb-8 leading-8 tracking-wider">
+          {to} is located in {countryTo}, on the following coordinates:{" "}
+          {destinationX}, {destinationY}.
         </div>
         <div className="mb-8 leading-8 tracking-wider">
           <h3 className="text-lg font-bold tracking-[0.08em] lg:text-3xl">

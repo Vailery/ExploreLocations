@@ -16,12 +16,12 @@ interface AirportSectionProps {
   y: number;
   name: string;
   country: string;
-  data: CityType;
+  data: CityType | null;
 }
 
 export const AirportSection = ({
   x,
-  y,  
+  y,
   country,
   name,
   data,

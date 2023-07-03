@@ -21,7 +21,7 @@ export const DrivingHubPage = ({
   return (
     <>
       <Head>
-        <title>{"Driving Hub"}</title>
+        <title>{"Explore Popular Driving Routes"}</title>
         <meta name="description" content={"SEO description"} />
       </Head>
       <Header />

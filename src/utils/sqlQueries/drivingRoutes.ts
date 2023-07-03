@@ -14,6 +14,8 @@ export const getDrivingRouteData = async (param: string) =>
     "RegionToCityName",
     "CountryFromName",
     "CountryToName",
+    "RegionFromCityId",
+    "RegionToCityId",
     ST_X("RegionFromCoordinates"::geometry) as "OriginCenterX", 
     ST_Y("RegionFromCoordinates"::geometry) as "OriginCenterY", 
     ST_X("RegionToCoordinates"::geometry) as "DestinationCenterX", 

@@ -24,15 +24,31 @@ export const DescriptionSection = ({
       </h2>
       <h3 className="mx-auto px-3 text-center text-sm leading-[1.8rem] tracking-wider text-white lg:w-4/6 lg:text-base lg:leading-8">
         Explore all airports{" "}
-        {region.Type === "country" ? "from" : "in and around"} {country},
-        including the international, domestic and local ones. From airports with
-        millions of passengers a year to small aerodromes, we have listed all of
-        the on the map and on a list, in this guide.
+        {region.Type === "country"
+          ? "from"
+          : region.Type === "city"
+          ? "near"
+          : "in and around"}{" "}
+        {region.Type === "country" ? country : region.Name}
+        {region.Type === "country" ? (
+          <>, including the international, domestic and local ones. </>
+        ) : (
+          <>
+            . Discover what is the closest airport to {region.Name}, if you plan
+            a trip in the region.{" "}
+          </>
+        )}
+        From airports with millions of passengers a year to small aerodromes, we
+        have listed all of the on the map and on a list, in this guide.
       </h3>
       <h3 className="mx-auto mt-4 px-3 text-center text-sm leading-[1.8rem] tracking-wider text-white lg:w-4/6 lg:text-base lg:leading-8">
-        {region.Type === "country"
-          ? `${country} has`
-          : `In and around ${region.Name} there are`}
+        {region.Type === "country" ? (
+          <>{country} has</>
+        ) : region.Type === "city" ? (
+          <>Near {region.Name}, there are</>
+        ) : (
+          <>In and near {region.Name}, there are</>
+        )}
         {airportsCount.international ? (
           <>
             {" "}

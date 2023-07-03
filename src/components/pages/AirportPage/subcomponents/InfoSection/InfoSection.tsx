@@ -117,12 +117,12 @@ export const InfoSection = ({ airportInfo }: InfoSectionProps) => {
             {airportInfo.Name}
           </h3>
         </div>
-        {/* <p className="mb-4 leading-7 tracking-wider text-white lg:mb-7 lg:leading-8">
+        <p className="mb-4 leading-7 tracking-wider text-white lg:mb-7 lg:leading-8">
           {airportInfo.SeoDescriptionEn.split(" ").length > 20
             ? airportInfo.SeoDescriptionEn.split(" ").slice(0, 20).join(" ") +
               "..."
             : airportInfo.SeoDescriptionEn}
-        </p> */}
+        </p>
         <h4 className="mb-8 font-bold text-white lg:mb-10">Airport Details</h4>
         <div>
           {info.map((item, idx) => (

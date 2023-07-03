@@ -99,7 +99,7 @@ export const getAirportsAroundRegion = async (
       INNER JOIN "Regions" r 
       ON r."id" = '${id}' AND a."Type" = 'domestic' AND 
       ST_DWithin(a."Center"::geometry, COALESCE(r."Geometry", r."Center"), 200000)
-      ORDER BY COALESCE(CAST(a."Passengers" AS INTEGER), 0) DESC LIMIT 5
+      ORDER BY a."Center" <-> r."Center" DESC LIMIT 5
     `);
   return internationalAirports.concat(domesticAirports);
 };
