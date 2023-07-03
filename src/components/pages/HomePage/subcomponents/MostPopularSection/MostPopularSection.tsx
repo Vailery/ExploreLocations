@@ -14,18 +14,17 @@ export const MostPopularSection = ({ topLocations }: MostPopularSection) => {
   return (
     <section className="container mb-1 lg:mb-5">
       <h2 className="mb-2 hidden text-center text-[2.05rem] font-bold lg:block">
-        Discover our most poplar POIs
+        Start Exploring
       </h2>
       <h3 className="mb-[3.7rem] hidden text-center text-lg lg:block">
-        Unlock premium features like offline access, unlimited attachments,
-        flight
+        Get started wtih your exploration and get ready for your next adventure.
       </h3>
       <nav className="hidden lg:block">
         <ul className="flex">
           <li
             className={clsx(
               "flex cursor-pointer items-center gap-2 rounded-[0.375rem_0.375rem_0_0] px-5 py-4 text-lg",
-              selectedType === "Most Popular Airports" && "bg-white"
+              selectedType === "Airports by Country" && "bg-white"
             )}
             onClick={() => setSelectedType("Most Popular Airports")}
           >
@@ -40,7 +39,7 @@ export const MostPopularSection = ({ topLocations }: MostPopularSection) => {
           <li
             className={clsx(
               "flex cursor-pointer items-center gap-2 rounded-[0.375rem_0.375rem_0_0] px-5 py-4 text-lg",
-              selectedType === "Most Popular Flying Routes" && "bg-white"
+              selectedType === "Popular Flying Routes" && "bg-white"
             )}
             onClick={() => setSelectedType("Most Popular Flying Routes")}
           >
