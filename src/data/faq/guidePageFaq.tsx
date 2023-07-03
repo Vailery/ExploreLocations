@@ -33,7 +33,7 @@ export const getFaqCountryData = ({
               } located in ${
                 region.Name
               }. You can explore all of them on the map on our guide.`
-            : airportsInRegion
+            : airportsInRegion.length
             ? `There ${airportsInRegion.length === 1 ? "is" : "are"} ${
                 airportsInRegion.length
               } international airport${
@@ -73,16 +73,16 @@ export const getFaqCountryData = ({
               <Link
                 className="text-buttonBg"
                 href={`/airport/${
-                  mostPopularAirport
+                  mostPopularAirport?.Type === "International".toLowerCase()
                     ? mostPopularAirport.id
                     : closestAirport?.id || ""
                 }/${
-                  mostPopularAirport
+                  mostPopularAirport?.Type === "International".toLowerCase()
                     ? mostPopularAirport.Name.replaceAll(" ", "_")
                     : closestAirport?.Name.replaceAll(" ", "_") || ""
                 }`}
               >
-                {mostPopularAirport
+                {mostPopularAirport?.Type === "International".toLowerCase()
                   ? mostPopularAirport.Name
                   : closestAirport?.Name}
               </Link>

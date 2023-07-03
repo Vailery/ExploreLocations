@@ -33,7 +33,7 @@ export const AirportSection = ({
   y,
   timezone,
   type,
-  id
+  id,
 }: AirportSectionProps) => {
   const ClientMap = useMemo(
     () =>
@@ -114,10 +114,12 @@ export const AirportSection = ({
           )}{" "}
         </div>
       ))}
-      <div className="w-full rounded-[0_0_0.4rem_0.4rem] bg-white px-3 pb-4 pt-3 lg:px-8 lg:pb-7">
+      <div className="mb-6 w-full rounded-[0_0_0.4rem_0.4rem] bg-white px-3 pb-4 pt-3 lg:px-8 lg:pb-7">
         <Link
           className="block w-full rounded-md bg-buttonBg py-3 text-center text-lg text-white"
-          href={`/airport/${id}/${name.replaceAll(" ", "_").toLowerCase() || ""}`}
+          href={`/airport/${id}/${
+            name.replaceAll(" ", "_").toLowerCase() || ""
+          }`}
         >
           Explore airport
         </Link>

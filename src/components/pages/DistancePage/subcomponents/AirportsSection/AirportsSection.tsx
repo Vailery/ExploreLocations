@@ -11,7 +11,7 @@ export const AirportsSection = ({
   destinationAirport,
 }: AirportsSectionProps) => {
   return (
-    <section className="container mb-6 grid grid-flow-col grid-cols-2 grid-rows-[repeat(9,auto)] gap-x-5">
+    <section className="mx-3 grid grid-flow-col grid-cols-1 grid-rows-[repeat(18,auto)] lg:container lg:grid-cols-2 lg:grid-rows-[repeat(9,auto)] lg:gap-x-5">
       <AirportSection
         name={originAirport.Name}
         city={originAirport.City}
