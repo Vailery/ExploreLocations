@@ -19,6 +19,7 @@ interface AirportItemProps {
   countryCode: string;
   center?: { lat: number; lng: number };
   regionName?: string;
+  country: string;
 }
 
 export const AirportItem = ({
@@ -26,6 +27,7 @@ export const AirportItem = ({
   countryCode,
   center,
   regionName,
+  country,
 }: AirportItemProps) => {
   const ClientMap = useMemo(
     () =>
@@ -109,8 +111,7 @@ export const AirportItem = ({
           <div className="flex flex-col gap-2 pb-4 lg:flex-row lg:gap-11 lg:px-2">
             <div className="flex items-center gap-3 border-b border-grayText text-lg lg:border-0">
               <DirectionIcon />
-              Romania - Bucuresti
-              {/* hardcoded */}
+              {country} - {regionName}
             </div>
             <div className="flex items-center gap-3 border-b border-grayText text-lg lg:border-0">
               <MarkerIcon

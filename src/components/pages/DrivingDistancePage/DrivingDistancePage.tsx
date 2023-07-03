@@ -4,7 +4,7 @@ import { DescriptionSection } from "./subcomponents/DescriptionSection";
 import { InfoSection } from "./subcomponents/InfoSection";
 import { MapSection } from "./subcomponents/MapSection";
 import { RouterSection } from "./subcomponents/RouterSection";
-import { AirportsSection } from "./subcomponents/AirportsSection";
+import { CitiesSection } from "./subcomponents/CitiesSection";
 import { RelatedFlightsSection } from "./subcomponents/RelatedFlightsSection/RelatedFlightsSection";
 import { MoreSection } from "./subcomponents/MoreSection";
 import { FAQSection } from "../../shared/FAQSection";
@@ -89,7 +89,7 @@ export const DrivingDistancePage = ({
           destinationX={DestinationCenterX}
           destinationY={DestinationCenterY}
         />
-        <AirportsSection
+        <CitiesSection
           originX={OriginCenterX}
           originY={OriginCenterY}
           destinationX={DestinationCenterX}

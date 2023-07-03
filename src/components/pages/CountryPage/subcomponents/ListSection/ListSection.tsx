@@ -295,7 +295,13 @@ export const ListSection = ({
       <div className="my-5 flex flex-col gap-3">
         {airports.map((el, idx) => (
           // <RouteItem key={idx} />
-          <AirportItem key={idx} data={el} countryCode={country} />
+          <AirportItem
+            key={idx}
+            data={el}
+            countryCode={country}
+            regionName={region.Name}
+            country={country}
+          />
         ))}
 
         {pagesOffset > 1 && (
