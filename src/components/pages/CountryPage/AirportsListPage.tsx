@@ -15,6 +15,7 @@ import { useMemo, useState } from "react";
 import Head from "next/head";
 import { MoreSection } from "./subcomponents/MoreSection";
 import { AirportsAroundListSection } from "./subcomponents/AirportsAroundListSection";
+import { getFaqCountryData } from "~/src/data/faq";
 
 interface CountryPageProps {
   currentRegion: RegionType;
@@ -42,24 +43,44 @@ export const CountryPage = ({
       lat: 0,
       lng: 0,
     };
-    airports.forEach((el) => {
+    airportsAroundRegion.forEach((el) => {
       coords.lat += el.CenterY;
       coords.lng += el.CenterX;
     });
-    coords.lat = coords.lat / airports.length;
-    coords.lng = coords.lng / airports.length;
+    coords.lat = airportsAroundRegion.length
+      ? coords.lat / airportsAroundRegion.length
+      : 0;
+    coords.lng = airportsAroundRegion.length
+      ? coords.lng / airportsAroundRegion.length
+      : 0;
     return coords;
-  }, [airports]);
+  }, [airportsAroundRegion]);
+
+  const faqQuestions = useMemo(
+    () =>
+      getFaqCountryData({
+        region: currentRegion,
+        airportsInRegionsCount: airports.filter(
+          (el) => el.Type === "International".toLowerCase()
+        ).length,
+        airportAroundRegionsCount: airportsAroundRegion.filter(
+          (el) => el.Type === "International".toLowerCase()
+        ).length,
+        mostPopularAirportName: airports[0]?.Name || "",
+        closestAirport: airportsAroundRegion[0]?.Name || "",
+      }),
+    [airports, airportsAroundRegion, currentRegion]
+  );
 
   return (
     <>
       <Head>
         <title>
-          <>
-            List of Airports in{" "}
-            {currentRegion.Type !== "country" && "and around"}{" "}
-            {currentRegion.Name} - ExploreLocations.com
-          </>
+          {`
+            List of Airports in 
+            ${currentRegion.Type !== "country" ? "and around" : ""} 
+            ${currentRegion.Name} - ExploreLocations.com
+          `}
         </title>
         <meta
           name="description"
@@ -87,7 +108,9 @@ export const CountryPage = ({
               country={regionTree[0]?.Name || ""}
               center={airportsAroundRegion.length ? markersCenter : undefined}
             />
-            {airports.length === 0 ? (
+            {currentRegion.Type === "city" ? (
+              <></>
+            ) : airports.length === 0 ? (
               <div className="container mb-6 rounded-md bg-white px-3 py-6 text-lg font-bold tracking-wide shadow-md">
                 There are no International or Domestic airports in{" "}
                 {currentRegion.Name}, but below you can find airports located on
@@ -112,7 +135,7 @@ export const CountryPage = ({
                 region={currentRegion}
               />
             )}
-            <FAQSection region={currentRegion} />
+            <FAQSection region={currentRegion} questionsData={faqQuestions} />
             <AirportsByCountrySection
               regions={sameLevelRegions}
               countryCode={regionTree[0]?.Name || ""}

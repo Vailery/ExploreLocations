@@ -11,8 +11,8 @@ interface DrivingDistancesPageProps {
   drivingDistanceData: DrivingDistanceType;
   relatedOriginDistances: DrivingDistanceType[];
   relatedDestinationDistances: DrivingDistanceType[];
-  originCity: CityType;
-  destinationCity: CityType;
+  originCity: CityType | null;
+  destinationCity: CityType | null;
 }
 
 const DrivingDistance: NextPage<DrivingDistancesPageProps> = ({
@@ -49,28 +49,25 @@ export const getServerSideProps: GetServerSideProps<
 
   const drivingDistanceData = (await getDrivingRoute(routeId || ""))[0];
 
-  const relatedOriginDistances = (
-    await getDrivingDistances(
-      drivingDistanceData.RegionToCityName,
-      drivingDistanceData.id
-    )
+  const relatedOriginDistances = await getDrivingDistances(
+    drivingDistanceData.RegionToCityName,
+    drivingDistanceData.id
   );
-  const relatedDestinationDistances = (
-    await getDrivingDistances(
-      drivingDistanceData.RegionFromCityName,
-      drivingDistanceData.id
-    )
+  const relatedDestinationDistances = await getDrivingDistances(
+    drivingDistanceData.RegionFromCityName,
+    drivingDistanceData.id
   );
-  const originCity = (
-    await getCities(
-      `WHERE LOWER("Name") = '${drivingDistanceData.RegionFromCityName}'`
-    )
-  )[0];
-  const destinationCity = (
-    await getCities(
-      `WHERE LOWER("Name") = '${drivingDistanceData.RegionToCityName}'`
-    )
-  )[0];
+  const originCity =
+    (
+      await getCities(
+        `WHERE LOWER("Name") = '${drivingDistanceData.RegionFromCityName.toLowerCase()}'`
+      )
+    )[0] || null;
+
+  const destinationCity = (await getCities(
+    `WHERE LOWER("Name") = '${drivingDistanceData.RegionToCityName.toLowerCase()}'`
+  ))[0] || null;
+
   return {
     props: {
       drivingDistanceData,

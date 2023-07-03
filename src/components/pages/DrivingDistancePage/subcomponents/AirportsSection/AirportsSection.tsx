@@ -10,8 +10,8 @@ interface InfoSectionProps {
   to: string;
   countryTo: string;
   countryFrom: string;
-  dataFrom: CityType;
-  dataTo: CityType;
+  dataFrom: CityType | null;
+  dataTo: CityType | null;
 }
 
 export const AirportsSection = ({
