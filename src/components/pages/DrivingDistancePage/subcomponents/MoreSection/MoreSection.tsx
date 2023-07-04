@@ -15,17 +15,17 @@ export const MoreSection = ({ country }: MoreSectionProps) => {
         <div className="flex items-center gap-5 rounded-md bg-white p-7">
           <Image className="w-28 rounded-md" src={PlaneImageSlider} alt="" />
           <div className="font-bold">
-            {country} <br /> Guide
+            {country} <br />
           </div>
         </div>
-        <div className="flex items-center gap-5 rounded-md bg-white p-7">
+        {/* <div className="flex items-center gap-5 rounded-md bg-white p-7">
           <Image className="w-28 rounded-md" src={PlaneImageSlider} alt="" />
           <div className="font-bold">Flying distances {country}</div>
         </div>
         <div className="flex items-center gap-5 rounded-md bg-white p-7">
           <Image className="w-28 rounded-md" src={PlaneImageSlider} alt="" />
           <div className="font-bold">Driving distances {country}</div>
-        </div>
+        </div> */}
       </div>
     </section>
   );

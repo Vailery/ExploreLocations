@@ -23,7 +23,7 @@ export const AirportPage = ({
   regionTree,
 }: IHomePage) => {
   console.log(airport.Geometry);
-  
+
   return (
     <>
       <Head>
@@ -33,10 +33,7 @@ export const AirportPage = ({
       <Header />
       <main className="mb-5 min-h-screen lg:mb-10">
         <RouterSection regionTree={regionTree} name={airport.Name} />
-        <DescriptionSection
-          name={airport.Name}
-          description={airport.IntroEn}
-        />
+        <DescriptionSection name={airport.Name} description={airport.IntroEn} />
         <MapSection
           name={airport.Name}
           description={airport.SeoDescriptionEn}
@@ -53,7 +50,9 @@ export const AirportPage = ({
         ) : (
           ""
         )}
-        <AllAirportsSection regions={regions} />
+        {regionTree[0] && (
+          <AllAirportsSection regions={regions} country={regionTree[0]} />
+        )}
         {/* <PopularFlightsSection name={airport.Name} /> */}
       </main>
       <Footer />

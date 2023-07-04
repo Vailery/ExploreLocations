@@ -22,7 +22,8 @@ export const DescriptionSection = ({
   distanceMiles,
   fromCountry,
   toCountry,
-}: DescriptionSectionProps) => (
+}: DescriptionSectionProps) => 
+(
   <section className="relative mb-3 w-full bg-gradientLeft lg:mb-7">
     <div className="container pb-9 pt-7 lg:pb-[5.4rem] lg:pt-[4.8rem]">
       <h2 className="relative z-10 mb-[7.4rem] text-center text-[2.5rem] font-bold leading-[2.7rem] tracking-wider text-white lg:mb-[5.4rem] lg:text-[4.5rem] lg:leading-[5rem] lg:tracking-wide">

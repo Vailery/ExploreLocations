@@ -48,6 +48,7 @@ export const getServerSideProps: GetServerSideProps<
   const routeId = context.params && (context.params.id as string);
 
   const drivingDistanceData = (await getDrivingRoute(routeId || ""))[0];
+  console.log(drivingDistanceData)
 
   const relatedOriginDistances = await getDrivingDistances(
     drivingDistanceData.RegionToCityName,
@@ -64,9 +65,12 @@ export const getServerSideProps: GetServerSideProps<
       )
     )[0] || null;
 
-  const destinationCity = (await getCities(
-    `WHERE LOWER("Name") = '${drivingDistanceData.RegionToCityName.toLowerCase()}'`
-  ))[0] || null;
+  const destinationCity =
+    (
+      await getCities(
+        `WHERE LOWER("Name") = '${drivingDistanceData.RegionToCityName.toLowerCase()}'`
+      )
+    )[0] || null;
 
   return {
     props: {

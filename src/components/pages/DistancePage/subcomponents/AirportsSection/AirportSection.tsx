@@ -83,7 +83,7 @@ export const AirportSection = ({
       value: timezone || null,
       icon: <ClockIcon />,
     },
-    // hardcoded
+    // look here
   };
   return (
     <>

@@ -5,7 +5,6 @@ import { Header } from "../../Header";
 import { DescriptionSection } from "./subcomponents/DescriptionSection";
 import { MostPopularSection } from "./subcomponents/MostPopularSection";
 import { NavigationSection } from "./subcomponents/NavigationSection";
-import { SubscribeSection } from "./subcomponents/SubscribeSection";
 
 interface HomePageProps {
   topLocations: LocationsType[];
@@ -22,7 +21,7 @@ export const HomePage = ({ topLocations }: HomePageProps) => (
       <DescriptionSection />
       <NavigationSection />
       <MostPopularSection topLocations={topLocations} />
-      <SubscribeSection />
+      {/* <SubscribeSection /> */}
     </main>
     <Footer />
   </>

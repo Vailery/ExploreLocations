@@ -13,7 +13,6 @@ import { MapSection } from "./subcomponents/MapSection";
 import { RouterSection } from "./subcomponents/RouterSection";
 import { useMemo, useState } from "react";
 import Head from "next/head";
-import { MoreSection } from "./subcomponents/MoreSection";
 import { AirportsAroundListSection } from "./subcomponents/AirportsAroundListSection";
 import { getFaqCountryData } from "~/src/data/faq";
 
@@ -85,9 +84,9 @@ export const CountryPage = ({
         <meta
           name="description"
           content={`
-          "List of all major and international airports ${
-            currentRegion.Type === "country" ? "from" : "in and around"
-          } ${
+            List of all major and international airports ${
+              currentRegion.Type === "country" ? "from" : "in and around"
+            } ${
             currentRegion.Name
           }, as well as domestic and small local airports. Explore them on the map.`}
         />
@@ -145,7 +144,7 @@ export const CountryPage = ({
               regions={regions}
               countryCode={regionTree[0]?.Name || ""}
             />
-            <MoreSection country={regionTree[0]?.Name || ""} />
+            {/* <MoreSection country={regionTree[0]?.Name || ""} /> */}
           </>
         )}
       </main>

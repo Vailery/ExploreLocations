@@ -8,7 +8,7 @@ interface FaqBlockProps {
 }
 
 export const FaqBlock = ({ question, answer }: FaqBlockProps) => {
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(true);
 
   return (
     <div

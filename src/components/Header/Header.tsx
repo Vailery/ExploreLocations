@@ -7,27 +7,18 @@ export const Header = () => {
 
   const navData = [
     {
-      name: "Regions",
-      url: "/regions",
+      name: "Explore Airports",
+      url: "/airports",
     },
     {
-      name: "Guides",
-      url: "/guide",
+      name: "Driving Routes",
+      url: "/driving-routes",
     },
     {
-      name: "Driving Distances",
-      url: "/driving-hub",
-    },
-    {
-      name: "Flying time & distances",
-      url: "/flying-hub",
-    },
-    {
-      name: "Explore nearby",
-      url: "/explore-nearby",
+      name: "Flying Routes",
+      url: "/flying-routes",
     },
   ];
-
   return (
     <div className="w-full bg-white shadow-[0px_4px_4px_#00000009]">
       <header className="container flex w-full items-center px-3 py-3 lg:h-[6.3rem] lg:py-0">
@@ -46,7 +37,9 @@ export const Header = () => {
                 <Link href={item.url} className="lg:whitespace-nowrap">
                   {item.name}
                 </Link>
-                {router.pathname.includes(item.url.toLowerCase()) && (
+                {router.pathname.includes(
+                  item.url.toLowerCase().substring(0, item.url.length - 1)
+                ) && (
                   <div className="absolute bottom-0 left-1/2 w-full -translate-x-1/2 rounded-[0.2rem_0.2rem_0_0] border-0 border-t-2 border-redText transition-all" />
                 )}
               </li>

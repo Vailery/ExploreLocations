@@ -108,8 +108,12 @@ export const DrivingDistancePage = ({
           relatedDestinationDistances={relatedOriginDistances}
           relatedOriginDistances={relatedDestinationDistances}
         />
+        {/* look here */}
+        {/* add links to country region when there'll be proper cities */}
         <MoreSection country={CountryFromName} />
-        <MoreSection country={CountryToName} />
+        {CountryFromName !== CountryToName && (
+          <MoreSection country={CountryToName} />
+        )}
       </main>
       <Footer />
     </>
