@@ -57,7 +57,7 @@ export const InfoSection = ({
   time,
   countryTo,
   countryFrom,
-}: InfoSectionProps) => {
+}: InfoSectionProps) => {  
   return (
     <section className="container mb-4 grid grid-cols-1 grid-rows-[auto_auto] gap-5 lg:grid-cols-[2fr,1fr] lg:grid-rows-1">
       <div className="bg-white px-3 pb-5 pt-4 lg:rounded-md lg:px-6 lg:pt-4">
@@ -90,6 +90,7 @@ export const InfoSection = ({
           </h3>
         </div>
         <div className="mb-8 leading-8 tracking-wider">
+          {/* look here */}
           On average, it would take you {time} to drive from {from} to {to}.
           However, the driving time depends on several factors such as: road
           conditions, traffic, weather and stops.

@@ -104,7 +104,7 @@ export const Map = ({
   useEffect(() => {
     if (bounds) {
       map.fitBounds(bounds);
-      map.panBy([0, -7]);
+      map.panBy([0, -10]);
     }
   }, [bounds, map]);
 

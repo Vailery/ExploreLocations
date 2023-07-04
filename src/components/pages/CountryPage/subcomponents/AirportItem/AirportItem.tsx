@@ -5,7 +5,6 @@ import { useMemo } from "react";
 import {
   AirportsIcon,
   DirectionIcon,
-  FlagIcon,
   IATAIcon,
   MarkerIcon,
   PassengersIcon,
@@ -104,9 +103,9 @@ export const AirportItem = ({
             <></>
           )}
           <p className="mb-4 leading-[1.9rem] lg:mb-9 lg:px-2 lg:text-[1.11rem]">
-            {data.SeoDescriptionEn.split(" ").length > 20
-              ? data.SeoDescriptionEn.split(" ").slice(0, 20).join(" ") + "..."
-              : data.SeoDescriptionEn}
+            {data.IntroEn.split(" ").length > 20
+              ? data.IntroEn.split(" ").slice(0, 20).join(" ") + "..."
+              : data.IntroEn}
           </p>
           <div className="flex flex-col gap-2 pb-4 lg:flex-row lg:gap-11 lg:px-2">
             <div className="flex items-center gap-3 border-b border-grayText text-lg lg:border-0">
@@ -154,14 +153,19 @@ export const AirportItem = ({
         >
           Explore airport
         </Link>
-        <div className="flex items-center gap-2 text-buttonBg">
+        {/* <div className="flex items-center gap-2 text-buttonBg">
           <FlagIcon className="h-4" />
           <p className="lg:text-lg">View Flying routes</p>
-        </div>
-        <div className="flex items-center gap-2 text-buttonBg lg:ml-5">
+        </div> */}
+        <Link
+          href={`/airport/${data?.id || ""}/${
+            data?.Name.replaceAll(" ", "_").toLowerCase() || ""
+          }#airports-nearby`}
+          className="flex items-center gap-2 text-buttonBg lg:ml-5"
+        >
           <AirportsIcon className="h-4" />
           <p className="lg:text-lg">View Airports near</p>
-        </div>
+        </Link>
       </div>
     </div>
   );

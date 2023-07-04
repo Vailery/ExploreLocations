@@ -1,7 +1,6 @@
 import { iso1A2Code } from "@rapideditor/country-coder";
 import clsx from "clsx";
 import dynamic from "next/dynamic";
-import Link from "next/link";
 import { useMemo } from "react";
 import ReactCountryFlag from "react-country-flag";
 import {
@@ -40,7 +39,7 @@ export const CitySection = ({
       icon: <CityColoredIcon />,
     },
     population: {
-      value: data?.Population ? `${data.Population} million` : null,
+      value: data?.Population ? `${data.Population}` : null,
       icon: <PassengersIcon />,
     },
     country: {
@@ -101,7 +100,7 @@ export const CitySection = ({
           )}{" "}
         </div>
       ))}
-      <div className="mb-6 w-full rounded-[0_0_0.4rem_0.4rem] bg-white px-3 pb-4 pt-3 lg:px-8 lg:pb-7">
+      {/* <div className="mb-6 w-full rounded-[0_0_0.4rem_0.4rem] bg-white px-3 pb-4 pt-3 lg:px-8 lg:pb-7">
         <Link
           className="block w-full rounded-md bg-buttonBg py-3 text-center text-lg text-white"
           href={`/airports/${data?.id || ""}/${
@@ -110,7 +109,7 @@ export const CitySection = ({
         >
           Explore city
         </Link>
-      </div>
+      </div> */}
     </>
   );
 };

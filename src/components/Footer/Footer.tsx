@@ -36,24 +36,16 @@ const linksInfo = [
       url: "#",
     },
     {
-      item: "Regions",
-      url: "#",
+      item: "Explore Airports",
+      url: "/airports",
     },
     {
-      item: "Guides",
-      url: "#",
+      item: "Driving Routes",
+      url: "/driving-routes",
     },
     {
-      item: "Driving Distances",
-      url: "#",
-    },
-    {
-      item: "Flying Times and Distances",
-      url: "#",
-    },
-    {
-      item: "Explore Nearby",
-      url: "#",
+      item: "Flying Routes",
+      url: "/flying-routes",
     },
   ],
   [

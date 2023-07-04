@@ -6,9 +6,10 @@ import Link from "next/link";
 
 interface AllAirportsSectionProps {
   regions: RegionType[];
+  country: RegionType;
 }
 
-export const AllAirportsSection = ({ regions }: AllAirportsSectionProps) => {
+export const AllAirportsSection = ({ regions, country }: AllAirportsSectionProps) => {
   return (
     <section className="container mt-5 rounded-md bg-white py-1 shadow-md lg:py-6">
       <h3 className="mb-3 px-5 font-bold leading-8 tracking-wider lg:mb-11 lg:px-8 lg:text-3xl">
@@ -41,17 +42,17 @@ export const AllAirportsSection = ({ regions }: AllAirportsSectionProps) => {
             </div>
             <span className="text-buttonBg">{el.Name}</span>
             (14 Airports)
-            {/* hardcoded */}
+            {/* look here */}
           </Link>
         ))}
       </div>
       <div className="flex">
-        <div
-          // href={`/airports/${country.replaceAll(" ", "_").toLowerCase()}`}
+        <Link
+          href={`/airports/${country.id}/${country.Name.replaceAll(" ", "_").toLowerCase()}`}
           className="mx-auto mt-6 rounded-md bg-buttonBg px-16 py-3 text-lg text-white"
         >
           Airports in {regions[0]?.Name}
-        </div>
+        </Link>
       </div>
     </section>
   );

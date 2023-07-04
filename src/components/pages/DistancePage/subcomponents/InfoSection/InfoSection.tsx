@@ -50,9 +50,9 @@ export const InfoSection = ({
           </li>
           <li className="leading-8  tracking-wide">
             The flight distance between {originAirport.City} and{" "}
-            {destinationAirport.City} is {DistanceMiles.toLocaleString()} miles,
-            which is the equivalent of
-            {DistanceKm.toLocaleString()} kilometers.
+            {destinationAirport.City} is {DistanceMiles.toLocaleString("en-US")}{" "}
+            miles, which is the equivalent of{" "}
+            {DistanceKm.toLocaleString("en-US")} kilometers.
           </li>
           <li className="leading-8  tracking-wide">
             In the calculation, we have assumed a straight line ( as the crow

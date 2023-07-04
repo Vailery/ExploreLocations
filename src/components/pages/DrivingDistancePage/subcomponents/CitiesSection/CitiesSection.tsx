@@ -27,7 +27,7 @@ export const CitiesSection = ({
   dataTo,
 }: InfoSectionProps) => {
   return (
-    <section className="mx-3 grid grid-flow-col grid-cols-1 grid-rows-[repeat(16,auto)] gap-x-5 lg:container lg:grid-cols-2 lg:grid-rows-[repeat(8,auto)]">
+    <section className="mx-3 grid grid-flow-col grid-cols-1 grid-rows-[repeat(14,auto)] gap-x-5 lg:container lg:grid-cols-2 lg:grid-rows-[repeat(6,auto)]">
       <CitySection
         x={originX}
         y={originY}
