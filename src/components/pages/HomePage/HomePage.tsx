@@ -13,8 +13,17 @@ interface HomePageProps {
 export const HomePage = ({ topLocations }: HomePageProps) => (
   <>
     <Head>
-      <title>{"Explore Locations"}</title>
-      <meta name="description" content={"SEO description"} />
+      <title>
+        {
+          "Explorelocations.com - Explore Airports, Flying and Driving Routes anywhere in the World"
+        }
+      </title>
+      <meta
+        name="description"
+        content={
+          "Explorelocations.com helps you discover airports anywhere in the world, but also find great flying or driving routes. Discover interesting locations for your next trip."
+        }
+      />
     </Head>
     <Header />
     <main className="mb-6">

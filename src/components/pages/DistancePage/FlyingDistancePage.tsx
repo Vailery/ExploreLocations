@@ -33,8 +33,11 @@ export const FlyingDistancePage = ({
   return (
     <>
       <Head>
-        <title>{"SEO title"}</title>
-        <meta name="description" content={"SEO description"} />
+        <title>{`${originAirport.City} to ${destinationAirport.City} Flight Time`}</title>
+        <meta
+          name="description"
+          content={`Explore how long is the flight time, distance, and route between ${originAirport.City}, ${originAirport.Country} and ${destinationAirport.City}, ${destinationAirport.Country}`}
+        />
       </Head>
       <Header />
       <main className="mb-5 min-h-screen lg:mb-10">

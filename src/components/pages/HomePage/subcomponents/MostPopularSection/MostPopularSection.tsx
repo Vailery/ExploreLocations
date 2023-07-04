@@ -34,7 +34,7 @@ export const MostPopularSection = ({ topLocations }: MostPopularSection) => {
                 "h-5 w-5"
               )}
             />
-            Most Popular Airports
+            Airports By Country
           </li>
           <li
             className={clsx(
@@ -49,7 +49,7 @@ export const MostPopularSection = ({ topLocations }: MostPopularSection) => {
                 "h-5 w-5"
               )}
             />
-            Most Popular Flying Routes
+            Popular Flying Routes
           </li>
           <li
             className={clsx(
